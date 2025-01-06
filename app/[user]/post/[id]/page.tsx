@@ -2,67 +2,75 @@
 
 import { PostCard } from "@/components/post-card";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Verified } from "@/components/verified";
-import { posts, users } from "@/lib/data";
-import { CornerDownRight, Flag, Mail } from "lucide-react";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { XTextarea } from "@/components/ui/x-textarea";
+import { MAX_POST_LENGTH } from "@/lib/consts";
+import { findPost, posts, users } from "@/lib/data";
+import { cn } from "@/lib/utils";
 import { useParams } from "next/navigation";
 import { ReactElement, useState } from "react";
 
 const User = (): ReactElement => {
-  const [isFollowing, setIsFollowing] = useState(false);
-  const [isHovering, setIsHovering] = useState(false);
+  const [reply, setReply] = useState("")
 
-  const isFollowToo = true;
-
-  const params = useParams<{ user: string }>()
+  const params = useParams<{ user: string, id: string }>()
   const user = users.find((u) => u.handle.toLowerCase() === params.user.toLowerCase())
   if (!user) return <div>User not found</div>
-
+  const post = findPost(params.id, posts);
+  if (!post) return <div>Post not found</div>
 
   return (
-    <section>
-      <Card className="bg-[#F9FAFB] dark:bg-[#1A1A1A] border-b border-[#e1e8ed] dark:border-[#343536]">
-        <div className="p-1">
-          <PostCard {...user} {...posts[0]} />
+    <section className="container mx-auto px-4">
+      <div className="flex flex-col lg:flex-row gap-4">
+        <Card className={cn(
+          "w-full lg:w-2/5 flex flex-col gap-4",
+          "bg-[#F9FAFB] dark:bg-[#1A1A1A] border-b border-[#e1e8ed] dark:border-[#343536] p-4",
+          "sticky top-0 z-50"
+        )}>
+          <PostCard {...post} />
+
+          <Card className={cn(
+            "bg-[#F9FAFB] dark:bg-[#1A1A1A]"
+          )}>
+            <CardContent className="mt-5">
+              <XTextarea
+                placeholder="Répondre à ce post..."
+                onChange={(value: string) => setReply(value)}
+              />
+            </CardContent>
+
+            <CardFooter>
+              <div className="flex flex-row justify-end w-full items-center gap-3">
+                <div className={cn("text-sm hidden", {
+                  "block": reply.length !== 0,
+                  "text-neutral-500 dark:text-neutral-400": reply.length < MAX_POST_LENGTH - 20,
+                  "text-yellow-500 dark:text-yellow-400": reply.length >= MAX_POST_LENGTH - 20 && reply.length < MAX_POST_LENGTH - 10,
+                  "text-red-500 dark:text-red-400": reply.length >= MAX_POST_LENGTH - 10,
+                })}>
+                  {reply.length}/{MAX_POST_LENGTH}
+                </div>
+
+                <Button variant="default">Envoyer</Button>
+              </div>
+            </CardFooter>
+          </Card>
+        </Card>
+        <div className="w-full lg:w-3/5 flex flex-col gap-4">
+          {post.replies.length ? post.replies.map((reply) => (
+            <PostCard key={reply.id} {...reply} />
+          )) : (
+            <Card className={cn(
+              "bg-[#F9FAFB] dark:bg-[#1A1A1A] border-b border-[#e1e8ed] dark:border-[#343536] p-4",
+              "border-dashed border-neutral-200 dark:border-neutral-800",
+              "h-24 sm:h-40 md:h-56 lg:h-60 flex items-center justify-center"
+            )}>
+              <div className="text-center text-neutral-500 dark:text-neutral-400 select-none">
+                Aucune réponse pour le moment
+              </div>
+            </Card>
+          )}
         </div>
-
-        <div className="my-4" />
-
-        <CardContent className="flex flex-col gap-4">
-          {[
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.",
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus
-          ].map((content, i) => (
-            <div className="flex flex-row gap-4" key={i}>
-              <CornerDownRight className="h-6 w-6 text-gray-500 dark:text-gray-400" />
-              <Card key={i} className="bg-[#F9FAFB] dark:bg-[#1A1A1A] border-[#e1e8ed] dark:border-[#343536]">
-                <CardHeader className="p-1.5">
-                  <div className="flex items-center space-x-4">
-                    <img
-                      src={user.avatar}
-                      alt={user.name}
-                      className="h-9 w-9 rounded-full"
-                    />
-                    <div className="flex flex-col justify-center gap-0.5">
-                      <p className="flex items-center gap-1 font-medium">
-                        {user.name}
-                        {user.isVerified && <Verified />}
-                      </p>
-                      <span className="-mt-1 font-normal text-gray-500">{user.handle}</span>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent className="-mt-2">
-                  <p>{content}</p>
-                </CardContent>
-              </Card>
-            </div>
-          ))}
-        </CardContent>
-      </Card>
+      </div>
     </section>
   );
 }

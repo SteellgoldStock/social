@@ -20,7 +20,7 @@ const User = (): ReactElement => {
 
 
   return (
-    <section>
+    <section className="max-w-4xl mx-auto px-4 py-8">
       <Card className="bg-[#F9FAFB] dark:bg-[#1A1A1A] border-b border-[#e1e8ed] dark:border-[#343536]">
         <CardHeader className="p-1.5">
           <div className="relative">
