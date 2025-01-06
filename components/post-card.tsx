@@ -57,29 +57,59 @@ export const PostCard: Component<PostProps> = ({
 
       <CardFooter>
         <div className="flex justify-between w-full">
-          <Link href={`/${author.handle}/post/${id}`} className={buttonVariants({
-            variant: "ghost",
-            size: "sm"
-          })}>
+          <Link
+            href={`/${author.handle}/post/${id}`}
+            className={cn("transition-colors", buttonVariants({
+              variant: "ghost",
+              size: "sm"
+            }), {
+              "hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-500 hover:dark:text-blue-300": replies.length > 0,
+              "hover:bg-neutral-100 dark:hover:bg-neutral-900": replies.length === 0
+            })}
+          >
             <MessageCircle className="h-4 w-4" />
             {replies.length}
           </Link>
 
-          <Button variant="ghost" size="sm" onClick={() => toggleLike()}>
+          <Button
+            variant="ghost"
+            size="sm"
+            className={cn("transition-colors", {
+              "hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-500 hover:dark:text-red-300": isLiked,
+              "hover:bg-neutral-100 dark:hover:bg-neutral-900": !isLiked
+            })}
+            onClick={() => toggleLike()}
+          >
             <Heart className={cn("h-4 w-4", {
               "fill-red-500 text-red-500": isLiked
             })} />
             {likesCount}
           </Button>
 
-          <Button variant="ghost" size="sm" onClick={() => toggleRepost()}>
+          <Button
+            variant="ghost"
+            size="sm"
+            className={cn("transition-colors", {
+              "hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-500 hover:dark:text-green-300": isReposted,
+              "hover:bg-neutral-100 dark:hover:bg-neutral-900": !isReposted
+            })}
+            onClick={() => toggleRepost()}
+          >
             <Repeat className={cn("h-4 w-4", {
               "fill-green-500 text-green-500": isReposted
             })} />
             {repostsCount}
           </Button>
 
-          <Button variant="ghost" size="sm" onClick={() => setIsBookmarked(!isBookmarked)}>
+          <Button
+            variant="ghost"
+            size="sm"
+            className={cn("transition-colors", {
+              "hover:bg-blue-50 dark:hover:bg-blue-900/30": isBookmarked,
+              "hover:bg-neutral-100 dark:hover:bg-neutral-900": !isBookmarked
+            })}
+            onClick={() => setIsBookmarked(!isBookmarked)}
+          >
             <Bookmark className={cn("h-4 w-4", {
               "fill-blue-500 text-blue-500": isBookmarked
             })} />
