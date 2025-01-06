@@ -9,6 +9,8 @@ import { Button, buttonVariants } from "./ui/button";
 import { Bookmark, Heart, MessageCircle, Repeat, Share } from "lucide-react";
 import { Verified } from "./verified";
 import Link from "next/link";
+import { TextFormatter } from "@/lib/text-formatter";
+import { users } from "@/lib/data";
 
 export const PostCard: Component<PostProps> = ({
   id, author, timestamp, content, replies, reposts, likes, isLiked: isLikedDefault, isReposted: isRepostedDefault, isBookmarked: isBookmarkedDefault
@@ -34,7 +36,7 @@ export const PostCard: Component<PostProps> = ({
     <Card key={id} className={cn(
       "bg-[#F9FAFB] dark:bg-[#1A1A1A]"
     )}>
-      <CardHeader>
+      <CardHeader className="-mb-2">
         <Link className="flex items-center space-x-4" href={`/${author.handle}`}>
           <Avatar>
             <AvatarImage src={author.avatar} alt={author.name} />
@@ -52,11 +54,11 @@ export const PostCard: Component<PostProps> = ({
       </CardHeader>
 
       <CardContent className="-mt-2">
-        <p>{content}</p>
+        <TextFormatter text={content} users={users} />
       </CardContent>
 
-      <CardFooter>
-        <div className="flex justify-between w-full">
+      <CardFooter className="flex justify-between w-full -mt-3">
+        <div className="flex items-center space-x-1.5">
           <Link
             href={`/${author.handle}/post/${id}`}
             className={cn("transition-colors", buttonVariants({
@@ -83,6 +85,7 @@ export const PostCard: Component<PostProps> = ({
             <Heart className={cn("h-4 w-4", {
               "fill-red-500 text-red-500": isLiked
             })} />
+            
             {likesCount}
           </Button>
 
@@ -98,9 +101,12 @@ export const PostCard: Component<PostProps> = ({
             <Repeat className={cn("h-4 w-4", {
               "fill-green-500 text-green-500": isReposted
             })} />
+            
             {repostsCount}
           </Button>
+        </div>
 
+        <div className="space-x-1.5">
           <Button
             variant="ghost"
             size="sm"
