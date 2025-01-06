@@ -52,7 +52,7 @@ const User = (): ReactElement => {
                     {reply.length}/{MAX_POST_LENGTH}
                   </div>
 
-                  <Button variant="default">Envoyer</Button>
+                  <Button variant="default" size={"sm"}>Envoyer</Button>
                 </div>
               </CardFooter>
             </Card>
