@@ -1,11 +1,7 @@
 export type PostProps = {
   id: string;
 
-  author: {
-    name: string;
-    handle: string;
-    avatar: string;
-  }
+  author: UserProps;
 
   timestamp: string;
   content: string;
@@ -16,4 +12,11 @@ export type PostProps = {
   isLiked: boolean;
   isReposted: boolean;
   isBookmarked: boolean;
+}
+
+export type UserProps = {
+  name: string;
+  handle: string;
+  avatar: string;
+  isVerified: boolean;
 }

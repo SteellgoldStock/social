@@ -1,4 +1,4 @@
-import { Bell, Drama, Home, MoreHorizontal, User } from "lucide-react";
+import { Bell, Home, User } from "lucide-react";
 import Link from "next/link";
 import { ReactElement } from "react";
 import { Button } from "./ui/button";
