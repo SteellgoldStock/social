@@ -4,7 +4,14 @@ import { PostProps } from "@/lib/types";
 const tweets: PostProps[] = [
   {
     id: "72b9f8bc-2d74-4290-bcf1-f97815477a38",
-    author: { name: 'John Doe', handle: '@johndoe', avatar: '/avatars/john-doe.jpg', isVerified: false },
+    author: {
+      name: "Gaëtan",
+      handle: "@steellgold",
+      avatar: "https://pbs.twimg.com/profile_images/1848354444225761280/hs-DRVoi_200x200.jpg",
+      banner: "https://pbs.twimg.com/profile_banners/1197777735168483328/1723474739/600x200",
+      bio: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et, eos!",
+      isVerified: true
+    },
     content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor non doloribus eligendi numquam asperiores fugit assumenda animi. Quo sint fugiat quaerat, voluptas aut, unde, dicta a recusandae nisi veniam quidem.',
     timestamp: '2m',
     replies: [],
@@ -12,18 +19,6 @@ const tweets: PostProps[] = [
     likes: 35,
     reposts: 12,
 
-    isBookmarked: false,
-    isLiked: false,
-    isReposted: false,
-  },
-  {
-    id: "2db6e666-a1d6-474a-b4fa-3ef3cd93d5bb",
-    author: { name: 'Jane Doe', handle: '@janedoe', avatar: '/avatars/jane-doe.jpg', isVerified: true },
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia voluptates tenetur atque alias at, deserunt, ipsum, nesciunt distinctio quod commodi optio? Vel nesciunt perspiciatis ea, at laborum delectus doloremque consectetur cupiditate?",
-    timestamp: '5m',
-    replies: [],
-    likes: 23,
-    reposts: 5,
     isBookmarked: false,
     isLiked: false,
     isReposted: false,
