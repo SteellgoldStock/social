@@ -13,8 +13,8 @@ export const metadata: Metadata = {
 };
 
 const poppins = Poppins({
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  subsets: ['latin'],
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  subsets: ["latin"],
 })
 
 const Layout: Component<PropsWithChildren> = ({ children }) => {

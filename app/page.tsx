@@ -1,7 +1,7 @@
 import { PostCard } from "@/components/post-card";
 import { PostProps } from "@/lib/types";
 
-const tweets: PostProps[] = [
+const posts: PostProps[] = [
   {
     id: "72b9f8bc-2d74-4290-bcf1-f97815477a38",
     author: {
@@ -12,8 +12,8 @@ const tweets: PostProps[] = [
       bio: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Et, eos!",
       isVerified: true
     },
-    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor non doloribus eligendi numquam asperiores fugit assumenda animi. Quo sint fugiat quaerat, voluptas aut, unde, dicta a recusandae nisi veniam quidem.',
-    timestamp: '2m',
+    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor non doloribus eligendi numquam asperiores fugit assumenda animi. Quo sint fugiat quaerat, voluptas aut, unde, dicta a recusandae nisi veniam quidem.",
+    timestamp: "2m",
     replies: [],
 
     likes: 35,
@@ -28,7 +28,7 @@ const tweets: PostProps[] = [
 const Home = () => {
   return (
     <div className="space-y-4 p-4">
-      {tweets.map((tweet) => <PostCard key={tweet.id} {...tweet} />)}
+      {posts.map((post) => <PostCard key={post.id} {...post} />)}
     </div>
   );
 }
