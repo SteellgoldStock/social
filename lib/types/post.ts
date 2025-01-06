@@ -17,6 +17,10 @@ export type PostProps = {
 export type UserProps = {
   name: string;
   handle: string;
+
   avatar: string;
+  banner: string;
+  bio: string;
+
   isVerified: boolean;
 }
