@@ -5,7 +5,7 @@ import { ReactElement, useState } from "react";
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Button } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import { Bookmark, Heart, MessageCircle, Repeat, Share } from "lucide-react";
 import { Verified } from "./verified";
 import Link from "next/link";
@@ -57,10 +57,13 @@ export const PostCard: Component<PostProps> = ({
 
       <CardFooter>
         <div className="flex justify-between w-full">
-          <Button variant="ghost" size="sm">
+          <Link href={`/${author.handle}/post/${id}`} className={buttonVariants({
+            variant: "ghost",
+            size: "sm"
+          })}>
             <MessageCircle className="h-4 w-4" />
             {replies.length}
-          </Button>
+          </Link>
 
           <Button variant="ghost" size="sm" onClick={() => toggleLike()}>
             <Heart className={cn("h-4 w-4", {
