@@ -2,6 +2,7 @@ import { Bell, Drama, Home, MoreHorizontal, User } from "lucide-react";
 import Link from "next/link";
 import { ReactElement } from "react";
 import { Button } from "./ui/button";
+import { ModeToggle } from "./ui/theme-switcher";
 
 const navItems = [
   { icon: Home, label: 'Home', href: '/' },
@@ -12,18 +13,21 @@ const navItems = [
 export const Sidebar = (): ReactElement => {
   return (
     <aside className="w-[70px] p-4 space-y-4 hidden lg:block h-screen sticky top-0 overflow-y-auto">
-      <nav className="space-y-2">
-        {navItems.map((item) => (
-          <Button key={item.href} variant="ghost" className="rounded-full" asChild size={"icon"}>
-            <Link href={item.href}>
-              <item.icon className="h-5 w-5" />
-            </Link>
-          </Button>
-        ))}
-        <Button variant="ghost" className="rounded-full" size={"icon"}>
-          <MoreHorizontal className="h-5 w-5" />
-        </Button>
-      </nav>
+      <div className="flex flex-col h-full">
+        <nav className="space-y-2">
+          {navItems.map((item) => (
+            <Button key={item.href} variant="ghost" className="rounded-full" asChild size={"icon"}>
+              <Link href={item.href}>
+                <item.icon className="h-5 w-5" />
+              </Link>
+            </Button>
+          ))}
+        </nav>
+
+        <div className="mt-auto pt-4">
+          <ModeToggle />
+        </div>
+      </div>
     </aside>
   )
 }
