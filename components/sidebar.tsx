@@ -12,7 +12,7 @@ const navItems = [
 
 export const Sidebar = (): ReactElement => {
   return (
-    <aside className="w-[70px] p-4 space-y-4 hidden lg:block h-screen sticky top-0 overflow-y-auto">
+    <aside className="w-[70px] p-4 space-y-4 hidden md:block h-screen sticky top-0 overflow-y-auto">
       <div className="flex flex-col h-full">
         <nav className="space-y-2">
           {navItems.map((item) => (
