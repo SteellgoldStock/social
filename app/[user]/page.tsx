@@ -1,9 +1,10 @@
 "use client";
 
+import { PostCard } from "@/components/post-card";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Verified } from "@/components/verified";
-import { users } from "@/lib/data";
+import { posts, users } from "@/lib/data";
 import { Flag, Mail } from "lucide-react";
 import { useParams } from "next/navigation";
 import { ReactElement, useState } from "react";
@@ -85,6 +86,14 @@ const User = (): ReactElement => {
           <p className="text-gray-400 mt-1">{user.bio}</p>
         </CardContent>
       </Card>
+
+      <div className="my-4" />
+
+      <div className="flex flex-col gap-2">
+        {posts.filter((post) => post.author.handle === user.handle).map((post) => (
+          <PostCard key={post.id} {...post} />
+        ))}
+      </div>
     </section>
   );
 }
