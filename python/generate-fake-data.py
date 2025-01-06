@@ -3,29 +3,61 @@ import random
 from faker import Faker
 from uuid import uuid4
 from tqdm import tqdm
+import signal
+import sys
 
-fake = Faker('fr_FR')
+# Multiple language support
+fake_langs = {
+    'en': Faker('en_US'),
+    'fr': Faker('fr_FR'),
+    'es': Faker('es'),
+    'de': Faker('de_DE'),
+    'it': Faker('it_IT')
+}
+
+data = {
+    "users": [],
+    "posts": []
+}
+
+
+def signal_handler(sig, frame):
+    print("\nSaving current progress...")
+    save_data()
+    sys.exit(0)
+
+
+def save_data():
+    with open('mock_data.json', 'w', encoding='utf-8') as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
 
 
 def generate_hashtag():
-    return f"#{fake.word()}"
+    lang = random.choice(list(fake_langs.keys()))
+    return f"#{fake_langs[lang].word()}"
 
 
 def generate_user():
+    lang = random.choice(list(fake_langs.keys()))
+    fake = fake_langs[lang]
     return {
         "name": fake.name(),
         "handle": fake.user_name().lower(),
         "avatar": f"https://api.dicebear.com/7.x/avataaars/svg?seed={uuid4()}",
         "banner": f"https://picsum.photos/seed/{uuid4()}/800/300",
         "bio": fake.text(max_nb_chars=160),
-        "isVerified": random.random() > 0.8
+        "isVerified": random.random() > 0.8,
+        "language": lang
     }
 
 
 def generate_reply(users, depth):
+    user = random.choice(users)
+    fake = fake_langs[user['language']]
+
     reply = {
         "id": str(uuid4()),
-        "author": random.choice(users),
+        "author": user,
         "content": random.choice([
             fake.text(max_nb_chars=280),
             f"{fake.sentence()} {generate_hashtag()} {generate_hashtag()}",
@@ -50,9 +82,12 @@ def generate_reply(users, depth):
 
 
 def generate_post(users):
+    user = random.choice(users)
+    fake = fake_langs[user['language']]
+
     post = {
         "id": str(uuid4()),
-        "author": random.choice(users),
+        "author": user,
         "content": random.choice([
             fake.paragraph(),
             f"{fake.sentence()} {generate_hashtag()} {generate_hashtag()}",
@@ -78,21 +113,23 @@ def generate_post(users):
 
 
 def main():
+    signal.signal(signal.SIGINT, signal_handler)
+
     print("Generating users...")
-    users = [generate_user() for _ in range(50)]
+    data["users"] = [generate_user() for _ in range(50)]
 
-    print("Generating posts...")
-    posts = []
-    for _ in tqdm(range(200)):
-        posts.append(generate_post(users))
-
-    data = {"users": users, "posts": posts}
-
-    print("Saving to file...")
-    with open('mock_data.json', 'w', encoding='utf-8') as f:
-        json.dump(data, f, ensure_ascii=False, indent=2)
+    print("Generating posts... (Press Ctrl+C to save and exit)")
+    try:
+        for _ in tqdm(range(200)):
+            data["posts"].append(generate_post(data["users"]))
+            if (_ + 1) % 10 == 0:  # Auto-save every 10 posts
+                save_data()
+    except KeyboardInterrupt:
+        print("\nInterrupted by user. Saving progress...")
+    finally:
+        save_data()
+        print(f"Saved {len(data['posts'])} posts")
 
 
 if __name__ == "__main__":
     main()
-    print("Done!")
