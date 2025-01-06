@@ -22,7 +22,7 @@ const User = (): ReactElement => {
 
   return (
     <section className="max-w-4xl mx-auto px-4 py-8">
-      <Card className="bg-[#F9FAFB] dark:bg-[#1A1A1A] border-b border-[#e1e8ed] dark:border-[#343536]">
+      <Card className="bg-[#F9FAFB] dark:bg-[#1A1A1A] border border-[#e1e8ed] dark:border-[#343536]">
         <CardHeader className="p-1.5">
           <div className="relative">
             <img
@@ -33,38 +33,36 @@ const User = (): ReactElement => {
 
             <div className="shrink-0 flex items-center justify-start space-x-4 p-4">
               <div className="relative flex-shrink-0">
-                <img src={user.avatar} alt="Profile"
-                    className="-mt-16 h-32 w-32 transform border-4 border-[#F9FAFB] dark:border-[#1A1A1A] rounded-full shadow-lg"
-                  />
-                </div>
+                <img src={user.avatar} alt="Profile" className="-mt-16 h-32 w-32 transform border-4 border-[#F9FAFB] dark:border-[#1A1A1A] rounded-full shadow-lg" />
+              </div>
 
-                <div className="absolute right-5 -mt-10">
-                  <div className="flex flex-row gap-1">
-                    <Button variant="outline" size="iconSm">
-                      <Flag className="h-4 w-4" />
-                    </Button>
+              <div className="absolute right-5 -mt-10">
+                <div className="flex flex-row gap-1">
+                  <Button variant="outline" size="iconSm">
+                    <Flag className="h-4 w-4" />
+                  </Button>
 
-                    <Button variant="outline" size="iconSm" disabled={!isFollowing}>
-                      <Mail className="h-4 w-4" />
-                    </Button>
+                  <Button variant="outline" size="iconSm" disabled={!isFollowing}>
+                    <Mail className="h-4 w-4" />
+                  </Button>
 
-                    <Button
-                      variant={isFollowing ? 'outline' : 'default'}
-                      className={
-                        isFollowing
-                          ? 'border-neutral-200 bg-transparent dark:bg-neutral-50 hover:border-red-200 hover:bg-red-50 text-neutral-800 hover:text-red-600'
-                          : 'bg-neutral-900 dark:bg-slate-50 text-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-200'
-                      }
-                      size={"sm"}
-                      onMouseEnter={() => setIsHovering(true)}
-                      onMouseLeave={() => setIsHovering(false)}
-                      onClick={() => setIsFollowing(!isFollowing)}
-                    >
-                      {isFollowing ? (isHovering ? 'Unfollow' : 'Following') : 'Follow'}
-                    </Button>
-                  </div>
+                  <Button
+                    variant={isFollowing ? 'outline' : 'default'}
+                    className={
+                      isFollowing
+                        ? 'border-neutral-200 bg-transparent dark:bg-neutral-50 hover:border-red-200 hover:bg-red-50 text-neutral-800 hover:text-red-600'
+                        : 'bg-neutral-900 dark:bg-slate-50 text-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-200'
+                    }
+                    size={"sm"}
+                    onMouseEnter={() => setIsHovering(true)}
+                    onMouseLeave={() => setIsHovering(false)}
+                    onClick={() => setIsFollowing(!isFollowing)}
+                  >
+                    {isFollowing ? (isHovering ? 'Unfollow' : 'Following') : 'Follow'}
+                  </Button>
                 </div>
               </div>
+            </div>
           </div>
         </CardHeader>
 
@@ -89,7 +87,7 @@ const User = (): ReactElement => {
 
       <div className="my-4" />
 
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-4">
         {posts.filter((post) => post.author.handle === user.handle).map((post) => (
           <PostCard key={post.id} {...post} />
         ))}
