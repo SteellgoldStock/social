@@ -1,3 +1,5 @@
+"use client";
+
 import { Bell, Home, User } from "lucide-react";
 import Link from "next/link";
 import { ReactElement } from "react";

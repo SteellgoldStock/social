@@ -19,13 +19,14 @@ const poppins = Poppins({
 
 const Layout: Component<PropsWithChildren> = ({ children }) => {
   return (
-    <html lang="en">
-      <body className={cn(poppins.className, "antialiased dark:bg-[#171616] dark:text-white")}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn(poppins.className, "antialiased dark:bg-neutral-900 dark:text-white")}>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
+          storageKey="theme-preference" 
         >
           <div className="flex min-h-screen">
             <Sidebar />
