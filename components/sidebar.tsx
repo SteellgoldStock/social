@@ -5,9 +5,9 @@ import { Button } from "./ui/button";
 import { ModeToggle } from "./ui/theme-switcher";
 
 const navItems = [
-  { icon: Home, label: 'Home', href: '/' },
-  { icon: Bell, label: 'Notifications', href: '/notifications' },
-  { icon: User, label: 'Profile', href: '/profile' },
+  { icon: Home, label: "Home", href: "/" },
+  { icon: Bell, label: "Notifications", href: "/notifications" },
+  { icon: User, label: "Profile", href: "/profile" },
 ]
 
 export const Sidebar = (): ReactElement => {

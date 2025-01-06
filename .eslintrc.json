@@ -5,5 +5,8 @@
       "avoidEscape": true,
       "allowTemplateLiterals": true
     }]
-  }  
+  },
+  "ignorePatterns": [
+    "./components/ui/*.tsx"
+  ]
 }

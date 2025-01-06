@@ -15,8 +15,8 @@ export const posts: PostProps[] = [
   {
     id: "72b9f8bc-2d74-4290-bcf1-f97815477a38",
     author: users[0],
-    content: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor non doloribus eligendi numquam asperiores fugit assumenda animi. Quo sint fugiat quaerat, voluptas aut, unde, dicta a recusandae nisi veniam quidem.',
-    timestamp: '2m',
+    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor non doloribus eligendi numquam asperiores fugit assumenda animi. Quo sint fugiat quaerat, voluptas aut, unde, dicta a recusandae nisi veniam quidem.",
+    timestamp: "2m",
     replies: [],
 
     likes: 35,

@@ -37,7 +37,7 @@ export const PostCard: Component<PostProps> = ({
         <div className="flex items-center space-x-4">
           <Avatar>
             <AvatarImage src={author.avatar} alt={author.name} />
-            <AvatarFallback>{author.name.split(' ').map(n => n[0]).join('')}</AvatarFallback>
+            <AvatarFallback>{author.name.split(" ").map(n => n[0]).join("")}</AvatarFallback>
           </Avatar>
           <div className="flex flex-col justify-center gap-0.5">
             <p className="flex items-center gap-1 font-medium">
