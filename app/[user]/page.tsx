@@ -36,7 +36,7 @@ const User = (): ReactElement => {
             {user.isVerified && <Verified />}
           </h1>
           <p className="text-gray-500">@{user.handle}</p>
-          <p className="text-gray-700">{user.bio}</p>
+          <p className="text-gray-400 mt-1">{user.bio}</p>
         </CardContent>
       </Card>
     </section>
