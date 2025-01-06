@@ -29,7 +29,7 @@ const Layout: Component<PropsWithChildren> = ({ children }) => {
         >
           <div className="flex min-h-screen">
             <Sidebar />
-            <div className="flex-1 border-x border-gray-200 dark:border-gray-800">
+            <div className="flex-1 border-x border-neutral-200 dark:border-neutral-800">
               <div className="sticky hidden md:block top-0 z-50 h-3" />
               <main className="max-w-2xl mx-auto">{children}</main>
             </div>
