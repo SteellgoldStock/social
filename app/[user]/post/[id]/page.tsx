@@ -31,9 +31,7 @@ const User = (): ReactElement => {
           )}>
             <PostCard {...post} />
 
-            <Card className={cn(
-              "bg-[#F9FAFB] dark:bg-[#1A1A1A]"
-            )}>
+            <Card>
               <CardContent className="mt-5">
                 <XTextarea
                   placeholder="Répondre à ce post..."

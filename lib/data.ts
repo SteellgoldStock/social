@@ -10,6 +10,14 @@ export const users: UserProps[] = [
     isVerified: false
   },
   {
+    name: "Gaëtan H",
+    handle: "steellgold",
+    avatar: "https://pbs.twimg.com/profile_images/1848354444225761280/hs-DRVoi_400x400.jpg",
+    banner: "https://pbs.twimg.com/profile_banners/1197777735168483328/1723474739/1500x500",
+    bio: "🇫🇷 20. Indie Hacker | Full-stack developper",
+    isVerified: false
+  },
+  {
     name: "Marie Laurent",
     handle: "mlaurent",
     avatar: "/api/placeholder/150/150",

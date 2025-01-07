@@ -30,21 +30,28 @@ const Home = (): ReactElement => {
 
   return (
     <div className="max-w-4xl mx-auto p-4 space-y-4">
-      {data ? (
-        <Card className={cn(
-          "bg-[#F9FAFB] dark:bg-[#1A1A1A]"
-        )}>
-          <CardHeader className="flex flex-row items-center gap-4">
-            <Image src={data.user.image ?? ""} alt={data.user.name} width={40} height={40} className="rounded-full" />
-            <div className="flex flex-col">
-              <h1 className="text-lg font-bold">{data.user.name}</h1>
-              <p className="text-sm text-neutral-500 dark:text-neutral-400">Postez quelque chose...</p>
+      {data && (
+        <Card>
+          <CardHeader>
+            <div className="flex flex-row items-center gap-1">
+              <Image
+                src={data.user.image ?? ""}
+                alt={data.user.name}
+                width={35}
+                height={35}
+                className="rounded-full"
+              />
+
+              <div className="flex flex-col ml-2">
+                <h1 className="text-lg font-bold">{data.user.name}</h1>
+                <p className="text-sm text-neutral-500 dark:text-neutral-400 -mt-1">Poster quelque chose !</p>
+              </div>
             </div>
           </CardHeader>
 
           <CardContent>
             <XTextarea
-              placeholder="Répondre à ce post..."
+              placeholder="Exprimez-vous !"
               onChange={(value: string) => setReply(value)}
             />
           </CardContent>
@@ -59,20 +66,11 @@ const Home = (): ReactElement => {
               })}>
                 {reply.length}/{MAX_POST_LENGTH}
               </div>
-
+              
               <Button variant="default" size={"sm"}>Envoyer</Button>
             </div>
           </CardFooter>
         </Card>
-      ) : (
-        <div className="p-4">
-          <h1 className="text-2xl font-bold">Bonjour, visiteur !</h1>
-
-          <Button className="mt-4" onClick={signIn}>
-            <FaGoogle className="mr-2" />
-            Se connecter
-          </Button>
-        </div>
       )}
 
       <div className="space-y-4 relative">
