@@ -1,6 +1,6 @@
 "use client";
 
-import { Bell, Home, User, UserPlus } from "lucide-react";
+import { Bell, Home, UserPlus } from "lucide-react";
 import Link from "next/link";
 import { ReactElement } from "react";
 import { Button } from "./ui/button";

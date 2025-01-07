@@ -2,7 +2,6 @@
 
 import { PostCard } from "@/components/post-card";
 import { Button } from "@/components/ui/button";
-import { FaGoogle } from "react-icons/fa";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { client, useSession } from "@/lib/auth/client";
 import { posts } from "@/lib/data";
@@ -18,15 +17,15 @@ const Home = (): ReactElement => {
 
   const [reply, setReply] = useState("")
 
-  const signIn = async () => {
-    const data = await client.signIn.social({
-      provider: "google"
-    });
+  // const signIn = async () => {
+  //   const data = await client.signIn.social({
+  //     provider: "google"
+  //   });
 
-    if (data.error) {
-      toast.error(data.error.message);
-    }
-  }
+  //   if (data.error) {
+  //     toast.error(data.error.message);
+  //   }
+  // }
 
   return (
     <div className="max-w-4xl mx-auto p-4 space-y-4">

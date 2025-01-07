@@ -19,7 +19,6 @@ const User = (): ReactElement => {
   const user = users.find((u) => u.handle.toLowerCase() === params.user.toLowerCase())
   if (!user) return <div>User not found</div>
 
-
   return (
     <section className="max-w-4xl mx-auto px-4 py-8">
       <Card className="border-[#e1e8ed] dark:border-[#343536]">
@@ -47,18 +46,18 @@ const User = (): ReactElement => {
                   </Button>
 
                   <Button
-                    variant={isFollowing ? 'outline' : 'default'}
+                    variant={isFollowing ? "outline" : "default"}
                     className={
                       isFollowing
-                        ? 'border-neutral-200 bg-transparent dark:bg-neutral-50 hover:border-red-200 hover:bg-red-50 text-neutral-800 hover:text-red-600'
-                        : 'bg-neutral-900 dark:bg-slate-50 text-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-200'
+                        ? "border-neutral-200 bg-transparent dark:bg-neutral-50 hover:border-red-200 hover:bg-red-50 text-neutral-800 hover:text-red-600"
+                        : "bg-neutral-900 dark:bg-slate-50 text-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-200"
                     }
                     size={"sm"}
                     onMouseEnter={() => setIsHovering(true)}
                     onMouseLeave={() => setIsHovering(false)}
                     onClick={() => setIsFollowing(!isFollowing)}
                   >
-                    {isFollowing ? (isHovering ? 'Unfollow' : 'Following') : 'Follow'}
+                    {isFollowing ? (isHovering ? "Unfollow" : "Following") : "Follow"}
                   </Button>
                 </div>
               </div>
@@ -76,7 +75,7 @@ const User = (): ReactElement => {
             <p className="text-gray-500">@{user.handle}</p>
             {isFollowToo && (
               <span className="select-none text-neutral-500 bg-neutral-200 dark:bg-neutral-800 rounded-full px-2 py-0.5 text-xs">
-                {isFollowToo && isFollowing ? 'Mutual Follow' : 'Follows you'}
+                {isFollowToo && isFollowing ? "Mutual Follow" : "Follows you"}
               </span>
             )}
           </div>
