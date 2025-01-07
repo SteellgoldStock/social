@@ -1,7 +1,7 @@
 model User {
   id            String    @id
   name          String
-  handle        String
+  username      String
   email         String
   emailVerified Boolean
   image         String?

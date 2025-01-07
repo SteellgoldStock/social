@@ -1,26 +1,33 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 
 const RegisterPage = () => {
   return (
-    <section className="max-w-4xl mx-auto px-4">
-      <Card>
-        <CardHeader className="items-center">
-          <CardTitle>
-            Join the community!
-          </CardTitle>
+    <section className="max-w-4xl mx-auto">
+      <Card className="flex flex-col gap-8 py-8">
+        <div className="flex flex-col items-center justify-center">
+          <h1 className="text-xl md:text-2xl font-bold text-center leading-0">
+            Faites vous un profil tout de même !
+          </h1>
 
-          <CardDescription className="text-sm text-center w-[85%]">
-            Our community is growing, and we would love for you to be a part of it. Please fill out the form below to register.
-          </CardDescription>
+          <p className="text-muted-foreground text-center text-sm md:text-base">
+            Créez votre compte gratuitement et profitez de toutes les fonctionnalités de notre site.
+          </p>
+        </div>
 
-          <CardContent className="flex justify-center">
-            <form action="/api/register" method="POST">
-              <input type="text" name="name" placeholder="Name" required />
-              <input type="email" name="email" placeholder="Email" required />
-              <button type="submit">Register</button>
-            </form>
+        <Card className="max-w-md mx-auto">
+          <CardHeader>
+            <CardDescription>
+              Tout d'abord enregistrez-vous avec une adresse email valide pour recevoir un code de vérification.
+            </CardDescription>
+          </CardHeader>
+          
+          <CardContent className="flex flex-row gap-2">
+            <Input type="email" placeholder="Email" />
+            <Button size={"sm"} type="submit">Envoyer</Button>
           </CardContent>
-        </CardHeader>
+        </Card>
       </Card>
     </section>
   );

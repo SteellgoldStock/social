@@ -20,8 +20,8 @@ const User = (): ReactElement => {
   if (!user) return <div>User not found</div>
 
   return (
-    <section className="max-w-4xl mx-auto px-4 py-8">
-      <Card className="border-[#e1e8ed] dark:border-[#343536]">
+    <section className="max-w-4xl mx-auto">
+      <Card>
         <CardHeader className="p-1.5">
           <div className="relative">
             <img

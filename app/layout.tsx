@@ -32,7 +32,7 @@ const Layout: Component<PropsWithChildren> = ({ children }) => {
             <Sidebar />
             <div className="flex-1 border-x border-neutral-200 dark:border-neutral-800">
               <div className="sticky hidden md:block top-0 z-50 h-3" />
-              <main className="max-w-full mx-auto">{children}</main>
+              <main className="max-w-full mx-auto py-4 px-4">{children}</main>
             </div>
           </div>
         </ThemeProvider>

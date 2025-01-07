@@ -22,7 +22,7 @@ const User = (): ReactElement => {
   if (!post) return <div>Post not found</div>
 
   return (
-    <section className="container mx-auto px-4 py-8">
+    <section className="container mx-auto">
       <div className="flex flex-col lg:flex-row gap-4">
         <div className="w-full lg:w-2/5 lg:sticky lg:top-8 lg:self-start">
           <Card className={cn(
