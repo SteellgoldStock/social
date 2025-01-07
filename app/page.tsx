@@ -3,10 +3,9 @@
 import { PostCard } from "@/components/post-card";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { client, useSession } from "@/lib/auth/client";
+import { useSession } from "@/lib/auth/client";
 import { posts } from "@/lib/data";
 import { ReactElement, useState } from "react";
-import { toast } from "sonner";
 import { XTextarea } from "@/components/ui/x-textarea";
 import { cn } from "@/lib/utils";
 import { MAX_POST_LENGTH } from "@/lib/consts";
