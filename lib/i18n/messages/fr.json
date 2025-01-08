@@ -4,8 +4,11 @@
     "Description": "Ceci est un modèle pour un nouveau projet NextJS avec prise en charge de l'i18n."
   },
   "LoginView": {
-    "LoadingSocial": "Chargement en cours...",
-    "LoginWithGoogle": "Se connecter avec Google"
+    "LoginWith": "Se connecter avec {provider}",
+    "LoggingIn": "Connexion avec {provider}...",
+
+    "Title": "Vous n'êtes pas connecté",
+    "Description": "Pour accéder aux groupes et voir les publications, vous avez besoin d'un compte actif."
   },
   "LanguageSelector": {
     "Placeholder": "Sélectionnez une langue",

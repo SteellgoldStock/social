@@ -16,7 +16,7 @@ const Page = () => {
       <h1 className="text-4xl font-bold">{t("Title")}</h1>
       <p className="text-lg">{t("Description")}</p>
 
-      <p>Login as {data.user.name}</p>
+      <p>Login as {data.user.email} ({data.user.name})</p>
     </section>
   );
 }

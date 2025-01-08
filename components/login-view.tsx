@@ -7,6 +7,7 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { toast } from "sonner";
 import { FaGoogle } from "react-icons/fa";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
 export const LoginView = () => {
   const [isLogining, setLogining] = useState(false);
@@ -25,29 +26,30 @@ export const LoginView = () => {
     if (login.error) toast.error(login.error.message);
   }
 
-  if (isLogining) {
+  if (!data) {
     return (
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="flex flex-col items-center gap-2 bg-primary text-primary-foreground p-4 rounded-lg">
-          <Loader2 className="animate-spin h-6 w-6  " />
-          <p>{t("LoadingSocial")}</p>
-        </div>
-      </div>
+      <Card className="flex flex-col items-center justify-center max-w-xl mx-auto">
+        <CardHeader className="flex items-center">
+          <CardTitle className="text-xl">{t("Title")}</CardTitle>
+          <CardDescription className="text-center">{t("Description")}</CardDescription>
+        </CardHeader>
+
+        <CardContent>
+          <Button
+            className="flex items-center gap-2"
+            onClick={handleGoogle}
+            disabled={isLogining}
+          >
+            {isLogining ? <Loader2 className="animate-spin" /> : <FaGoogle />}
+            <span>
+              {t(
+                isLogining ? "LoggingIn" : "LoginWith",
+                { provider: "Google" }
+              )}
+            </span>
+          </Button>
+        </CardContent>
+      </Card>
     )
   }
-
-  return (
-    <section>
-      {data ? (
-        <p>
-          {data.user.name}
-        </p>
-      ) : (
-        <Button onClick={handleGoogle}>
-          <FaGoogle />
-          {t("LoginWithGoogle")}
-        </Button>
-      )}
-    </section>
-  );
 }

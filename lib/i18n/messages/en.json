@@ -4,8 +4,11 @@
     "Description": "This is an template for a new NextJS project with i18n support."
   },
   "LoginView": {
-    "LoadingSocial": "Loading...",
-    "LoginWithGoogle": "Login with Google"
+    "LoginWith": "Login with {provider}",
+    "LoggingIn": "Login in with {provider}...",
+
+    "Title": "You're not logged in",
+    "Description": "To access groups and views posts you need an active account."
   },
   "LanguageSelector": {
     "Placeholder": "Select a language",
