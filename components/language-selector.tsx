@@ -18,7 +18,7 @@ export const LanguageSelector = () => {
       onValueChange={(e: ISOLang) => {
         setLang(e);
         router.refresh();
-      }} 
+      }}
       value={lang}
       open={isTriggered}
       onOpenChange={(e) => setIsTriggered(e)}

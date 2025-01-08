@@ -1,18 +1,19 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Bell, Home, LogOut, UserPlus } from "lucide-react";
+import { Bell, Home, LogOut, Mail } from "lucide-react";
 import Link from "next/link";
 import React, { ReactElement } from "react";
 import { Button } from "./ui/button";
 import { ThemeSwitcher } from "./ui/theme-switcher";
-import { client, signOut, useSession } from "@/lib/auth/client";
+import { signOut, useSession } from "@/lib/auth/client";
 import { LanguageSelector } from "./language-selector";
 import { useRouter } from "next/navigation";
 
 const navItems = [
   { icon: Home, label: "Home", href: "/" },
   { icon: Bell, label: "Notifications", href: "/notifications" },
+  { icon: Mail, label: "Messages", href: "/messages" },
 ]
 
 export const Sidebar = (): ReactElement => {
@@ -26,19 +27,19 @@ export const Sidebar = (): ReactElement => {
   }
 
   return (
-    <aside className="w-[70px] p-4 space-y-4 hidden md:block h-screen sticky top-0 overflow-y-auto">
-      <div className="flex flex-col h-full">
-        <nav className="space-y-2">
+    <aside className="group w-[70px] py-3 hidden md:block h-screen sticky top-0 overflow-y-auto flex">
+      <div className="flex flex-col h-full items-center">
+        <nav className="flex flex-col w-full items-center space-y-1">
           {navItems.map((item) => (
-            <Button key={item.href} variant="ghost" className="rounded-full" asChild size={"icon"}>
+            <Button key={item.href} variant="ghost" className="rounded-full" size={"icon"} asChild>
               <Link href={item.href}>
-                <item.icon className="h-5 w-5" />
+                <item.icon />
               </Link>
             </Button>
           ))}
         </nav>
 
-        <div className="mt-auto pt-4 space-y-1">
+        <div className="flex flex-col items-center mt-auto gap-0.5">
           {data ? (
             <Button variant="outline" className="rounded-full" asChild size={"icon"}>
               <Link href={`/${data.user.username}`}>
@@ -48,13 +49,7 @@ export const Sidebar = (): ReactElement => {
                 </Avatar>
               </Link>
             </Button>
-          ) : (
-            <Button variant="outline" asChild size={"icon"}>
-              <Link href="/register">
-                <UserPlus className="h-5 w-5" />
-              </Link>
-            </Button>
-          )}
+          ) : <></>}
 
           {data && (
             <Button variant="outline" size={"icon"} onClick={handleLogout}>
