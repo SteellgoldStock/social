@@ -118,11 +118,6 @@ export const ChooseUsername = (): ReactElement => {
           size="sm"
           disabled={!validUsername || validatingUsername || !username}
           onClick={async () => {
-            // toast.loading(client.updateUser({ username }), {
-            //   loading: t("Submitting"),
-            //   success: t("Defined", { username }),
-            //   error: t("Failed")
-            // });
             client.updateUser({ username }, {
               onError: () => {
                 toast.error(t("Failed"));
