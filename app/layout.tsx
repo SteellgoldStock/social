@@ -9,6 +9,7 @@ import { getLocale, getMessages } from "next-intl/server";
 import { Toaster } from "sonner";
 import { cn } from "@/lib/utils";
 import { Sidebar } from "@/components/sidebar";
+import { GoogleOneTap } from "@/components/auth/one-tap";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -43,6 +44,7 @@ const Layout: AsyncComponent<PropsWithChildren> = async({ children }) => {
             </div>
 
             <Toaster richColors />
+            <GoogleOneTap />
 
             {/* <div className="absolute right-4 bottom-4 flex flex-row items-center space-x-1">
               <ThemeSwitcher />

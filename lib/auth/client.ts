@@ -1,8 +1,15 @@
 import { createAuthClient } from "better-auth/react";
+import { oneTapClient, usernameClient } from "better-auth/client/plugins";
 import { toast } from "sonner";
 
 export const client = createAuthClient({
-  plugins: [],
+  plugins: [
+    oneTapClient({
+      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!,
+    }),
+    usernameClient(),
+  ],
+
   fetchOptions: {
     onError(e) {
       if (e.error.status === 429) {
