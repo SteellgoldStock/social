@@ -23,6 +23,30 @@
         "Emoji": "🇫🇷"
       }
     }
+  },
+  "ChooseUsername": {
+    "Title": "Choisissez un nom d'utilisateur",
+    "Description": "Rester anonyme n'est pas amusant ni une option. Choisissez un nom d'utilisateur pour vous démarquer !",
+
+    "Label": "Nom d'utilisateur",
+    "Placeholder": "jean.dupont",
+
+    "Submit": "Appliquer",
+    "Submitting": "J'y travaille !",
+    "Defined": "Votre nom d'utilisateur est {username}.",
+    "Failed": "Échec de la définition du nom d'utilisateur.",
+
+    "Valid": "Ce nom d'utilisateur est pas mal !",
+    "Errors": {
+      "Missing": "Aucun nom d'utilisateur n'a été fourni dans la requête HTTP.",
+      "Taken": "Ce nom d'utilisateur est déjà pris.",
+      "TooShort": "Le nom d'utilisateur doit contenir au moins 3 caractères.",
+      "TooLong": "Le nom d'utilisateur ne doit pas dépasser 16 caractères.",
+      "InvalidCharacters": "Le nom d'utilisateur ne peut contenir que des lettres, des chiffres et des tirets.",
+      "InvalidEnding": "Le nom d'utilisateur ne peut pas se terminer par un caractère spécial.",
+      "InvalidStarting": "Le nom d'utilisateur ne peut pas commencer par un caractère spécial.",
+      "Unknown": "Ce nom d'utilisateur n'est pas valide pour une raison inconnue."
+    }
   }
 }
 

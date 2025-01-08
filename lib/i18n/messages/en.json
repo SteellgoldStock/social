@@ -23,5 +23,29 @@
         "Emoji": "🇫🇷"
       }
     }
+  },
+  "ChooseUsername": {
+    "Title": "Choose a username",
+    "Description": "Staying anonymous isn't fun nor an option. Choose a username to stand out!",
+  
+    "Label": "Username",
+    "Placeholder": "john.doe",
+  
+    "Submit": "Apply",
+    "Submitting": "Working on it!",
+    "Defined": "Your username is {username}.",
+    "Failed": "Failed to set username.",
+  
+    "Valid": "This username looks good!",
+    "Errors": {
+      "Missing": "No username was provided in the HTTP request.",
+      "Taken": "This username is already taken.",
+      "TooShort": "Username must be at least 3 characters long.",
+      "TooLong": "Username cannot exceed 16 characters.",
+      "InvalidCharacters": "Username can only contain letters, numbers and hyphens.",
+      "InvalidEnding": "Username cannot end with a special character.",
+      "InvalidStarting": "Username cannot start with a special character.",
+      "Unknown": "This username is invalid for an unknown reason."
+    }
   }
 }
