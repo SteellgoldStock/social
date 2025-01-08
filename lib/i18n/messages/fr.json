@@ -3,6 +3,10 @@
     "Title": "Bonjour, le monde !",
     "Description": "Ceci est un modèle pour un nouveau projet NextJS avec prise en charge de l'i18n."
   },
+  "LoginView": {
+    "LoadingSocial": "Chargement en cours...",
+    "LoginWithGoogle": "Se connecter avec Google"
+  },
   "LanguageSelector": {
     "Placeholder": "Sélectionnez une langue",
     "Label": "Langue",
