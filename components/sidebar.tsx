@@ -1,13 +1,14 @@
 "use client";
 
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-import { Bell, Home, UserPlus } from "lucide-react";
+import { Bell, Home, LogOut, UserPlus } from "lucide-react";
 import Link from "next/link";
-import { ReactElement } from "react";
+import React, { ReactElement } from "react";
 import { Button } from "./ui/button";
 import { ThemeSwitcher } from "./ui/theme-switcher";
-import { useSession } from "@/lib/auth/client";
+import { client, signOut, useSession } from "@/lib/auth/client";
 import { LanguageSelector } from "./language-selector";
+import { useRouter } from "next/navigation";
 
 const navItems = [
   { icon: Home, label: "Home", href: "/" },
@@ -16,6 +17,13 @@ const navItems = [
 
 export const Sidebar = (): ReactElement => {
   const { data } = useSession();
+  const router = useRouter();
+
+  const handleLogout = async (event: React.MouseEvent): Promise<void> => {
+    event.preventDefault();
+    await signOut();
+    router.refresh();
+  }
 
   return (
     <aside className="w-[70px] p-4 space-y-4 hidden md:block h-screen sticky top-0 overflow-y-auto">
@@ -32,8 +40,8 @@ export const Sidebar = (): ReactElement => {
 
         <div className="mt-auto pt-4 space-y-1">
           {data ? (
-            <Button variant="outline" asChild size={"icon"}>
-              <Link href={`/${data.user.name}`}>
+            <Button variant="outline" className="rounded-full" asChild size={"icon"}>
+              <Link href={`/${data.user.username}`}>
                 <Avatar className="h-7 w-7">
                   <AvatarImage src={data.user.image ?? ""} alt={data.user.name} />
                   <AvatarFallback>{data.user.name[0]}</AvatarFallback>
@@ -45,6 +53,12 @@ export const Sidebar = (): ReactElement => {
               <Link href="/register">
                 <UserPlus className="h-5 w-5" />
               </Link>
+            </Button>
+          )}
+
+          {data && (
+            <Button variant="outline" size={"icon"} onClick={handleLogout}>
+              <LogOut className="h-4 w-4" />
             </Button>
           )}
 
