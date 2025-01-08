@@ -10,6 +10,12 @@ model User {
   sessions      Session[]
   accounts      Account[]
 
+  bio    String?
+  banner String?
+
+  followers User[] @relation("FollowRelation")
+  following User[] @relation("FollowRelation")
+
   likes  Like[]
   posts  Post[]
   groups Group[]
