@@ -7,8 +7,14 @@
     "Placeholder": "Select a language",
     "Label": "Language",
     "Options": {
-      "en": "English",
-      "fr": "French"
+      "en": {
+        "Label": "English",
+        "Emoji": "🇬🇧"
+      },
+      "fr": {
+        "Label": "French",
+        "Emoji": "🇫🇷"
+      }
     }
   }
 }
