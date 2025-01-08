@@ -2,8 +2,8 @@
 
 import { useSession } from "@/lib/auth/client";
 import { useTranslations } from "next-intl";
-import { LoginView } from "@/components/login-view";
-import { CreateProfileView } from "@/components/create-profile";
+import { LoginView } from "@/components/login.view";
+import { ChooseUsername } from "@/components/choose-username.view";
 
 const Page = () => {
   const { data } = useSession();
@@ -11,7 +11,7 @@ const Page = () => {
   const t = useTranslations("Page");
 
   if (!data) return <LoginView />;
-  if (data && !data.user.username) return <CreateProfileView />;
+  if (data && !data.user.username) return <ChooseUsername />;
 
   return (
     <section>
