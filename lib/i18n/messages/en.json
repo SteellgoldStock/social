@@ -12,17 +12,7 @@
   },
   "LanguageSelector": {
     "Placeholder": "Select a language",
-    "Label": "Language",
-    "Options": {
-      "en": {
-        "Label": "English",
-        "Emoji": "🇬🇧"
-      },
-      "fr": {
-        "Label": "French",
-        "Emoji": "🇫🇷"
-      }
-    }
+    "Label": "Language"
   },
   "NotFound": {
     "Specials": {
@@ -112,5 +102,19 @@
         "INVESTIGATION_PENDING": "This account has been {time} locked pending investigation."
       }
     }
+  },
+  "ImageUploadZone": {
+    "MaxSize": "File size must not exceed {size} MB.",
+    "Uploading": "Uploading...",
+    "Placeholder": "Drag and drop an image here, or click to select",
+    "Only": "only",
+    "InvalidFormat": "Only {formats} files are allowed."
+  },
+  "BannerProfileDialog": {
+    "Title": "Edit profile banner",
+    "Description": "Upload a new image to replace the current profile banner, be creative!",
+    "Uploading": "Loading...",
+    "Close": "Close",
+    "UploadSuccess": "Profile banner has been successfully updated."
   }
 }

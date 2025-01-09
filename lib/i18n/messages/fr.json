@@ -12,17 +12,7 @@
   },
   "LanguageSelector": {
     "Placeholder": "Sélectionnez une langue",
-    "Label": "Langue",
-    "Options": {
-      "en": {
-        "Label": "English",
-        "Emoji": "🇬🇧"
-      },
-      "fr": {
-        "Label": "French",
-        "Emoji": "🇫🇷"
-      }
-    }
+    "Label": "Langue"
   },
   "NotFound": {
     "Specials": {
@@ -112,6 +102,20 @@
         "INVESTIGATION_PENDING": "Ce compte a été verrouillé de manière {time} en attendant une enquête."
       }
     }
+  },
+  "ImageUploadZone": {
+    "MaxSize": "La taille du fichier ne doit pas dépasser {size} Mo.",
+    "Uploading": "Téléchargement en cours...",
+    "Placeholder": "Glissez et déposez une image ici, ou cliquez pour sélectionner",
+    "Only": "uniquement",
+    "InvalidFormat": "Seuls les fichiers de type {formats} sont autorisés."
+  },
+  "BannerProfileDialog": {
+    "Title": "Modifier la bannière de profil",
+    "Description": "Téléchargez une nouvelle image pour remplacer la bannière de profil actuelle, soyez créatif !",
+    "Uploading": "Chargement...",
+    "Close": "Fermer",
+    "UploadSuccess": "La bannière de profil a été mise à jour avec succès."
   }
 }
 
