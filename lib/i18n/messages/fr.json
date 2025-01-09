@@ -68,10 +68,38 @@
       "Unknown": "Ce nom d'utilisateur n'est pas valide pour une raison inconnue."
     }
   },
+  "FollowButton": {
+    "Follow": "Suivre",
+    "UnfollowOnHover": "Ne plus suivre",
+    "Following": "Suivi(e)"
+  },
   "ProfilePage": {
     "Followers": "Abonné(e)s",
     "Following": "Abonnements",
     "FollowingYou": "Vous suit",
+
+    "FDialog": {
+      "Followers": "Abonné(e)s",
+      "Following": "Abonnements",
+
+      "FollowersDescription": {
+        "Self": "Liste des personnes qui vous suivent",
+        "Other": "Liste des personnes qui suivent {username}"
+      },
+
+      "FollowingDescription": {
+        "Self": "Liste des personnes que vous suivez",
+        "Other": "Liste des personnes que {username} suit"
+      },
+
+      "Unfollow": "Ne plus suivre",
+      "Followed": "Abonné(e)",
+      "Follow": "Suivre",
+
+      "PageInfo": "Page {current} de {total}",
+      "Previous": "Précédent",
+      "Next": "Suivant"
+    },
 
     "Locked": {
       "PERMANENT": "Permanent",

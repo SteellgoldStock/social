@@ -1,33 +1,14 @@
 {
   "Page": {
-    "Title": "Hello, World!",
-    "Description": "This is an template for a new NextJS project with i18n support."
+    "Title": "Hello, world!",
+    "Description": "This is a template for a new NextJS project with i18n support."
   },
   "LoginView": {
     "LoginWith": "Login with {provider}",
-    "LoggingIn": "Login in with {provider}...",
-
-    "Title": "You're not logged in",
-    "Description": "To access groups and views posts you need an active account."
-  },
-  "NotFound": {
-    "Specials": {
-      "Ghostbusters": {
-        "Title": "Who you gonna call?",
-        "Description": {
-          "0": "If you think you've seen a ghost, call Ghostbusters at",
-          "1": "almost immediately 👻"
-        }
-      }
-    },
-
-    "Title": "You&apos;re lost?",
-    "Description": "The page you're looking for doesn't exist or has been moved.",
-    "Button": "Go back home"
-  },
-  "Error": {
-    "Title": "An error occurred",
-    "Button": "Refresh"
+    "LoggingIn": "Logging in with {provider}...",
+    
+    "Title": "You are not logged in",
+    "Description": "To access groups and see posts, you need an active account."
   },
   "LanguageSelector": {
     "Placeholder": "Select a language",
@@ -43,57 +24,103 @@
       }
     }
   },
+  "NotFound": {
+    "Specials": {
+      "Ghostbusters": {
+        "Title": "Who you gonna call?",
+        "Description": {
+          "0": "If you think you've seen a ghost, call Ghostbusters",
+          "1": "immediately 👻"
+        }
+      }
+    },
+    
+    "Title": "Are you lost?",
+    "Description": "The page you are looking for doesn't exist or has been moved.",
+    "Button": "Return to home"
+  },
+  "Error": {
+    "Title": "An error occurred",
+    "Button": "Refresh"
+  },
   "ChooseUsername": {
     "Title": "Choose a username",
-    "Description": "Staying anonymous isn't fun nor an option. Choose a username to stand out!",
-  
+    "Description": "Staying anonymous is neither fun nor an option. Choose a username to stand out!",
+    
     "Label": "Username",
-    "Placeholder": "john.doe",
-  
+    "Placeholder": "john.smith",
+    
     "Submit": "Apply",
-    "Submitted": "Applying...",
+    "Submitted": "Applied...",
     "Submitting": "Working on it!",
     "Defined": "Your username is now {username}",
     "Failed": "Failed to set username.",
-  
+    
     "Valid": "This username looks good!",
     "Errors": {
       "Missing": "No username was provided in the HTTP request.",
       "Taken": "This username is already taken.",
       "TooShort": "Username must be at least 3 characters long.",
-      "TooLong": "Username cannot exceed 16 characters.",
-      "InvalidCharacters": "Username can only contain letters, numbers and hyphens.",
+      "TooLong": "Username must not exceed 16 characters.",
+      "InvalidCharacters": "Username can only contain letters, numbers, and hyphens.",
       "InvalidEnding": "Username cannot end with a special character.",
       "InvalidStarting": "Username cannot start with a special character.",
       "Unknown": "This username is invalid for an unknown reason."
     }
   },
+  "FollowButton": {
+    "Follow": "Follow",
+    "UnfollowOnHover": "Unfollow",
+    "Following": "Following"
+  },
   "ProfilePage": {
     "Followers": "Followers",
     "Following": "Following",
     "FollowingYou": "Follows you",
-
+    
+    "FDialog": {
+      "Followers": "Followers",
+      "Following": "Following",
+      
+      "FollowersDescription": {
+        "Self": "List of people who follow you",
+        "Other": "List of people who follow {username}"
+      },
+      
+      "FollowingDescription": {
+        "Self": "List of people you follow",
+        "Other": "List of people {username} follows"
+      },
+      
+      "Unfollow": "Unfollow",
+      "Followed": "Followed",
+      "Follow": "Follow",
+      
+      "PageInfo": "Page {current} of {total}",
+      "Previous": "Previous",
+      "Next": "Next"
+    },
+    
     "Locked": {
-      "PERMANENT": "permanent",
-      "TEMPORARY": "temporary",
+      "PERMANENT": "Permanent",
+      "TEMPORARY": "Temporary",
       "Reasons": {
-        "HARMFUL_CONTENT": "This account has been locked {time} for posting harmful content.",
-        "HARASSMENT": "This account has been locked {time} for harassment.",
-        "HATE_SPEECH": "This account has been locked {time} for hate speech.",
-        "IMPERSONATION": "This account has been locked {time} for impersonation.",
-        "SPAM": "This account has been locked {time} for spam.",
-        "INAPPROPRIATE_CONTENT": "This account has been locked {time} for posting inappropriate content.",
-        "MULTIPLE_VIOLATIONS": "This account has been locked {time} for breaking multiple community rules.",
-        "SECURITY_CONCERNS":  "This account has been locked {time} for security reasons.",
-        "BANNED_IP": "This account has been locked {time} for using a banned IP address.",
-        "HARMFUL_AUTOMATION": "This account has been locked {time} for using harmful automation.",
-        "FAKE_ENGAGEMENT": "This account has been locked {time} for using fake engagement.",
-        "ILLEGAL_CONTENT": "This account has been locked {time} for posting illegal content.",
-        "UNDERAGE": "This account has been locked {time} for being created by a minor.",
-        "TRADEMARK_VIOLATION": "This account has been locked {time} for violating trademark rights.",
-        "COPYRIGHT_VIOLATION": "This account has been locked {time} for violating copyright rights.",
-        "PLATFORM_MANIPULATION": "This account has been locked {time} for manipulating the platform.",
-        "INVESTIGATION_PENDING": "This account has been locked {time} pending investigation."
+        "HARMFUL_CONTENT": "This account has been {time} locked for posting harmful content.",
+        "HARASSMENT": "This account has been {time} locked for harassment.",
+        "IMPERSONATION": "This account has been {time} locked for impersonation.",
+        "SPAM": "This account has been {time} locked for spam.",
+        "INAPPROPRIATE_CONTENT": "This account has been {time} locked for posting inappropriate content.",
+        "MULTIPLE_VIOLATIONS": "This account has been {time} locked for multiple community guideline violations.",
+        "SECURITY_CONCERNS": "This account has been {time} locked for security concerns.",
+        "BANNED_IP": "This account has been {time} locked for using a banned IP address.",
+        "HARMFUL_AUTOMATION": "This account has been {time} locked for using harmful automation.",
+        "FAKE_ENGAGEMENT": "This account has been {time} locked for using fake engagement.",
+        "ILLEGAL_CONTENT": "This account has been {time} locked for posting illegal content.",
+        "UNDERAGE": "This account has been {time} locked for being created by an underage person.",
+        "TRADEMARK_VIOLATION": "This account has been {time} locked for trademark violation.",
+        "COPYRIGHT_VIOLATION": "This account has been {time} locked for copyright violation.",
+        "PLATFORM_MANIPULATION": "This account has been {time} locked for platform manipulation.",
+        "INVESTIGATION_PENDING": "This account has been {time} locked pending investigation."
       }
     }
   }
