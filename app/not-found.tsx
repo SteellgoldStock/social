@@ -1,19 +1,35 @@
 import { buttonVariants } from "@/components/ui/button";
+import { AsyncComponent } from "@/lib/types";
+import { cn } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
-const NotFound = () => {
+type NotFoundProps = {
+  reason?: "userNotFound" | "notFound";
+};
+
+const NotFound: AsyncComponent<NotFoundProps> = async ({ reason = "notFound" }) => {
+  const t = await getTranslations("NotFound");
+
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center relative">
+    <div className={"absolute inset-0 flex flex-col items-center justify-center"}>
       <h2 className="text-3xl font-bold">
-        You&apos;re lost?
+        {reason == "notFound" ? t("Title") : t("Specials.Ghostbusters.Title")}
       </h2>
 
       <p className="mb-4">
-        The page you are looking for does not exist.
+        {reason == "userNotFound"
+          ? <>
+              {t("Specials.Ghostbusters.Description.0")}&nbsp;
+              <a href="tel:555-2368" className="font-bold hover:underline">555-2368</a>&nbsp;
+              {t("Specials.Ghostbusters.Description.1")}
+            </>
+          : t("Description")
+        }
       </p>
 
       <Link href="/" className={buttonVariants({ variant: "outline" })}>
-        Go back home
+        {t("Button")}
       </Link>
     </div>
   )
