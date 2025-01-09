@@ -6,25 +6,32 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Component } from "@/lib/types";
 import { User } from "@prisma/client";
-import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { PropsWithChildren } from "react";
-import { FollowButton } from "../../../../components/follow-button";
+import { FollowButton } from "@/components/follow-button";
 import Link from "next/link";
 
-type FollowingsDialogProps = PropsWithChildren & {
-  followings: User[];
+type UsersDialogProps = PropsWithChildren & {
+  users: User[];
+  followings?: User[];
+  title: string;
+  description: string;
 }
 
-export const FollowingsDialog: Component<FollowingsDialogProps> = ({ children, followings }) => {
-  const t = useTranslations("ProfilePage.FDialog");
+export const UsersDialog: Component<UsersDialogProps> = ({ 
+  children, 
+  users, 
+  followings = [], 
+  title, 
+  description 
+}) => {
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 15;
 
   const indexOfLastUser = currentPage * usersPerPage;
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = followings.slice(indexOfFirstUser, indexOfLastUser);
-  const totalPages = Math.ceil(followings.length / usersPerPage);
+  const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(users.length / usersPerPage);
 
   const nextPage = () => {
     setCurrentPage((prev) => Math.min(prev + 1, totalPages));
@@ -36,13 +43,11 @@ export const FollowingsDialog: Component<FollowingsDialogProps> = ({ children, f
 
   return (
     <Dialog onOpenChange={(isOpen) => !isOpen && setCurrentPage(1)}>
-      <DialogTrigger>
-        {children}
-      </DialogTrigger>
+      <DialogTrigger>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{t("Following")}</DialogTitle>
-          <DialogDescription>{t("FollowingDescription.Self")}</DialogDescription>
+          <DialogTitle>{title}</DialogTitle>
+          <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
         <div className="space-y-2">
           <ScrollArea className="h-[400px] w-full rounded-md border p-4">
@@ -67,7 +72,14 @@ export const FollowingsDialog: Component<FollowingsDialogProps> = ({ children, f
                   </div>
                 </div>
 
-                <FollowButton isFollowing={true} username={user.username ?? ""} />
+                <FollowButton
+                  isFollowing={
+                    followings.length > 0
+                      ? followings.map(u => u.id).includes(user.id)
+                      : users.map(u => u.id).includes(user.id)
+                  }
+                  username={user.username ?? ""}
+                />
               </div>
             ))}
           </ScrollArea>
@@ -78,10 +90,10 @@ export const FollowingsDialog: Component<FollowingsDialogProps> = ({ children, f
               variant="outline"
               size="sm"
             >
-              {t("Previous")}
+              Previous
             </Button>
             <span className="text-sm text-gray-500">
-              {t("PageInfo", { current: currentPage, total: totalPages })}
+              Page {currentPage} of {totalPages}
             </span>
             <Button
               onClick={nextPage}
@@ -89,12 +101,11 @@ export const FollowingsDialog: Component<FollowingsDialogProps> = ({ children, f
               variant="outline"
               size="sm"
             >
-              {t("Next")}
+              Next
             </Button>
           </div>
         </div>
       </DialogContent>
     </Dialog>
-  )
+  );
 };
-

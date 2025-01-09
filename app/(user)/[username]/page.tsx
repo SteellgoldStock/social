@@ -7,9 +7,9 @@ import { getTranslations } from "next-intl/server";
 import NotFound from "@/app/not-found";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth/auth";
-import { FollowingsDialog } from "./_components/followings.dialog";
-import { FollowersDialog } from "./_components/followers.dialog";
 import { FollowButton } from "../../../components/follow-button";
+import { UsersDialog } from "@/components/users.dialog";
+import { ImageZoomer } from "image-zoomer-react";
 
 type PageProps = {
   params: Promise<{ username: string }>
@@ -44,7 +44,7 @@ const ProfilePage: AsyncComponent<PageProps> = async ({ params }) => {
               "h-32": !user.banner
             })}>
               {user.banner ? (
-                <img
+                <ImageZoomer
                   src={user.banner}
                   alt={`${user.name}'s banner`}
                   className="w-full h-full object-cover block object-center rounded-lg"
@@ -127,19 +127,36 @@ const ProfilePage: AsyncComponent<PageProps> = async ({ params }) => {
           <p className="text-gray-400 mt-1">{user.bio}</p>
 
           <div className="flex flex-row gap-4 mt-4 py-0.5 text-neutral-500 text-sm md:text-base">
-            <FollowingsDialog followings={user.following}>
+            <UsersDialog
+              users={user.following}
+              title={t("Dialog.Following.Title")}
+              description={
+                username === session?.user.username
+                  ? t("Dialog.Following.SelfDescription")
+                  : t("Dialog.Following.OthersDescription", { username: user.name })
+              }
+            >
               <span className={cn("hover:underline cursor-pointer")}>
                 <span className="text-neutral-400">{user.following.length}</span> {t("Following")}
               </span>
-            </FollowingsDialog>
+            </UsersDialog>
 
             &middot;
 
-            <FollowersDialog followers={user.followers}>
+            <UsersDialog
+              users={user.followers}
+              followings={user.following}
+              title={t("Dialog.Followers.Title")}
+              description={
+                username === session?.user.username
+                  ? t("Dialog.Followers.SelfDescription")
+                  : t("Dialog.Followers.OthersDescription", { username: user.name })
+              }
+            >
               <span className={cn("hover:underline cursor-pointer")}>
                 <span className="text-neutral-400">{user.followers.length}</span> {t("Followers")}
               </span>
-            </FollowersDialog>
+            </UsersDialog>
           </div>
         </CardContent>
       </Card>
