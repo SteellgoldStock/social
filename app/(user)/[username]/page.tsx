@@ -35,12 +35,12 @@ const ProfilePage: AsyncComponent<PageProps> = async ({ params }) => {
   const t = await getTranslations("ProfilePage");
 
   return (
-    <section className="max-w-4xl mx-auto">
+    <section className="max-w-2xl mx-auto">
       <Card>
         <CardHeader className="p-1.5">
           <div className="relative">
             <div className={cn("w-full rounded-t-lg overflow-hidden", {
-              "h-32 sm:h-72": user.banner,
+              "h-32 sm:h-60": user.banner,
               "h-32": !user.banner
             })}>
               {user.banner ? (
