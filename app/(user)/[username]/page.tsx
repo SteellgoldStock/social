@@ -4,6 +4,7 @@ import { AsyncComponent } from "@/lib/types";
 import { prisma } from "@/lib/db/prisma";
 import { cn } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
+import NotFound from "@/app/not-found";
 
 type PageProps = {
   params: Promise<{ username: string }>
@@ -22,9 +23,9 @@ const ProfilePage: AsyncComponent<PageProps> = async ({ params }) => {
     }
   });
 
-  const t = await getTranslations("ProfilePage");
+  if (!user) return <NotFound reason="userNotFound" />;
 
-  if (!user) return <div>User not found</div>;
+  const t = await getTranslations("ProfilePage");
 
   return (
     <section className="max-w-4xl mx-auto">

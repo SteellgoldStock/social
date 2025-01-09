@@ -10,6 +10,25 @@
     "Title": "You're not logged in",
     "Description": "To access groups and views posts you need an active account."
   },
+  "NotFound": {
+    "Specials": {
+      "Ghostbusters": {
+        "Title": "Who you gonna call?",
+        "Description": {
+          "0": "If you think you've seen a ghost, call Ghostbusters at",
+          "1": "almost immediately 👻"
+        }
+      }
+    },
+
+    "Title": "You&apos;re lost?",
+    "Description": "The page you're looking for doesn't exist or has been moved.",
+    "Button": "Go back home"
+  },
+  "Error": {
+    "Title": "An error occurred",
+    "Button": "Go back home"
+  },
   "LanguageSelector": {
     "Placeholder": "Select a language",
     "Label": "Language",

@@ -23,7 +23,7 @@ const Error: Component<ErrorProps> = ({ error, reset }) => {
     <>
       <div className={"absolute inset-0 flex flex-col items-center justify-center"}>
         <h2 className="text-3xl font-bold">
-          An error occurred
+          {t("Title")}
         </h2>
 
         <p className="mb-4">
@@ -32,7 +32,7 @@ const Error: Component<ErrorProps> = ({ error, reset }) => {
 
         <Button variant="outline" onClick={reset}>
           <IterationCcw className="w-4 h-4 mr-2" />
-          Try again
+          {t("Button")}
         </Button>
       </div>
 

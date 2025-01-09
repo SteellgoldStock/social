@@ -24,6 +24,25 @@
       }
     }
   },
+  "NotFound": {
+    "Specials": {
+      "Ghostbusters": {
+        "Title": "Qui allez-vous appeler ?",
+        "Description": {
+          "0": "Si vous pensez avoir vu un fantôme, appelez SOS Fantômes",
+          "1": "immédiatement 👻"
+        }
+      }
+    },
+
+    "Title": "Vous êtes perdu ?",
+    "Description": "La page que vous recherchez n'existe pas ou a été déplacée.",
+    "Button": "Retourner à l'accueil"
+  },
+  "Error": {
+    "Title": "Une erreur s'est produite",
+    "Button": "Retourner à l'accueil"
+  },
   "ChooseUsername": {
     "Title": "Choisissez un nom d'utilisateur",
     "Description": "Rester anonyme n'est pas amusant ni une option. Choisissez un nom d'utilisateur pour vous démarquer !",
