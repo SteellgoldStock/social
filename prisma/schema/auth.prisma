@@ -65,6 +65,7 @@ model User {
   likes  Like[]
   posts  Post[]
   groups Group[]
+  socials Social[]
 
   @@map("user")
 }
@@ -112,4 +113,16 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model Social {
+  id         String    @id
+  provider   String
+
+  userId     String
+  user       User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  handle     String
+
+  @@map("social")
 }

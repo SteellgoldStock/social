@@ -17,7 +17,8 @@ const ProfilePage: AsyncComponent<PageProps> = async ({ params }) => {
     include: {
       followers: true,
       following: true,
-      posts: true
+      posts: true,
+      socials: true
     }
   });
 
