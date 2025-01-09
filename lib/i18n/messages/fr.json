@@ -41,7 +41,7 @@
   },
   "Error": {
     "Title": "Une erreur s'est produite",
-    "Button": "Retourner à l'accueil"
+    "Button": "Rafraîchir"
   },
   "ChooseUsername": {
     "Title": "Choisissez un nom d'utilisateur",
@@ -71,6 +71,7 @@
   "ProfilePage": {
     "Followers": "Abonné(e)s",
     "Following": "Abonnements",
+    "FollowingYou": "Vous suit",
 
     "Locked": {
       "PERMANENT": "Permanent",

@@ -27,7 +27,7 @@
   },
   "Error": {
     "Title": "An error occurred",
-    "Button": "Go back home"
+    "Button": "Refresh"
   },
   "LanguageSelector": {
     "Placeholder": "Select a language",
@@ -71,6 +71,7 @@
   "ProfilePage": {
     "Followers": "Followers",
     "Following": "Following",
+    "FollowingYou": "Follows you",
 
     "Locked": {
       "PERMANENT": "permanent",
