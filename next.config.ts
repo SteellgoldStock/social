@@ -5,6 +5,13 @@ const withNextIntl = createNextIntlPlugin(
   "./lib/i18n/request.ts"
 );
 
-const nextConfig = {};
+const nextConfig: NextConfig = {
+  images: {
+    remotePatterns: [
+      { hostname: "lh3.googleusercontent.com" },
+      { hostname: "avatars.githubusercontent.com" },
+    ]
+  }
+};
 
 export default withNextIntl(nextConfig);
