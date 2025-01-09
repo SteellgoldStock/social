@@ -10,6 +10,7 @@ import { auth } from "@/lib/auth/auth";
 import { FollowButton } from "../../../components/follow-button";
 import { UsersDialog } from "@/components/users.dialog";
 import { ImageZoomer } from "image-zoomer-react";
+import { BannerProfile } from "./_components/banner-profile";
 
 type PageProps = {
   params: Promise<{ username: string }>
@@ -39,20 +40,7 @@ const ProfilePage: AsyncComponent<PageProps> = async ({ params }) => {
       <Card>
         <CardHeader className="p-1.5">
           <div className="relative">
-            <div className={cn("w-full rounded-t-lg overflow-hidden", {
-              "h-32 sm:h-60": user.banner,
-              "h-32": !user.banner
-            })}>
-              {user.banner ? (
-                <ImageZoomer
-                  src={user.banner}
-                  alt={`${user.name}'s banner`}
-                  className="w-full h-full object-cover block object-center rounded-lg"
-                />
-              ) : (
-                <div className="w-full h-32 bg-[#e4e6e7] dark:bg-[#252525] rounded-lg" />
-              )}
-            </div>
+            <BannerProfile user={user} isOwner={session?.user.id === user.id} />
 
             <div className="shrink-0 flex items-center justify-start space-x-4 p-4">
               <div className="relative flex-shrink-0">
