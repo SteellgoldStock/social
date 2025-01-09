@@ -7,7 +7,8 @@ import { getTranslations } from "next-intl/server";
 import NotFound from "@/app/not-found";
 import { headers } from "next/headers";
 import { auth } from "@/lib/auth/auth";
-import { Button } from "@/components/ui/button";
+import { FollowingsDialog } from "./_components/followings.dialog";
+import { FollowersDialog } from "./_components/followers.dialog";
 
 type PageProps = {
   params: Promise<{ username: string }>
@@ -131,15 +132,19 @@ const ProfilePage: AsyncComponent<PageProps> = async ({ params }) => {
           <p className="text-gray-400 mt-1">{user.bio}</p>
 
           <div className="flex flex-row gap-4 mt-4 py-0.5 text-neutral-500 text-sm md:text-base">
-            <span className={cn("hover:underline cursor-pointer")}>
-              <span className="text-neutral-400">{user.following.length}</span> {t("Following")}
-            </span>
+            <FollowingsDialog followings={user.following}>
+              <span className={cn("hover:underline cursor-pointer")}>
+                <span className="text-neutral-400">{user.following.length}</span> {t("Following")}
+              </span>
+            </FollowingsDialog>
 
             &middot;
 
-            <span className={cn("hover:underline cursor-pointer")}>
-              <span className="text-neutral-400">{user.followers.length}</span> {t("Followers")}
-            </span>
+            <FollowersDialog followers={user.followers}>
+              <span className={cn("hover:underline cursor-pointer")}>
+                <span className="text-neutral-400">{user.followers.length}</span> {t("Followers")}
+              </span>
+            </FollowersDialog>
           </div>
         </CardContent>
       </Card>
