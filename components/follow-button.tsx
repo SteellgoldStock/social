@@ -48,7 +48,7 @@ export const FollowButton: Component<FollowButtonProps> = ({ isFollowing: initia
 
   return (
     <Button
-      variant="outline"
+      variant={isHovered ? "destructive" : "secondary"}
       size="sm"
 
       onMouseEnter={() => setIsHovered(true)}
