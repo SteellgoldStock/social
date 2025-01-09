@@ -55,7 +55,7 @@ model User {
   verifiedStatus VerifiedStatus?
   verifiedType VerifiedType?
 
-  locked Boolean @default(false)
+  isLocked Boolean @default(false)
   lockedAt DateTime?
   lockedUntil DateTime?
 
