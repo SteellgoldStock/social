@@ -3,6 +3,7 @@ import { User } from "lucide-react";
 import { AsyncComponent } from "@/lib/types";
 import { prisma } from "@/lib/db/prisma";
 import { cn } from "@/lib/utils";
+import { getTranslations } from "next-intl/server";
 
 type PageProps = {
   params: Promise<{ username: string }>
@@ -19,6 +20,8 @@ const ProfilePage: AsyncComponent<PageProps> = async ({ params }) => {
       posts: true
     }
   });
+
+  const t = await getTranslations("ProfilePage");
 
   if (!user) return <div>User not found</div>;
 
@@ -118,13 +121,13 @@ const ProfilePage: AsyncComponent<PageProps> = async ({ params }) => {
 
           <div className="flex flex-row gap-4 mt-4 py-0.5 text-neutral-500">
             <span className={cn("hover:underline cursor-pointer")}>
-              <span className="text-neutral-400">{user.following.length}</span> Following
+              <span className="text-neutral-400">{user.following.length}</span> {t("Following")}
             </span>
 
             &middot;
 
             <span className={cn("hover:underline cursor-pointer")}>
-              <span className="text-neutral-400">{user.followers.length}</span> Followers
+              <span className="text-neutral-400">{user.followers.length}</span> {t("Followers")}
             </span>
           </div>
         </CardContent>

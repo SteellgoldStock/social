@@ -50,6 +50,9 @@
     }
   },
   "ProfilePage": {
+    "Followers": "Followers",
+    "Following": "Following",
+
     "Locked": {
       "PERMANENT": "permanent",
       "TEMPORARY": "temporary",
