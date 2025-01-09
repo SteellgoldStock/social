@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useSession } from "@/lib/auth/client";
 import { Component } from "@/lib/types";
 import { useTranslations } from "next-intl";
-import { ReactElement, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 type FollowButtonProps = {
   isFollowing: boolean;
@@ -45,7 +45,7 @@ export const FollowButton: Component<FollowButtonProps> = ({ isFollowing: initia
       {t("Follow")}
     </Button>
   );
-  
+
   return (
     <Button
       variant="outline"
