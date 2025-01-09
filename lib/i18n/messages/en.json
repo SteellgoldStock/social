@@ -48,5 +48,30 @@
       "InvalidStarting": "Username cannot start with a special character.",
       "Unknown": "This username is invalid for an unknown reason."
     }
+  },
+  "ProfilePage": {
+    "Locked": {
+      "PERMANENT": "permanent",
+      "TEMPORARY": "temporary",
+      "Reasons": {
+        "HARMFUL_CONTENT": "This account has been locked {time} for posting harmful content.",
+        "HARASSMENT": "This account has been locked {time} for harassment.",
+        "HATE_SPEECH": "This account has been locked {time} for hate speech.",
+        "IMPERSONATION": "This account has been locked {time} for impersonation.",
+        "SPAM": "This account has been locked {time} for spam.",
+        "INAPPROPRIATE_CONTENT": "This account has been locked {time} for posting inappropriate content.",
+        "MULTIPLE_VIOLATIONS": "This account has been locked {time} for breaking multiple community rules.",
+        "SECURITY_CONCERNS":  "This account has been locked {time} for security reasons.",
+        "BANNED_IP": "This account has been locked {time} for using a banned IP address.",
+        "HARMFUL_AUTOMATION": "This account has been locked {time} for using harmful automation.",
+        "FAKE_ENGAGEMENT": "This account has been locked {time} for using fake engagement.",
+        "ILLEGAL_CONTENT": "This account has been locked {time} for posting illegal content.",
+        "UNDERAGE": "This account has been locked {time} for being created by a minor.",
+        "TRADEMARK_VIOLATION": "This account has been locked {time} for violating trademark rights.",
+        "COPYRIGHT_VIOLATION": "This account has been locked {time} for violating copyright rights.",
+        "PLATFORM_MANIPULATION": "This account has been locked {time} for manipulating the platform.",
+        "INVESTIGATION_PENDING": "This account has been locked {time} pending investigation."
+      }
+    }
   }
 }

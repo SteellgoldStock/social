@@ -48,6 +48,30 @@
       "InvalidStarting": "Le nom d'utilisateur ne peut pas commencer par un caractère spécial.",
       "Unknown": "Ce nom d'utilisateur n'est pas valide pour une raison inconnue."
     }
+  },
+  "ProfilePage": {
+    "Locked": {
+      "PERMANENT": "Permanent",
+      "TEMPORARY": "Temporaire",
+      "Reasons": {
+        "HARMFUL_CONTENT": "Ce compte a été verrouillé de manière {time} pour avoir publié du contenu nuisible.",
+        "HARASSMENT": "Ce compte a été verrouillé de manière {time} pour harcèlement.",
+        "IMPERSONATION": "Ce compte a été verrouillé de manière {time} pour usurpation d'identité.",
+        "SPAM": "Ce compte a été verrouillé de manière {time} pour spam.",
+        "INAPPROPRIATE_CONTENT": "Ce compte a été verrouillé de manière {time} pour avoir publié du contenu inapproprié.",
+        "MULTIPLE_VIOLATIONS": "Ce compte a été verrouillé de manière {time} pour avoir enfreint plusieurs règles de la communauté.",
+        "SECURITY_CONCERNS":  "Ce compte a été verrouillé de manière {time} pour des raisons de sécurité.",
+        "BANNED_IP" : "Ce compte a été verrouillé de manière {time} pour avoir utilisé une adresse IP bannie.",
+        "HARMFUL_AUTOMATION": "Ce compte a été verrouillé de manière {time} pour avoir utilisé une automatisation nuisible.",
+        "FAKE_ENGAGEMENT": "Ce compte a été verrouillé de manière {time} pour avoir utilisé un engagement artificiel.",
+        "ILLEGAL_CONTENT": "Ce compte a été verrouillé de manière {time} pour avoir publié du contenu illégal.",
+        "UNDERAGE": "Ce compte a été verrouillé de manière {time} pour avoir été créé par une personne mineure.",
+        "TRADEMARK_VIOLATION": "Ce compte a été verrouillé de manière {time} pour avoir enfreint les droits de marque.",
+        "COPYRIGHT_VIOLATION": "Ce compte a été verrouillé de manière {time} pour avoir enfreint les droits d'auteur.",
+        "PLATFORM_MANIPULATION": "Ce compte a été verrouillé de manière {time} pour avoir manipulé la plateforme.",
+        "INVESTIGATION_PENDING": "Ce compte a été verrouillé de manière {time} en attendant une enquête."
+      }
+    }
   }
 }
 
