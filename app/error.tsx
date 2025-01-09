@@ -21,7 +21,7 @@ const Error: Component<ErrorProps> = ({ error, reset }) => {
  
   return (
     <>
-      <div className={"absolute inset-0 flex flex-col items-center justify-center"}>
+      <div className={"absolute inset-0 flex flex-col items-center justify-center backdrop-blur-sm"}>
         <h2 className="text-3xl font-bold">
           {t("Title")}
         </h2>

@@ -11,12 +11,12 @@ const NotFound: AsyncComponent<NotFoundProps> = async ({ reason = "notFound" }) 
   const t = await getTranslations("NotFound");
 
   return (
-    <div className={"absolute inset-0 flex flex-col items-center justify-center"}>
-      <h2 className="text-3xl font-bold">
+    <div className={"absolute inset-0 flex flex-col items-center justify-center backdrop-blur-sm"}>
+      <h2 className="text-lg sm:text-xl md:text-3xl font-bold">
         {reason == "notFound" ? t("Title") : t("Specials.Ghostbusters.Title")}
       </h2>
 
-      <p className="mb-4">
+      <p className="mb-4 text-center">
         {reason == "userNotFound"
           ? <>
               {t("Specials.Ghostbusters.Description.0")}&nbsp;
