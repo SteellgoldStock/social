@@ -9,7 +9,7 @@ import { headers } from "next/headers";
 import { auth } from "@/lib/auth/auth";
 import { FollowingsDialog } from "./_components/followings.dialog";
 import { FollowersDialog } from "./_components/followers.dialog";
-import { FollowButton } from "./_components/follow-button";
+import { FollowButton } from "../../../components/follow-button";
 
 type PageProps = {
   params: Promise<{ username: string }>

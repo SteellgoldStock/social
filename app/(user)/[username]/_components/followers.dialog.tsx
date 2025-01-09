@@ -9,7 +9,7 @@ import { User } from "@prisma/client";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
 import { PropsWithChildren } from "react";
-import { FollowButton } from "./follow-button";
+import { FollowButton } from "../../../../components/follow-button";
 import Link from "next/link";
 
 type FollowersDialogProps = PropsWithChildren & {
