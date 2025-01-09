@@ -5,6 +5,9 @@ import { prisma } from "@/lib/db/prisma";
 import { cn } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 import NotFound from "@/app/not-found";
+import { headers } from "next/headers";
+import { auth } from "@/lib/auth/auth";
+import { Button } from "@/components/ui/button";
 
 type PageProps = {
   params: Promise<{ username: string }>
@@ -22,6 +25,8 @@ const ProfilePage: AsyncComponent<PageProps> = async ({ params }) => {
       socials: true
     }
   });
+
+  const session = await auth.api.getSession({ headers: await headers() })
 
   if (!user) return <NotFound reason="userNotFound" />;
 
@@ -112,16 +117,20 @@ const ProfilePage: AsyncComponent<PageProps> = async ({ params }) => {
 
           <div className="flex flex-row items-center gap-1">
             <p className="text-gray-500">@{user.username}</p>
-            {/* {isFollowToo && (
-              <span className="select-none text-neutral-500 bg-neutral-200 dark:bg-neutral-800 rounded-full px-2 py-0.5 text-xs">
-                {isFollowToo && isFollowing ? "Mutual Follow" : "Follows you"}
-              </span>
-            )} */}
+            {session && (
+              <>
+                {user.following.map((user) => user.id).includes(session.user.id) && (
+                  <span className="select-none text-neutral-500 bg-neutral-200 dark:bg-neutral-800 rounded-full px-2 py-0.5 text-xs">
+                    {t("FollowingYou")}
+                  </span>
+                )}
+              </>
+            )}
           </div>
 
           <p className="text-gray-400 mt-1">{user.bio}</p>
 
-          <div className="flex flex-row gap-4 mt-4 py-0.5 text-neutral-500">
+          <div className="flex flex-row gap-4 mt-4 py-0.5 text-neutral-500 text-sm md:text-base">
             <span className={cn("hover:underline cursor-pointer")}>
               <span className="text-neutral-400">{user.following.length}</span> {t("Following")}
             </span>
