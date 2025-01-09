@@ -9,6 +9,7 @@ import { headers } from "next/headers";
 import { auth } from "@/lib/auth/auth";
 import { FollowingsDialog } from "./_components/followings.dialog";
 import { FollowersDialog } from "./_components/followers.dialog";
+import { FollowButton } from "./_components/follow-button";
 
 type PageProps = {
   params: Promise<{ username: string }>
@@ -80,32 +81,26 @@ const ProfilePage: AsyncComponent<PageProps> = async ({ params }) => {
                 )}
               </div>
 
-              {/* <div className="absolute right-5 -mt-10">
+              <div className="absolute right-2 bottom-2.5 sm:bottom-10">
                 <div className="flex flex-row gap-1">
-                  <Button variant="outline" size="iconSm">
+                  {/* <Button variant="outline" size="iconSm">
                     <Flag className="h-4 w-4" />
                   </Button>
 
                   <Button variant="outline" size="iconSm" disabled={!isFollowing}>
                     <Mail className="h-4 w-4" />
-                  </Button>
+                  </Button> */}
 
-                  <Button
-                    variant={isFollowing ? "outline" : "default"}
-                    className={
-                      isFollowing
-                        ? "border-neutral-200 bg-transparent dark:bg-neutral-50 hover:border-red-200 hover:bg-red-50 text-neutral-800 hover:text-red-600"
-                        : "bg-neutral-900 dark:bg-slate-50 text-white dark:text-black hover:bg-neutral-800 dark:hover:bg-neutral-200"
+                  <FollowButton
+                    isFollowing={
+                      session
+                        ? user.followers.map((user) => user.id).includes(session.user.id)
+                        : false
                     }
-                    size={"sm"}
-                    onMouseEnter={() => setIsHovering(true)}
-                    onMouseLeave={() => setIsHovering(false)}
-                    onClick={() => setIsFollowing(!isFollowing)}
-                  >
-                    {isFollowing ? (isHovering ? "Unfollow" : "Following") : "Follow"}
-                  </Button>
+                    username={user.username ?? ""}
+                  />
                 </div>
-              </div> */}
+              </div>
             </div>
           </div>
         </CardHeader>
