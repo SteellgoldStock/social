@@ -32,8 +32,9 @@
     "Placeholder": "john.doe",
   
     "Submit": "Apply",
+    "Submitted": "Applying...",
     "Submitting": "Working on it!",
-    "Defined": "Your username is {username}.",
+    "Defined": "Your username is now {username}",
     "Failed": "Failed to set username.",
   
     "Valid": "This username looks good!",

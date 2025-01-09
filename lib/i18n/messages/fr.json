@@ -32,8 +32,9 @@
     "Placeholder": "jean.dupont",
 
     "Submit": "Appliquer",
+    "Submitted": "Application...",
     "Submitting": "J'y travaille !",
-    "Defined": "Votre nom d'utilisateur est {username}.",
+    "Defined": "Votre nom d'utilisateur est maintenant {username}",
     "Failed": "Échec de la définition du nom d'utilisateur.",
 
     "Valid": "Ce nom d'utilisateur est pas mal !",

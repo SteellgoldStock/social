@@ -6,10 +6,11 @@ import { client, useSession } from "@/lib/auth/client";
 import { Button } from "./ui/button";
 import { useTranslations } from "next-intl";
 import { Input } from "./ui/input";
-import { AlertCircle, AtSign, CheckCircle, Loader2, Sparkles } from "lucide-react";
+import { AlertCircle, AtSign, CheckCircle, Loader2 } from "lucide-react";
 import { UsernameCheckResponseSchema } from "@/lib/schemas/UsernameValidResponse";
 import { useDebouncedCallback } from "use-debounce";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 const useUsernameValidation = (initialUsername: string = "") => {
   const [username, setUsername] = useState(initialUsername);
@@ -74,6 +75,10 @@ export const ChooseUsername = (): ReactElement => {
   const { data } = useSession();
   const t = useTranslations("ChooseUsername");
 
+  const [updating, setUpdating] = useState(false);
+
+  const router = useRouter();
+
   const {
     username,
     setUsername,
@@ -116,22 +121,35 @@ export const ChooseUsername = (): ReactElement => {
       <CardFooter className="flex justify-end w-full space-x-2">
         <Button
           size="sm"
-          disabled={!validUsername || validatingUsername || !username}
+          disabled={!validUsername || validatingUsername || !username || updating}
           onClick={async () => {
             client.updateUser({ username }, {
               onError: () => {
-                toast.error(t("Failed"));
+                toast.error(t("Failed"), {
+                  id: "choose-username",
+                });
+                
+                setUpdating(false);
               },
               onSuccess: () => {
-                toast.success(t("Defined", { username }));
+                toast.success(t("Defined", { username }), {
+                  id: "choose-username",
+                });
+                router.push(`/${username}`);
+
+                setUpdating(false);
               },
-              onLoading: () => {
-                toast.loading(t("Submitting"));
+              onRequest: () => {
+                setUpdating(true);
+                toast.loading(t("Submitting"), {
+                  id: "choose-username",
+                });
               }
             })
           }}
         >
-          {t("Submit")}
+          {updating && <Loader2 size={16} className="animate-spin" />}
+          {updating ? t("Submitted") : t("Submit")}
         </Button>
       </CardFooter>
     </Card>

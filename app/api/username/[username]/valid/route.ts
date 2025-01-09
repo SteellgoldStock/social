@@ -7,9 +7,7 @@ type Params = {
   }>;
 };
 
-const USERNAME_REGEX = /^[a-zA-Z0-9][a-zA-Z0-9._-]*[a-zA-Z0-9]$/;
-const INVALID_START_REGEX = /^[._-]/;
-const INVALID_END_REGEX = /[._-]$/;
+const USERNAME_REGEX = /^(?!^[.-]$)(?!.*[._-]{2})[a-zA-Z0-9][a-zA-Z0-9_.]*$/;
 
 export const GET = async (req: NextRequest, { params }: Params): Promise<any> => {
   const { username } = await params;
@@ -19,18 +17,14 @@ export const GET = async (req: NextRequest, { params }: Params): Promise<any> =>
     return NextResponse.json({ status: 400, body: { error: "Missing" } });
   }
 
-  if (username.length < 3 || username.length > 16) {
+  if (username.length > 16) {
     return NextResponse.json({
       status: 400,
-      body: { error: username.length < 3 ? "TooShort" : "TooLong" },
+      body: { error: "TooLong" },
     });
   }
 
-  if (INVALID_START_REGEX.test(username)) {
-    return NextResponse.json({ status: 400, body: { error: "InvalidStarting" } });
-  } else if (INVALID_END_REGEX.test(username)) {
-    return NextResponse.json({ status: 400, body: { error: "InvalidEnding" } });
-  } else if (!USERNAME_REGEX.test(username)) {
+  if (!USERNAME_REGEX.test(username)) {
     return NextResponse.json({ status: 400, body: { error: "InvalidCharacters" } });
   }
 
