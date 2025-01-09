@@ -71,36 +71,25 @@
   "FollowButton": {
     "Follow": "Follow",
     "UnfollowOnHover": "Unfollow",
-    "Following": "Following"
+    "Following": "Followed"
   },
   "ProfilePage": {
     "Followers": "Followers",
     "Following": "Following",
     "FollowingYou": "Follows you",
     
-    "FDialog": {
-      "Followers": "Followers",
-      "Following": "Following",
-      
-      "FollowersDescription": {
-        "Self": "List of people who follow you",
-        "Other": "List of people who follow {username}"
+    "Dialog": {
+      "Following": {
+        "Title": "Following",
+        "SelfDescription": "You can see these people's posts in your news feed.",
+        "OthersDescription": "These are all the people {username} follows."
       },
-      
-      "FollowingDescription": {
-        "Self": "List of people you follow",
-        "Other": "List of people {username} follows"
-      },
-      
-      "Unfollow": "Unfollow",
-      "Followed": "Followed",
-      "Follow": "Follow",
-      
-      "PageInfo": "Page {current} of {total}",
-      "Previous": "Previous",
-      "Next": "Next"
+      "Followers": {
+        "Title": "Followers",
+        "SelfDescription": "These people can see your posts in their news feed.",
+        "OthersDescription": "These are all the people who follow {username}."
+      }
     },
-    
     "Locked": {
       "PERMANENT": "Permanent",
       "TEMPORARY": "Temporary",

@@ -78,29 +78,18 @@
     "Following": "Abonnements",
     "FollowingYou": "Vous suit",
 
-    "FDialog": {
-      "Followers": "Abonné(e)s",
-      "Following": "Abonnements",
-
-      "FollowersDescription": {
-        "Self": "Liste des personnes qui vous suivent",
-        "Other": "Liste des personnes qui suivent {username}"
+    "Dialog": {
+      "Following": {
+        "Title": "Abonnements",
+        "SelfDescription": "Vous pouvez voir les publications de ces personnes dans votre flux d'actualités.",
+        "OthersDescription": "Ce sont toute les personnes que {username} suit."
       },
-
-      "FollowingDescription": {
-        "Self": "Liste des personnes que vous suivez",
-        "Other": "Liste des personnes que {username} suit"
-      },
-
-      "Unfollow": "Ne plus suivre",
-      "Followed": "Abonné(e)",
-      "Follow": "Suivre",
-
-      "PageInfo": "Page {current} de {total}",
-      "Previous": "Précédent",
-      "Next": "Suivant"
+      "Followers": {
+        "Title": "Abonné(e)s",
+        "SelfDescription": "Ces personnes peuvent voir vos publications dans leur flux d'actualités.",
+        "OthersDescription": "Ce sont toute les personnes qui suivent {username}."
+      }
     },
-
     "Locked": {
       "PERMANENT": "Permanent",
       "TEMPORARY": "Temporaire",
