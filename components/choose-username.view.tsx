@@ -136,8 +136,6 @@ export const ChooseUsername = (): ReactElement => {
                   id: "choose-username",
                 });
                 router.push(`/${username}`);
-
-                setUpdating(false);
               },
               onRequest: () => {
                 setUpdating(true);
