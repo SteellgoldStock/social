@@ -18,7 +18,8 @@ export const auth = betterAuth({
       banner: {
         type: "string",
         required: false,
-        default: ""
+        default: "",
+        input: true
       },
       bio: {
         type: "string",
