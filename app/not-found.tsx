@@ -1,6 +1,5 @@
 import { buttonVariants } from "@/components/ui/button";
 import { AsyncComponent } from "@/lib/types";
-import { cn } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
 
