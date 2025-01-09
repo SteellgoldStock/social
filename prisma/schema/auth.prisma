@@ -1,3 +1,40 @@
+enum VerifiedStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+enum VerifiedType {
+  PERSONALITY
+  ORGANIZATION
+  STAFF
+}
+
+enum LockedType {
+  TEMPORARY
+  PERMANENT
+}
+
+enum LockedReason {
+ HARMFUL_CONTENT      // Posting harmful/dangerous content 
+ HARASSMENT          // Harassing other users
+ HATE_SPEECH        // Hate speech and discriminatory content
+ IMPERSONATION      // Identity theft/impersonation
+ SPAM               // Repetitive unwanted content/spam
+ INAPPROPRIATE_CONTENT // Inappropriate content (pornography, excessive violence)
+ MULTIPLE_VIOLATIONS  // Repeated violations of terms of service
+ SECURITY_CONCERNS    // Security issues (compromised account, suspicious activity)
+ BANNED_IP           // IP address banned
+ HARMFUL_AUTOMATION  // Abusive use of automation/bots
+ FAKE_ENGAGEMENT     // Artificial engagement (fake likes/followers)
+ ILLEGAL_CONTENT     // Illegal content
+ UNDERAGE           // Underage user (if network is adults-only)
+ TRADEMARK_VIOLATION // Trademark infringement
+ COPYRIGHT_VIOLATION // Copyright infringement
+ PLATFORM_MANIPULATION // Platform manipulation 
+ INVESTIGATION_PENDING // Under investigation
+}
+
 model User {
   id            String    @id @default(cuid())
   email         String    @unique
@@ -12,6 +49,15 @@ model User {
 
   bio    String?
   banner String?
+
+  isVerified Boolean @default(false)
+  verifiedAt DateTime?
+  verifiedStatus VerifiedStatus?
+  verifiedType VerifiedType?
+
+  locked Boolean @default(false)
+  lockedAt DateTime?
+  lockedUntil DateTime?
 
   followers User[] @relation("FollowRelation")
   following User[] @relation("FollowRelation")
