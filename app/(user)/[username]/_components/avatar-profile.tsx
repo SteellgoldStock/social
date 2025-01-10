@@ -18,6 +18,7 @@ import { toast } from "sonner";
 type AvatarProfileProps = {
   user: User;
   isOwner: boolean;
+  editMode?: boolean;
 }
 
 const BlankAvatar = (): ReactElement => (
@@ -34,7 +35,7 @@ const BlankAvatar = (): ReactElement => (
   </div>
 )
 
-export const AvatarProfile: Component<AvatarProfileProps> = ({ user, isOwner }) => {
+export const AvatarProfile: Component<AvatarProfileProps> = ({ user, isOwner, editMode }) => {
   const [isHover, setIsHover] = useState(false);
   const [newURL, setNewURL] = useState<string | null>(null);
 
@@ -44,7 +45,7 @@ export const AvatarProfile: Component<AvatarProfileProps> = ({ user, isOwner }) 
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger disabled={!isOwner} className="w-full">
+      <AlertDialogTrigger disabled={!isOwner || !editMode} className="">
         <div className="relative h-16 w-16 sm:h-20 sm:w-20 md:h-32 md:w-32" onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
           {newURL ?? user.image ? (
             <img
@@ -59,7 +60,7 @@ export const AvatarProfile: Component<AvatarProfileProps> = ({ user, isOwner }) 
             />
           ) : <BlankAvatar />}
 
-          {isOwner && isHover && (
+          {isOwner && isHover && editMode && (
             <div className="absolute inset-0 bg-black bg-opacity-60 rounded-full flex items-center justify-center cursor-pointer">
               <div className="bg-black flex items-center justify-center p-3 rounded-full bg-opacity-50">
                 <PencilRuler size={24} color="white" />

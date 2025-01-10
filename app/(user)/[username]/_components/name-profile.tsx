@@ -15,42 +15,29 @@ import { client } from "@/lib/auth/client";
 import { Component } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { User } from "@prisma/client";
-import { Loader2, PencilRuler, TextQuote } from "lucide-react";
+import { Loader2, PencilRuler, UserCircle } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { ReactElement, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { XTextarea } from "@/components/ui/x-textarea";
-import { MAX_BIO_LENGTH, MIN_BIO_LENGTH } from "@/lib/consts";
+import { Input } from "@/components/ui/input";
+import { MAX_DISPLAY_NAME_LENGTH, MIN_DISPLAY_NAME_LENGTH } from "@/lib/consts";
 
-type TextProfileProps = {
+type NameProfileProps = {
   user: User;
   isOwner: boolean;
   editMode?: boolean;
 }
 
-const BlankText = (): ReactElement => (
-  <div
-    className={cn(
-      "bg-[#F9FAFB] dark:bg-[#1A1A1A]",
-      "border-4 border-[#e4e8ec] dark:border-[#252323]",
-      "rounded-lg shadow-lg p-4",
-      "flex items-center justify-center"
-    )}
-  >
-    <TextQuote className="h-16 w-16" strokeWidth={2} />
-  </div>
-)
-
-export const BioProfile: Component<TextProfileProps> = ({ user, isOwner, editMode }) => {
+export const NameProfile: Component<NameProfileProps> = ({ user, isOwner, editMode }) => {
   const [isHover, setIsHover] = useState(false);
-  const [newText, setNewText] = useState<string | null>(null);
-  const [tempText, setTempText] = useState(user.bio || "");
+  const [newName, setNewName] = useState<string | null>(null);
+  const [tempName, setTempName] = useState(user.name || "");
 
   const [isOpen, setIsOpen] = useState(false);
   const [updating, setUpdating] = useState(false);
 
-  const t = useTranslations("TextProfileDialog");
+  const t = useTranslations("NameProfileDialog");
   const errors = useTranslations("Errors");
 
   const handleUpdate = async () => {
@@ -60,20 +47,20 @@ export const BioProfile: Component<TextProfileProps> = ({ user, isOwner, editMod
     }
 
     if (
-      tempText.length < MIN_BIO_LENGTH
-      || tempText.length > MAX_BIO_LENGTH
+      tempName.length < MIN_DISPLAY_NAME_LENGTH
+      || tempName.length > MAX_DISPLAY_NAME_LENGTH
     ) {
       toast.error(
-        errors("ErrorLength", {
+        errors("UpdateErrorLength", {
           field: t("Field"),
-          min: MIN_BIO_LENGTH,
-          max: MAX_BIO_LENGTH
+          min: MIN_DISPLAY_NAME_LENGTH,
+          max: MAX_DISPLAY_NAME_LENGTH
         })
       );
       return;
     }
 
-    if (tempText === user.bio) {
+    if (tempName === user.name) {
       toast.error(errors("ErrorSame"));
       return;
     }
@@ -81,11 +68,10 @@ export const BioProfile: Component<TextProfileProps> = ({ user, isOwner, editMod
     try {
       setUpdating(true);
       await client.updateUser({
-        // @ts-ignore
-        bio: tempText
+        name: tempName
       });
 
-      setNewText(tempText);
+      setNewName(tempName);
       toast.success(t("UpdateSuccess"));
       setIsOpen(false);
     } catch (error) {
@@ -97,31 +83,37 @@ export const BioProfile: Component<TextProfileProps> = ({ user, isOwner, editMod
   };
 
   if (!isOwner || !editMode) return (
-    <p className="text-gray-400 mt-0.5 break-words">{user.bio}</p>
+    <h1 className="text-2xl font-bold flex flex-row items-center gap-2 -mt-3">
+      {newName ?? user.name}
+      {user.isVerified && <span className="text-blue-500">✔</span>}
+    </h1>
   );
 
   return (
     <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
       <AlertDialogTrigger disabled={!isOwner} className="flex shrink-0">
         <div
-          className="relative mt-0.5"
+          className="relative -mt-3"
           onMouseEnter={() => setIsHover(true)} 
           onMouseLeave={() => setIsHover(false)}
         >
           <div>
-            {newText ?? user.bio ? (
-              <p className={cn(
-                "text-left text-gray-400 break-all", {
-                  "py-1.5 px-1.5": isHover,
+            {(newName ?? user.name) && (
+              <h1 className={cn(
+                "text-2xl font-bold flex flex-row items-center gap-2", {
+                  "px-1": isHover,
                 }
-              )}>{newText ?? user.bio}</p>
-            ) : <BlankText />}
+              )}>
+                {newName ?? user.name}
+                {user.isVerified && <span className="text-blue-500">✔</span>}
+              </h1>
+            )}
           </div>
 
           {isOwner && isHover && (
             <div className="absolute inset-0 bg-black bg-opacity-60 rounded-lg flex items-center justify-center cursor-pointer">
               <div className="flex items-center justify-center">
-                <PencilRuler size={24} color="white" />
+                <PencilRuler size={21} color="white" />
               </div>
             </div>
           )}
@@ -135,10 +127,12 @@ export const BioProfile: Component<TextProfileProps> = ({ user, isOwner, editMod
         </AlertDialogHeader>
         
         <div className="flex flex-col gap-4">
-          <XTextarea
-            onChange={(e: string) => setTempText(e)}
+          <Input
+            onChange={(e) => setTempName(e.target.value)}
             placeholder={t("Placeholder")}
-            defaultValue={tempText}
+            defaultValue={tempName}
+            minLength={3}
+            maxLength={16}
           />
         </div>
 
@@ -147,12 +141,15 @@ export const BioProfile: Component<TextProfileProps> = ({ user, isOwner, editMod
             {t("Close")}
           </AlertDialogCancel>
 
-          <Button onClick={handleUpdate} disabled={
-            updating
-            || tempText === user.bio
-            || tempText.length < MIN_BIO_LENGTH
-            || tempText.length > MAX_BIO_LENGTH
-          }>
+          <Button
+            onClick={handleUpdate}
+            disabled={
+              updating ||
+              tempName === user.name ||
+              tempName.length < MIN_DISPLAY_NAME_LENGTH ||
+              tempName.length > MAX_DISPLAY_NAME_LENGTH
+            }
+          >
             {updating && <Loader2 className="animate-spin mr-2" />}
             {updating ? t("Updating") : t("Update")}
           </Button>

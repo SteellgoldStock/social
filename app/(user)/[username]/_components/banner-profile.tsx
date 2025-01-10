@@ -18,9 +18,10 @@ import { toast } from "sonner";
 type BannerProfileProps = {
   user: User;
   isOwner: boolean;
+  editMode?: boolean;
 }
 
-export const BannerProfile: Component<BannerProfileProps> = ({ user, isOwner }) => {
+export const BannerProfile: Component<BannerProfileProps> = ({ user, isOwner, editMode }) => {
   const [isHover, setIsHover] = useState(false);
   const [newURL, setNewURL] = useState<string | null>(null);
 
@@ -30,7 +31,7 @@ export const BannerProfile: Component<BannerProfileProps> = ({ user, isOwner }) 
 
   return (
     <AlertDialog>
-      <AlertDialogTrigger disabled={!isOwner} className="w-full">
+      <AlertDialogTrigger disabled={!isOwner || !editMode} className="w-full">
         <div
           className={cn("relative w-full rounded-t-lg overflow-hidden", {
             "h-32 sm:h-60": user.banner,
@@ -49,7 +50,7 @@ export const BannerProfile: Component<BannerProfileProps> = ({ user, isOwner }) 
             <div className="w-full h-32 bg-[#e4e6e7] dark:bg-[#252525] rounded-lg" />
           )}
 
-          {isHover && isOwner && (
+          {isHover && isOwner && editMode && (
             <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center cursor-pointer">
               <div className="bg-black flex items-center justify-center p-3 rounded-full bg-opacity-50">
                 <PencilRuler size={24} color="white" />
