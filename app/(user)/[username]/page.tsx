@@ -1,7 +1,6 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { User } from "lucide-react";
 import { AsyncComponent } from "@/lib/types";
-import { prisma } from "@/lib/db/prisma";
+import { prisma } from "@/lib/auth/db/prisma";
 import { cn } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 import NotFound from "@/app/not-found";
@@ -10,6 +9,7 @@ import { auth } from "@/lib/auth/auth";
 import { FollowButton } from "../../../components/follow-button";
 import { UsersDialog } from "@/components/users.dialog";
 import { BannerProfile } from "./_components/banner-profile";
+import { AvatarProfile } from "./_components/avatar-profile";
 
 type PageProps = {
   params: Promise<{ username: string }>
@@ -42,31 +42,7 @@ const ProfilePage: AsyncComponent<PageProps> = async ({ params }) => {
             <BannerProfile user={user} isOwner={session?.user.id === user.id} />
 
             <div className="shrink-0 flex items-center justify-start space-x-4 p-4">
-              <div className="relative flex-shrink-0">
-                {user.image ? (
-                  <img
-                    src={user.image}
-                    alt="Profile"
-                    className={cn(
-                      "-mt-12 sm:-mt-20 h-16 w-16 sm:h-20 sm:w-20 md:h-32 md:w-32",
-                      "border-4 border-[#F9FAFB] dark:border-[#1A1A1A]",
-                      "rounded-full shadow-lg"
-                    )}
-                  />
-                ) : (
-                  <div
-                    className={cn(
-                      "-mt-12 sm:-mt-20 h-16 w-16 sm:h-20 sm:w-20 md:h-32 md:w-32",
-                      "bg-[#F9FAFB] dark:bg-[#1A1A1A]",
-                      "border-4 border-[#e4e8ec] dark:border-[#252323]",
-                      "rounded-full shadow-lg",
-                      "flex items-center justify-center"
-                    )}
-                  >
-                    <User className="h-16 w-16" strokeWidth={2} />
-                  </div>
-                )}
-              </div>
+              <AvatarProfile user={user} isOwner={session?.user.id === user.id} />
 
               <div className="absolute right-2 bottom-2.5 sm:bottom-10">
                 <div className="flex flex-row gap-1">
