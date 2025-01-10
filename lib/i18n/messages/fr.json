@@ -106,7 +106,7 @@
   "ImageUploadZone": {
     "MaxSize": "La taille du fichier ne doit pas dépasser {size} Mo.",
     "Uploading": "Téléchargement en cours...",
-    "Placeholder": "Glissez et déposez une image ici, ou cliquez pour sélectionner",
+    "Placeholder": "Déposer ou cliquer pour télécharger",
     "Only": "uniquement",
     "InvalidFormat": "Seuls les fichiers de type {formats} sont autorisés."
   },
@@ -116,6 +116,13 @@
     "Uploading": "Chargement...",
     "Close": "Fermer",
     "UploadSuccess": "La bannière de profil a été mise à jour avec succès."
+  },
+  "AvatarProfileDialog": {
+    "Title": "Modifier l'avatar de profil",
+    "Description": "Téléchargez une nouvelle image pour remplacer l'avatar de profil actuel, soyez créatif !",
+    "Uploading": "Chargement...",
+    "Close": "Fermer",
+    "UploadSuccess": "L'avatar de profil a été mis à jour avec succès."
   }
 }
 

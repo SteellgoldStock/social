@@ -106,7 +106,7 @@
   "ImageUploadZone": {
     "MaxSize": "File size must not exceed {size} MB.",
     "Uploading": "Uploading...",
-    "Placeholder": "Drag and drop an image here, or click to select",
+    "Placeholder": "Drag and drop or click to upload",
     "Only": "only",
     "InvalidFormat": "Only {formats} files are allowed."
   },
@@ -116,5 +116,12 @@
     "Uploading": "Loading...",
     "Close": "Close",
     "UploadSuccess": "Profile banner has been successfully updated."
+  },
+  "AvatarProfileDialog": {
+    "Title": "Edit profile picture",
+    "Description": "Upload a new image to replace the current profile picture, be creative!",
+    "Uploading": "Loading...",
+    "Close": "Close",
+    "UploadSuccess": "Profile picture has been successfully updated."
   }
 }
