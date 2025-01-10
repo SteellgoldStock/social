@@ -6,10 +6,11 @@ import React, { useState, useRef, useEffect } from "react"
 
 type TextareaProps = {
   onChange?: (value: string) => void
-  placeholder?: string
+  placeholder?: string;
+  defaultValue?: string;
 }
 
-export const XTextarea: Component<TextareaProps> = ({ onChange, placeholder }) => {
+export const XTextarea: Component<TextareaProps> = ({ onChange, placeholder, defaultValue }) => {
   const [content, setContent] = useState("")
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -18,7 +19,11 @@ export const XTextarea: Component<TextareaProps> = ({ onChange, placeholder }) =
       textareaRef.current.style.height = "auto"
       textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`
     }
-  }, [content])
+  }, [content]);
+
+  useEffect(() => {
+    if (defaultValue) setContent(defaultValue)
+  }, [defaultValue])
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (MAX_POST_LENGTH && e.target.value.length > MAX_POST_LENGTH) return

@@ -123,5 +123,15 @@
     "Uploading": "Loading...",
     "Close": "Close",
     "UploadSuccess": "Profile picture has been successfully updated."
+  },
+  "TextProfileDialog": {
+    "Title": "Edit your biography",
+    "Description": "Share a few words about yourself",
+    "Placeholder": "Write your biography here...",
+    "Update": "Update",
+    "Updating": "Updating...",
+    "Close": "Close",
+    "UpdateSuccess": "Biography updated successfully",
+    "UpdateError": "An error occurred while updating"
   }
 }

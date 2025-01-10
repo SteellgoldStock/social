@@ -10,6 +10,7 @@ import { UsersDialog } from "@/components/users.dialog";
 import { BannerProfile } from "./_components/banner-profile";
 import { AvatarProfile } from "./_components/avatar-profile";
 import { prisma } from "@/lib/db/prisma";
+import { BioProfile } from "./_components/bio-profile";
 
 type PageProps = {
   params: Promise<{ username: string }>
@@ -87,7 +88,7 @@ const ProfilePage: AsyncComponent<PageProps> = async ({ params }) => {
             )}
           </div>
 
-          <p className="text-gray-400 mt-1">{user.bio}</p>
+          <BioProfile user={user} isOwner={session?.user.id === user.id} />
 
           <div className="flex flex-row gap-4 mt-4 py-0.5 text-neutral-500 text-sm md:text-base">
             <UsersDialog
