@@ -1,15 +1,12 @@
 "use client";
 
 import { ImageUploadZone } from "@/components/image-upload-zone";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
 import { client } from "@/lib/auth/client";
 import { Component } from "@/lib/types";
 import { cn } from "@/lib/utils";
 import { User } from "@prisma/client";
-import { ImageZoomer } from "image-zoomer-react";
-import { Loader2, Pen, PencilRuler, UserRoundPen } from "lucide-react";
+import { Loader2, PencilRuler } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -67,15 +64,17 @@ export const BannerProfile: Component<BannerProfileProps> = ({ user, isOwner }) 
 
         <ImageUploadZone
           type="banner"
-
+          maxFileSizeMB={2}
+          uploadEndpoint="/api/user/files/banner"
           onFileSelected={() => setUploading(true)}
+
           onUploadComplete={() => {
             setUploading(false);
             toast.success(t("UploadSuccess"));
           }}
+
           onUploadError={(error) => toast.error(error)}
           
-          uploadEndpoint="/api/user/files/banner"
           updateFunction={async(imageUrl: string) => {
             await client.updateUser({
               // @ts-ignore
@@ -84,7 +83,6 @@ export const BannerProfile: Component<BannerProfileProps> = ({ user, isOwner }) 
 
             setNewURL(imageUrl)
           }}
-          maxFileSizeMB={2}
         />
 
         <AlertDialogFooter>
