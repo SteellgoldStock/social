@@ -15,6 +15,7 @@ import { useTranslations } from "next-intl";
 import { Component } from "@/lib/types";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import Twemoji from "react-twemoji";
 
 type PageProps = {
   user: Prisma.UserGetPayload<{
@@ -99,7 +100,9 @@ export const ClientProfilePage: Component<PageProps> = ({ user }) => {
             )}
           </div>
 
-          <BioProfile editMode={editMode} user={user} isOwner={session?.user.id === user.id} />
+          <Twemoji options={{ className: "twemoji" }}>
+            <BioProfile editMode={editMode} user={user} isOwner={session?.user.id === user.id} />
+          </Twemoji>
 
           <div className="flex flex-row gap-4 mt-4 py-0.5 text-neutral-500 text-sm md:text-base">
             <UsersDialog
