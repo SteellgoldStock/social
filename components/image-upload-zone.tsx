@@ -135,7 +135,7 @@ export const ImageUploadZone: Component<ImageUploadProps> = ({
         {
           "border-primary bg-primary/10": isDragging,
           "border-primary/20 hover:border-primary/10": !isDragging,
-          "aspect-square": type === 'avatar',
+          "aspect-square rounded-full": type === 'avatar',
           "aspect-w-16 aspect-h-9": type !== 'avatar'
         }
       )}
@@ -167,7 +167,7 @@ export const ImageUploadZone: Component<ImageUploadProps> = ({
         style={{ bottom: "-1px" }}
       />
 
-      <div className="relative z-10 h-full">
+      <div className="relative z-10 h-full flex items-center justify-center">
         <input
           type="file"
           ref={fileInputRef}
@@ -176,21 +176,23 @@ export const ImageUploadZone: Component<ImageUploadProps> = ({
           accept={allowedTypes.join(',')}
         />
 
-        <Upload className="mx-auto h-8 w-8 text-primary" />
+        <div>
+          <Upload className="mx-auto h-8 w-8 text-primary" />
 
-        <p className="mt-2 text-sm text-primary">
-          {isUploading
-            ? t("Uploading")
-            : t("Placeholder")
-          }
-        </p>
+          <p className="mt-2 text-sm text-primary">
+            {isUploading
+              ? t("Uploading")
+              : t("Placeholder")
+            }
+          </p>
 
-        <p className="mt-1 text-xs text-gray-500">
-          ({allowedTypes.map(type => type.split('/')[1].toUpperCase()).join(', ')} {t("Only")})
-        </p>
-        
-        {error && <div className="mt-4 text-sm text-red-500">{error}</div>}
+          <p className="mt-1 text-xs text-gray-500">
+            ({allowedTypes.map(type => type.split('/')[1].toUpperCase()).join(', ')} {t("Only")})
+          </p>
+        </div>
       </div>
+
+      {error && <div className="mt-4 text-sm text-red-500">{error}</div>}
     </div>
   );
 }
