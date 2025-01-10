@@ -10,6 +10,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { hostname: "lh3.googleusercontent.com" },
       { hostname: "avatars.githubusercontent.com" },
+      { hostname: "xavwlhq6z2da5ji0.public.blob.vercel-storage.com" }
     ]
   }
 };
