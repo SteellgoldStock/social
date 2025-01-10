@@ -1,7 +1,11 @@
 "use client";
 
 import { ImageUploadZone } from "@/components/image-upload-zone";
-import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader,
+  AlertDialogTitle, AlertDialogTrigger
+} from "@/components/ui/alert-dialog";
 import { client } from "@/lib/auth/client";
 import { Component } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -28,12 +32,13 @@ export const AvatarProfile: Component<AvatarProfileProps> = ({ user, isOwner }) 
     <AlertDialog>
       <AlertDialogTrigger disabled={!isOwner} className="w-full">
         <div className="relative h-16 w-16 sm:h-20 sm:w-20 md:h-32 md:w-32" onMouseEnter={() => setIsHover(true)} onMouseLeave={() => setIsHover(false)}>
-          {user.image ? (
+          {newURL ?? user.image ? (
             <img
-              src={newURL ?? user.image}
+              src={(newURL ?? user.image) ?? ""}
               alt="Profile"
               className={cn(
                 "-mt-12 sm:-mt-20 h-16 w-16 sm:h-20 sm:w-20 md:h-32 md:w-32",
+                "bg-[#F9FAFB] dark:bg-[#1A1A1A]",
                 "border-4 border-[#F9FAFB] dark:border-[#1A1A1A]",
                 "rounded-full shadow-lg"
               )}

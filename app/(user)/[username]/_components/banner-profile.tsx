@@ -1,7 +1,11 @@
 "use client";
 
 import { ImageUploadZone } from "@/components/image-upload-zone";
-import { AlertDialog, AlertDialogAction, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/components/ui/alert-dialog";
+import {
+  AlertDialog, AlertDialogAction, AlertDialogContent,
+  AlertDialogDescription, AlertDialogFooter, AlertDialogHeader,
+  AlertDialogTitle, AlertDialogTrigger
+} from "@/components/ui/alert-dialog";
 import { client } from "@/lib/auth/client";
 import { Component } from "@/lib/types";
 import { cn } from "@/lib/utils";
@@ -35,9 +39,9 @@ export const BannerProfile: Component<BannerProfileProps> = ({ user, isOwner }) 
           onMouseEnter={() => setIsHover(true)}
           onMouseLeave={() => setIsHover(false)}
         >
-          {user.banner ? (
+          {newURL ?? user.banner ? (
             <img
-              src={newURL ?? user.banner}
+              src={(newURL ?? user.banner) ?? ""}
               alt={`${user.name}'s banner`}
               className="w-full h-full object-cover block object-center rounded-lg"
             />
