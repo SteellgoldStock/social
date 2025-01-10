@@ -5,7 +5,27 @@ import { NotificationType, Prisma } from "@prisma/client";
 import { z } from "zod";
 
 export async function getNotifications(userId: string): Promise<Prisma.NotificationGetPayload<{
-  include: { author: true; post: true; };
+  include: {
+    author: true;
+    post: {
+      include: {
+        user: {
+          select: {
+            username: true;
+          };
+        };
+      };
+    };
+    triggerPost: {
+      include: {
+        user: {
+          select: {
+            username: true;
+          };
+        };
+      };
+    };
+  };
 }>[]> {
   const id = z.string().parse(userId);
   
@@ -13,7 +33,24 @@ export async function getNotifications(userId: string): Promise<Prisma.Notificat
     where: { userId: id },
     include: {
       author: true,
-      post: true
+      post: {
+        include: {
+          user: {
+            select: {
+              username: true
+            }
+          }
+        }
+      },
+      triggerPost: {
+        include: {
+          user: {
+            select: {
+              username: true
+            }
+          }
+        }
+      }
     },
     orderBy: { createdAt: "desc" }
   });
@@ -25,7 +62,7 @@ export async function getUnreadNotificationsCount(userId: string): Promise<numbe
   return prisma.notification.count({
     where: { 
       userId: id,
-      read: false 
+      read: false
     }
   });
 }
