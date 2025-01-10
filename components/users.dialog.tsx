@@ -10,6 +10,7 @@ import Image from "next/image";
 import { PropsWithChildren } from "react";
 import { FollowButton } from "@/components/follow-button";
 import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 type UsersDialogProps = PropsWithChildren & {
   users: User[];
@@ -54,13 +55,20 @@ export const UsersDialog: Component<UsersDialogProps> = ({
             {currentUsers.map((user) => (
               <div key={user.username} className="flex items-center justify-between space-x-2 py-2">
                 <div className="flex items-center space-x-2">
-                  <Image
-                    src={user.image ?? ""}
-                    alt={user.name ?? ""}
-                    className="rounded-full"
-                    width={40}
-                    height={40}
-                  />
+                  {user.image ? (
+                    <Image
+                      src={user.image ?? ""}
+                      alt={user.name ?? ""}
+                      className="rounded-full"
+                      width={40}
+                      height={40}
+                    />
+                  ) : (
+                    <Avatar>
+                      <AvatarFallback>{user.name?.[0]}</AvatarFallback>
+                      <AvatarImage src={user.image ?? ""} />
+                    </Avatar>
+                  )}
                   <div className="flex flex-col -space-y-1">
                     <p className="line-clamp-1">{user.name}</p>
                     <Link
