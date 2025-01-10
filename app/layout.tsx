@@ -10,6 +10,7 @@ import { Toaster } from "sonner";
 import { cn } from "@/lib/utils";
 import { Sidebar } from "@/components/sidebar";
 import { GoogleOneTap } from "@/components/auth/one-tap";
+import { TanStackQuery } from "@/components/providers/tanstack-query";
 
 const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
@@ -28,30 +29,32 @@ const Layout: AsyncComponent<PropsWithChildren> = async({ children }) => {
   return (
     <html lang={locale} style={{ scrollBehavior: "smooth" }} suppressHydrationWarning>
       <body className={cn(poppins.className, "antialiased dark:bg-[#171616] dark:text-white")}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <NextIntlClientProvider messages={messages}>
-            <div className="flex min-h-screen">
-              <Sidebar />
-              <div className="flex-1 border-x border-neutral-200 dark:border-neutral-800">
-                <div className="sticky hidden md:block top-0 z-50 h-3" />
-                <main className="max-w-full mx-auto py-1 px-1 sm:py-4 sm:px-4">{children}</main>
+        <TanStackQuery>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <NextIntlClientProvider messages={messages}>
+              <div className="flex min-h-screen">
+                <Sidebar />
+                <div className="flex-1 border-x border-neutral-200 dark:border-neutral-800">
+                  <div className="sticky hidden md:block top-0 z-50 h-3" />
+                  <main className="max-w-full mx-auto py-1 px-1 sm:py-4 sm:px-4">{children}</main>
+                </div>
               </div>
-            </div>
 
-            <Toaster richColors />
-            <GoogleOneTap />
+              <Toaster richColors />
+              <GoogleOneTap />
 
-            {/* <div className="absolute right-4 bottom-4 flex flex-row items-center space-x-1">
-              <ThemeSwitcher />
-              <LanguageSelector />
-            </div> */}
-          </NextIntlClientProvider>          
-        </ThemeProvider>
+              {/* <div className="absolute right-4 bottom-4 flex flex-row items-center space-x-1">
+                <ThemeSwitcher />
+                <LanguageSelector />
+              </div> */}
+            </NextIntlClientProvider>          
+          </ThemeProvider>
+        </TanStackQuery>
       </body>
     </html>
   );
