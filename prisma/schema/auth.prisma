@@ -62,7 +62,7 @@ model User {
   followers            User[]          @relation("FollowRelation")
   following            User[]          @relation("FollowRelation")
   // 
-  likes                Like[]
+  likes                Post[]          @relation("LikeRelation")
   posts                Post[]
   // groups               Group[]
   socials              Social[]
@@ -114,6 +114,7 @@ model Verification {
   expiresAt  DateTime
   createdAt  DateTime?
   updatedAt  DateTime?
+
   @@map("verification")
 }
 
@@ -140,18 +141,21 @@ enum NotificationType {
 }
 
 model Notification {
-  id        String           @id @default(cuid())
-  type      NotificationType
-  read      Boolean          @default(false)
+  id            String           @id @default(cuid())
+  type          NotificationType
+  read          Boolean          @default(false)
   // 
-  userId    String
-  user      User             @relation("UserNotified", fields: [userId], references: [id])
+  userId        String
+  user          User             @relation("UserNotified", fields: [userId], references: [id])
   // 
-  authorId  String
-  author    User             @relation("NotificationAuthor", fields: [authorId], references: [id])
+  authorId      String
+  author        User             @relation("NotificationAuthor", fields: [authorId], references: [id])
   // 
-  postId    String?
-  post      Post?             @relation(fields: [postId], references: [id])
-  // 
-  createdAt DateTime         @default(now())
+  postId        String?
+  post          Post?            @relation(fields: [postId], references: [id])
+  //
+  triggerPostId String?
+  triggerPost   Post?            @relation("TriggerPost", fields: [triggerPostId], references: [id]) // Post that triggered the notification
+  //
+  createdAt     DateTime         @default(now())
 }

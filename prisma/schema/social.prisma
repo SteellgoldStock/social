@@ -20,7 +20,7 @@ model Post {
   //
   content      String
   //
-  likes        Like[]
+  likes        User[]         @relation("LikeRelation")
   comments     Post[]         @relation("CommentRelation")
   //
   parent       Post?          @relation("CommentRelation", fields: [parentId], references: [id])
@@ -28,24 +28,10 @@ model Post {
   //
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @default(now()) @updatedAt
-  Notification Notification[]
+  notification Notification[]
+  //
+  triggerPost  Notification[] @relation("TriggerPost")
 
   //
   @@map("post")
-}
-
-model Like {
-  id        String   @id @default(cuid())
-  //
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId    String
-  //
-  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
-  postId    String
-  //
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-
-  //
-  @@map("like")
 }
