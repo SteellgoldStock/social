@@ -1,6 +1,5 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { AsyncComponent } from "@/lib/types";
-import { prisma } from "@/lib/auth/db/prisma";
 import { cn } from "@/lib/utils";
 import { getTranslations } from "next-intl/server";
 import NotFound from "@/app/not-found";
@@ -10,6 +9,7 @@ import { FollowButton } from "../../../components/follow-button";
 import { UsersDialog } from "@/components/users.dialog";
 import { BannerProfile } from "./_components/banner-profile";
 import { AvatarProfile } from "./_components/avatar-profile";
+import { prisma } from "@/lib/db/prisma";
 
 type PageProps = {
   params: Promise<{ username: string }>
