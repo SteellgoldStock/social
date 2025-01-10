@@ -15,9 +15,7 @@ export const POST = async (request: Request): Promise<NextResponse> => {
   if (!filename) return NextResponse.json("Missing filename", { status: 400 });
   if (!request.body) return NextResponse.json("Missing body", { status: 400 });
 
-  const newFileName = Math.random().toString(36).substring(7) + filename.substring(filename.lastIndexOf('.'));
-
-  const blob = await put(filename, request.body, {
+  const blob = await put(Math.random().toString(36).substring(7) + filename.substring(filename.lastIndexOf('.')), request.body, {
     access: "public",
     contentType: request.headers.get('content-type') ?? "image/png",
     addRandomSuffix: true
