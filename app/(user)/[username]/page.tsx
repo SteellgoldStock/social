@@ -9,7 +9,6 @@ import { headers } from "next/headers";
 import { auth } from "@/lib/auth/auth";
 import { FollowButton } from "../../../components/follow-button";
 import { UsersDialog } from "@/components/users.dialog";
-import { ImageZoomer } from "image-zoomer-react";
 import { BannerProfile } from "./_components/banner-profile";
 
 type PageProps = {
