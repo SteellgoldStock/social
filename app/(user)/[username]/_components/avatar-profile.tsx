@@ -12,13 +12,27 @@ import { cn } from "@/lib/utils";
 import { User } from "@prisma/client";
 import { Loader2, PencilRuler, UserIcon } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import { toast } from "sonner";
 
 type AvatarProfileProps = {
   user: User;
   isOwner: boolean;
 }
+
+const BlankAvatar = (): ReactElement => (
+  <div
+    className={cn(
+      "-mt-12 sm:-mt-20 h-16 w-16 sm:h-20 sm:w-20 md:h-32 md:w-32",
+      "bg-[#F9FAFB] dark:bg-[#1A1A1A]",
+      "border-4 border-[#e4e8ec] dark:border-[#252323]",
+      "rounded-full shadow-lg",
+      "flex items-center justify-center"
+    )}
+  >
+    <UserIcon className="h-16 w-16" strokeWidth={2} />
+  </div>
+)
 
 export const AvatarProfile: Component<AvatarProfileProps> = ({ user, isOwner }) => {
   const [isHover, setIsHover] = useState(false);
@@ -43,19 +57,7 @@ export const AvatarProfile: Component<AvatarProfileProps> = ({ user, isOwner }) 
                 "rounded-full shadow-lg"
               )}
             />
-          ) : (
-            <div
-              className={cn(
-                "-mt-12 sm:-mt-20 h-16 w-16 sm:h-20 sm:w-20 md:h-32 md:w-32",
-                "bg-[#F9FAFB] dark:bg-[#1A1A1A]",
-                "border-4 border-[#e4e8ec] dark:border-[#252323]",
-                "rounded-full shadow-lg",
-                "flex items-center justify-center"
-              )}
-            >
-              <UserIcon className="h-16 w-16" strokeWidth={2} />
-            </div>
-          )}
+          ) : <BlankAvatar />}
 
           {isOwner && isHover && (
             <div className="absolute inset-0 bg-black bg-opacity-60 rounded-full flex items-center justify-center cursor-pointer">
