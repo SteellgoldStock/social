@@ -80,6 +80,11 @@
         "OthersDescription": "These are all the people who follow {username}."
       }
     },
+
+    "EditProfile": "Edit profile",
+    "EditDone": "Exit edit mode",
+    "EditProfileHow": "To edit elements, click on them.",
+
     "Locked": {
       "PERMANENT": "Permanent",
       "TEMPORARY": "Temporary",
@@ -132,6 +137,21 @@
     "Updating": "Updating...",
     "Close": "Close",
     "UpdateSuccess": "Biography updated successfully",
-    "UpdateError": "An error occurred while updating"
+    "UpdateError": "An error occurred while updating",
+    "Field": "Biography"
+  },
+  "NameProfileDialog": {
+    "Title": "Edit your display name",
+    "Description": "Choose the name that other users will see",
+    "Placeholder": "Your display name",
+    "Update": "Update",
+    "Updating": "Updating...",
+    "Close": "Close",
+    "UpdateSuccess": "Name updated successfully",
+    "UpdateError": "An error occurred while updating",
+    "Field": "Display name"
+  },
+  "Errors": {
+    "ErrorLength": "{field} must be between {min} and {max} characters long."
   }
 }

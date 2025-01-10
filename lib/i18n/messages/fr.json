@@ -80,6 +80,11 @@
         "OthersDescription": "Ce sont toute les personnes qui suivent {username}."
       }
     },
+
+    "EditProfile": "Modifier le profil",
+    "EditDone": "Quitter le mode édition",
+    "EditProfileHow": "Pour modifier les éléments, cliquer dessus.",
+
     "Locked": {
       "PERMANENT": "Permanent",
       "TEMPORARY": "Temporaire",
@@ -132,7 +137,23 @@
     "Updating": "Mise à jour en cours...",
     "Close": "Fermer",
     "UpdateSuccess": "Biographie mise à jour avec succès",
-    "UpdateError": "Une erreur est survenue lors de la mise à jour"
+    "UpdateError": "Une erreur est survenue lors de la mise à jour",
+    "Field": "La biographie"
+  },
+  "NameProfileDialog": {
+    "Title": "Modifier votre nom d'affichage",
+    "Description": "Choisissez le nom qui sera visible par les autres utilisateurs",
+    "Placeholder": "Votre nom d'affichage",
+    "Update": "Mettre à jour",
+    "Updating": "Mise à jour en cours...",
+    "Close": "Fermer",
+    "UpdateSuccess": "Nom mis à jour avec succès",
+    "UpdateError": "Une erreur est survenue lors de la mise à jour",
+    "Field": "Le nom d'affichage"
+  },
+  "Errors": {
+    "ErrorLength": "{field} doit contenir entre {min} et {max} caractères.",
+    "ErrorSame": "Votre nouvelle valeur doit être différente de l'ancienne."
   }
 }
 
