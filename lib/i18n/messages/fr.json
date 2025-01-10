@@ -163,8 +163,8 @@
       "LIKE": "{username} a aimé votre publication.",
       "LIKES": "plusieurs personnes ont aimé votre publication.",
       
-      "COMMENT": "en réponse à votre publication.",
-      "COMMENTS": "plusieurs personnes ont commenté votre publication.",
+      "COMMENT": "{username} a commenté votre publication.",
+      "COMMENTS": "Plusieurs personnes ont commenté votre publication.",
 
       "MENTION": "{username} vous a mentionné dans une publication."
     }
