@@ -8,7 +8,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import { Toaster } from "sonner";
 import { cn } from "@/lib/utils";
-import { Sidebar } from "@/components/sidebar";
 import { GoogleOneTap } from "@/components/auth/one-tap";
 import { TanStackQuery } from "@/components/providers/tanstack-query";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
