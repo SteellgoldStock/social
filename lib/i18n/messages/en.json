@@ -153,5 +153,19 @@
   },
   "Errors": {
     "ErrorLength": "{field} must be between {min} and {max} characters long."
-  }
+  },
+  "NotificationsPage": {
+    "Notification": {
+      "FOLLOW": "{username} started following you.",
+      "FOLLOWS": "several people started following you.",
+      
+      "LIKE": "{username} liked your post.",
+      "LIKES": "several people liked your post.",
+      
+      "COMMENT": "in response to your post.",
+      "COMMENTS": "several people commented on your post.",
+      
+      "MENTION": "{username} mentioned you in a post."
+    }
+  }  
 }

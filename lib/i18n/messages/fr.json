@@ -154,6 +154,20 @@
   "Errors": {
     "ErrorLength": "{field} doit contenir entre {min} et {max} caractères.",
     "ErrorSame": "Votre nouvelle valeur doit être différente de l'ancienne."
+  },
+  "NotificationsPage": {
+    "Notification": {
+      "FOLLOW": "{username} a commencé à vous suivre.",
+      "FOLLOWS": "plusieurs personnes ont commencé à vous suivre.",
+
+      "LIKE": "{username} a aimé votre publication.",
+      "LIKES": "plusieurs personnes ont aimé votre publication.",
+      
+      "COMMENT": "en réponse à votre publication.",
+      "COMMENTS": "plusieurs personnes ont commenté votre publication.",
+
+      "MENTION": "{username} vous a mentionné dans une publication."
+    }
   }
 }
 
