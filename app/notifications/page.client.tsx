@@ -26,7 +26,7 @@ export const NotificationsPageClient = (): ReactElement => {
   return (
     <>
       <p>
-        Vous avez ({unreadCount?.data}) notifications non lues.
+        Vous avez ({unreadCount}) notifications non lues.
       </p>
     </>
   );
