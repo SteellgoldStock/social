@@ -9,6 +9,7 @@ import { ThemeSwitcher } from "./ui/theme-switcher";
 import { signOut, useSession } from "@/lib/auth/client";
 import { LanguageSelector } from "./language-selector";
 import { useRouter } from "next/navigation";
+import { useUnreadNotificationsCount } from "@/lib/actions/notifications/notification.hook";
 
 const navItems = [
   { icon: Home, label: "Home", href: "/" },
@@ -17,8 +18,10 @@ const navItems = [
 ]
 
 export const Sidebar = (): ReactElement => {
-  const { data } = useSession();
+  const { data: session } = useSession();
   const router = useRouter();
+
+  const { data: unreadCount } = useUnreadNotificationsCount(session?.user.id ?? "");
 
   const handleLogout = async (event: React.MouseEvent): Promise<void> => {
     event.preventDefault();
@@ -40,18 +43,18 @@ export const Sidebar = (): ReactElement => {
         </nav>
 
         <div className="flex flex-col items-center mt-auto gap-0.5">
-          {data ? (
+          {session ? (
             <Button variant="outline" className="rounded-full" asChild size={"icon"}>
-              <Link href={`/${data.user.username}`}>
+              <Link href={`/${session.user.username}`}>
                 <Avatar className="h-7 w-7">
-                  <AvatarImage src={data.user.image ?? ""} alt={data.user.name} />
-                  <AvatarFallback>{data.user.name[0]}</AvatarFallback>
+                  <AvatarImage src={session.user.image ?? ""} alt={session.user.name} />
+                  <AvatarFallback>{session.user.name[0]}</AvatarFallback>
                 </Avatar>
               </Link>
             </Button>
           ) : <></>}
 
-          {data && (
+          {session && (
             <Button variant="outline" size={"icon"} onClick={handleLogout}>
               <LogOut className="h-4 w-4" />
             </Button>
