@@ -10,6 +10,13 @@
     "Title": "You are not logged in",
     "Description": "To access groups and see posts, you need an active account."
   },
+  "Sidebar": {
+    "Home": "Home",
+    "Notifications": "Notifications",
+    "Profile": "Profile",
+
+    "SwitchTheme": "Switch theme"
+  },
   "NotFound": {
     "Specials": {
       "Ghostbusters": {

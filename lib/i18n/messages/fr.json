@@ -10,6 +10,13 @@
     "Title": "Vous n'êtes pas connecté",
     "Description": "Pour accéder aux groupes et voir les publications, vous avez besoin d'un compte actif."
   },
+  "Sidebar": {
+    "Home": "Accueil",
+    "Notifications": "Notifications",
+    "Profile": "Profil",
+
+    "SwitchTheme": "Changer de thème"
+  },
   "NotFound": {
     "Specials": {
       "Ghostbusters": {
