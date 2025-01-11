@@ -11,7 +11,6 @@
     "Description": "Pour accéder aux groupes et voir les publications, vous avez besoin d'un compte actif."
   },
   "LanguageSelector": {
-    "Placeholder": "Sélectionnez une langue",
     "Label": "Langue"
   },
   "NotFound": {
