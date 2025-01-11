@@ -4,6 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useNotifications } from "@/lib/actions/notifications/notification.hook";
 import { useSession } from "@/lib/auth/client";
 import { cn } from "@/lib/utils";
+import { ArrowRight, CornerDownRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
 import { ReactElement } from "react";
@@ -27,9 +28,9 @@ export const NotificationsPageClient = (): ReactElement => {
                   if (notification.type === "FOLLOW") {
                     router.push(`/${notification.author.username}`);
                   } else if (notification.type === "MENTION" || notification.type === "COMMENT") {
-                    router.push(`/${notification.triggerPost?.user.username}/post/${notification.triggerPost?.id}`);
+                    router.push(`/${notification.triggerPost?.user.username}/${notification.triggerPost?.id}`);
                   } else if (notification.type === "LIKE") {
-                    router.push(`/${notification.post?.user.username}/post/${notification.post?.id}`);
+                    router.push(`/${notification.post?.user.username}/${notification.post?.id}`);
                   }
                 }} 
                 key={notification.id}
@@ -65,6 +66,22 @@ export const NotificationsPageClient = (): ReactElement => {
                               : undefined
                     }
                   </p>
+
+                  {notification.post && (
+                    <div className="flex items-center gap-1 -mt-0.5 text-neutral-500 dark:text-neutral-400">
+                      <div>
+                        {notification.type == "MENTION"
+                          ? <CornerDownRight size={16} />
+                          : <ArrowRight size={16} />
+                        }
+                      </div>
+
+                      <p className="text-sm">
+                        {notification.post.content}
+                      </p>
+                    </div>
+                  )}
+
                   <span className="block text-neutral-500 dark:text-neutral-40 text-xs">
                     {new Date(notification.createdAt).toLocaleString()}
                   </span>
