@@ -5,13 +5,16 @@ import { headers } from "next/headers";
 import { LoginView } from "@/components/login.view";
 import { getNotificationsQuery, getUnreadCountQuery } from "@/lib/actions/notifications/notification.hook";
 import { ReactElement } from "react";
+import { markAllNotificationsAsRead } from "@/lib/actions/notifications/notification.action";
 
 const NotificationsPage = async (): Promise<ReactElement> => {
   const session = await auth.api.getSession({ headers: await headers() });
   if (!session) {
     return <LoginView />;
   }
-    
+
+  markAllNotificationsAsRead(session.user.id);
+
   return (
     <HydrationBoundary queries={[
       getNotificationsQuery(session.user.id),
