@@ -8,7 +8,7 @@ import {
 } from "./notification.action";
 
 // Queries
-export function getNotificationsQuery(userId: string) {
+export const getNotificationsQuery = (userId: string) => {
   return {
     queryKey: ["notifications", userId],
     queryFn: () => getNotifications(userId),
@@ -21,7 +21,7 @@ export function getNotificationsQuery(userId: string) {
   >;
 }
 
-export function getUnreadCountQuery(userId: string) {
+export const getUnreadCountQuery =(userId: string) => {
   return {
     queryKey: ["notifications", "unread", userId],
     queryFn: () => getUnreadNotificationsCount(userId),
@@ -34,7 +34,7 @@ export function getUnreadCountQuery(userId: string) {
   >;
 }
 
-export function useNotifications(userId: string) {
+export const useNotifications = (userId: string) => {
   return useQuery({
     ...getNotificationsQuery(userId),
     refetchOnMount: "always",
@@ -42,9 +42,7 @@ export function useNotifications(userId: string) {
   });
 }
 
-export function useUnreadNotificationsCount(userId?: string) {
-  if (!userId) return { data: 0 };
-
+export const useUnreadNotificationsCount = (userId: string) => {
   return useQuery({
     ...getUnreadCountQuery(userId),
     refetchOnMount: "always",
@@ -53,7 +51,7 @@ export function useUnreadNotificationsCount(userId?: string) {
 }
 
 // Mutations
-export function useMarkAsRead() {
+export const useMarkAsRead = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -66,7 +64,7 @@ export function useMarkAsRead() {
   });
 }
 
-export function useMarkAllAsRead() {
+export const useMarkAllAsRead = () => {
   const queryClient = useQueryClient();
 
   return useMutation({

@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db/prisma";
 import { NotificationType, Prisma } from "@prisma/client";
 import { z } from "zod";
 
-export async function getNotifications(userId: string): Promise<Prisma.NotificationGetPayload<{
+export const getNotifications = async(userId: string): Promise<Prisma.NotificationGetPayload<{
   include: {
     author: true;
     post: {
@@ -26,7 +26,7 @@ export async function getNotifications(userId: string): Promise<Prisma.Notificat
       };
     };
   };
-}>[]> {
+}>[]> => {
   const id = z.string().parse(userId);
   
   return prisma.notification.findMany({
@@ -56,7 +56,7 @@ export async function getNotifications(userId: string): Promise<Prisma.Notificat
   });
 }
 
-export async function getUnreadNotificationsCount(userId?: string): Promise<number> {
+export const getUnreadNotificationsCount = async(userId?: string): Promise<number> => {
   if (!userId) return 0;
 
   const id = z.string().parse(userId);
@@ -69,7 +69,7 @@ export async function getUnreadNotificationsCount(userId?: string): Promise<numb
   });
 }
 
-export async function markNotificationAsRead(notificationId: string): Promise<void> {
+export const markNotificationAsRead = async(notificationId: string): Promise<void> => {
   const id = z.string().parse(notificationId);
   
   await prisma.notification.update({
@@ -78,7 +78,7 @@ export async function markNotificationAsRead(notificationId: string): Promise<vo
   });
 }
 
-export async function markAllNotificationsAsRead(userId: string): Promise<void> {
+export const markAllNotificationsAsRead = async(userId: string): Promise<void> => {
   const id = z.string().parse(userId);
   
   await prisma.notification.updateMany({
@@ -87,7 +87,7 @@ export async function markAllNotificationsAsRead(userId: string): Promise<void> 
   });
 }
 
-export async function createNotification({
+export const createNotification = async({
   type,
   userId,
   authorId,
@@ -97,7 +97,7 @@ export async function createNotification({
   userId: string;
   authorId: string;
   postId?: string | null;
-}): Promise<void> {
+}): Promise<void> => {
   await prisma.notification.create({
     data: {
       type,

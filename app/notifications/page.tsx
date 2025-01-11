@@ -13,7 +13,7 @@ const NotificationsPage = async (): Promise<ReactElement> => {
     return <LoginView />;
   }
 
-  markAllNotificationsAsRead(session.user.id);
+  // markAllNotificationsAsRead(session.user.id);
 
   return (
     <HydrationBoundary queries={[

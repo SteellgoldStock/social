@@ -2,14 +2,14 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
-import { useNotifications } from "@/lib/actions/notifications/notification.hook";
+import { useMarkAllAsRead, useNotifications, useUnreadNotificationsCount } from "@/lib/actions/notifications/notification.hook";
 import { useSession } from "@/lib/auth/client";
 import { ParseText } from "@/lib/parser";
 import { cn } from "@/lib/utils";
-import { ArrowRight, AtSign, Bell, CornerDownRight, Heart, MessageCircle, UserPlus } from "lucide-react";
+import { ArrowRight, AtSign, Bell, CornerDownRight, Heart, Loader2, MessageCircle, UserPlus } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { useRouter } from "next/navigation";
-import { ReactElement } from "react";
+import { ReactElement, useEffect, useState } from "react";
 import NotificationsLoading from "./loading";
 
 const iconMap = {
@@ -29,10 +29,31 @@ const colorMap = {
 export const NotificationsPageClient = (): ReactElement => {
   const { data: session } = useSession();
   const { data: notifications, isLoading } = useNotifications(session?.user.id ?? "");
+  
+  const { data: unreadCount } = useUnreadNotificationsCount(session?.user.id ?? "");
+  const [loadingMark, setLoadingMark] = useState(false);
+  const markAllRead = useMarkAllAsRead();
 
   const router = useRouter();
 
   const t = useTranslations("NotificationsPage");
+
+  useEffect(() => {
+    if (unreadCount === 0) {
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setLoadingMark(true);
+      markAllRead.mutate(session?.user.id ?? "", {
+        onSettled: () => setLoadingMark(false),
+        onError: () => setLoadingMark(false),
+        onSuccess: () => setLoadingMark(false),
+      });
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, [unreadCount]);
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-2xl">
@@ -43,15 +64,26 @@ export const NotificationsPageClient = (): ReactElement => {
         <div className="flex items-center space-x-1">
           <div className="flex items-center space-x-2 bg-background border px-3 py-1 rounded-full">
             <Bell className="h-4 w-4 text-gray-500 dark:text-gray-400" />
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">18</span>
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+              {unreadCount}
+            </span>
           </div>
 
           <Button 
             variant="outline" 
             size="sm"
-            // onClick={handleMarkAllAsRead}
-            // disabled={unreadCount === 0}
+            disabled={unreadCount === 0 || loadingMark}
+            onClick={() => {
+              setLoadingMark(true);
+
+              markAllRead.mutate(session?.user.id ?? "", {
+                onSettled: () => setLoadingMark(false),
+                onError: () => setLoadingMark(false),
+                onSuccess: () => setLoadingMark(false),
+              });
+            }}
           >
+            {loadingMark && <Loader2 className="h-4 w-4 animate-spin" />}
             {t("MarkAllAsRead")}
           </Button>
         </div>
@@ -77,8 +109,7 @@ export const NotificationsPageClient = (): ReactElement => {
               }}
               
               className={cn(
-                "flex items-start space-x-4 p-4 rounded-lg transition-colors cursor-pointer",
-                notification.read ? "border bg-transparent" : "bg-white/10",
+                "flex items-start space-x-4 p-4 rounded-lg transition-colors cursor-pointer border bg-transparent",
                 "hover:bg-gray-300/30 dark:hover:bg-neutral-700/10"
               )}
             >
