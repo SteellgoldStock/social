@@ -159,6 +159,9 @@
     "ErrorSame": "Votre nouvelle valeur doit être différente de l'ancienne."
   },
   "NotificationsPage": {
+    "MarkAllAsRead": "Tout marquer comme lu",
+    "Notifications": "Centre de notifications",
+
     "Notification": {
       "FOLLOW": "{username} a commencé à vous suivre.",
       "FOLLOWS": "plusieurs personnes ont commencé à vous suivre.",

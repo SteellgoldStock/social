@@ -158,6 +158,9 @@
     "ErrorLength": "{field} must be between {min} and {max} characters long."
   },
   "NotificationsPage": {
+    "MarkAllAsRead": "Mark all as read",
+    "Notifications": "Notifications",
+
     "Notification": {
       "FOLLOW": "<strong>{username}</strong> started following you.",
       "FOLLOWS": "several people started following you.",
