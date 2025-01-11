@@ -10,9 +10,6 @@
     "Title": "You are not logged in",
     "Description": "To access groups and see posts, you need an active account."
   },
-  "LanguageSelector": {
-    "Label": "Language"
-  },
   "NotFound": {
     "Specials": {
       "Ghostbusters": {

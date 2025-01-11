@@ -10,9 +10,6 @@
     "Title": "Vous n'êtes pas connecté",
     "Description": "Pour accéder aux groupes et voir les publications, vous avez besoin d'un compte actif."
   },
-  "LanguageSelector": {
-    "Label": "Langue"
-  },
   "NotFound": {
     "Specials": {
       "Ghostbusters": {

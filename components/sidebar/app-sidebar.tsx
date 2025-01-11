@@ -8,6 +8,7 @@ import { Component } from "@/lib/types"
 import { useTheme } from "next-themes"
 import { NavMain } from "./nav-main"
 import { NavUser } from "./nav-user"
+import { LanguageSelector } from "../language-selector"
 
 export const AppSidebar: Component<ComponentProps<typeof Sidebar> & {
   notifications?: number
@@ -41,7 +42,7 @@ export const AppSidebar: Component<ComponentProps<typeof Sidebar> & {
   }, [theme]);
 
   return (
-    <Sidebar variant="inset" {...props}>
+    <Sidebar variant="floating" {...props}>
       <SidebarHeader>
         {/* <SidebarMenu>
           <SidebarMenuItem>
@@ -77,6 +78,8 @@ export const AppSidebar: Component<ComponentProps<typeof Sidebar> & {
             <span>Switch Theme</span>
           </SidebarMenuButton>
         </SidebarMenu>
+
+        <LanguageSelector />
 
         <NavUser user={{
           avatar: session?.user.image ?? "",
