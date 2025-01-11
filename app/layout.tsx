@@ -49,13 +49,6 @@ const Layout: AsyncComponent<PropsWithChildren> = async({ children }) => {
                     </div>
                   </header>
 
-                  {/* <div className="flex min-h-screen">
-                    <div className="flex-1 border-x border-neutral-200 dark:border-neutral-800">
-                      <div className="sticky hidden md:block top-0 z-50 h-3" />
-                      <main className="max-w-full mx-auto py-1 px-1 sm:py-4 sm:px-4">{children}</main>
-                    </div>
-                  </div> */}
-
                   <main className="py-2 px-2 sm:py-4 sm:px-4">
                     {children}
                   </main>
