@@ -42,7 +42,9 @@ export function useNotifications(userId: string) {
   });
 }
 
-export function useUnreadNotificationsCount(userId: string) {
+export function useUnreadNotificationsCount(userId?: string) {
+  if (!userId) return { data: 0 };
+
   return useQuery({
     ...getUnreadCountQuery(userId),
     refetchOnMount: "always",

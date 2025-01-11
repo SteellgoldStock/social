@@ -56,7 +56,9 @@ export async function getNotifications(userId: string): Promise<Prisma.Notificat
   });
 }
 
-export async function getUnreadNotificationsCount(userId: string): Promise<number> {
+export async function getUnreadNotificationsCount(userId?: string): Promise<number> {
+  if (!userId) return 0;
+
   const id = z.string().parse(userId);
   
   return prisma.notification.count({
