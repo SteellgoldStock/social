@@ -11,23 +11,43 @@ import {
 export function getNotificationsQuery(userId: string) {
   return {
     queryKey: ["notifications", userId],
-    queryFn: () => getNotifications(userId)
-  } satisfies UseQueryOptions;
+    queryFn: () => getNotifications(userId),
+    staleTime: 30 * 1000,
+    placeholderData: (previousData: any) => previousData
+  } satisfies UseQueryOptions<
+    Awaited<ReturnType<typeof getNotifications>>,
+    Error,
+    Awaited<ReturnType<typeof getNotifications>>
+  >;
 }
 
 export function getUnreadCountQuery(userId: string) {
   return {
     queryKey: ["notifications", "unread", userId],
-    queryFn: () => getUnreadNotificationsCount(userId)
-  } satisfies UseQueryOptions;
+    queryFn: () => getUnreadNotificationsCount(userId),
+    staleTime: 30 * 1000,
+    placeholderData: (previousData: any) => previousData
+  } satisfies UseQueryOptions<
+    number,
+    Error,
+    number
+  >;
 }
 
 export function useNotifications(userId: string) {
-  return useQuery(getNotificationsQuery(userId));
+  return useQuery({
+    ...getNotificationsQuery(userId),
+    refetchOnMount: "always",
+    refetchOnWindowFocus: true
+  });
 }
 
 export function useUnreadNotificationsCount(userId: string) {
-  return useQuery(getUnreadCountQuery(userId));
+  return useQuery({
+    ...getUnreadCountQuery(userId),
+    refetchOnMount: "always",
+    refetchOnWindowFocus: true
+  });
 }
 
 // Mutations
