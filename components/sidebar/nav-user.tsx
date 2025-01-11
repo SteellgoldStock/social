@@ -31,6 +31,7 @@ import { APP_NAME } from "@/lib/consts"
 import { FaGoogle } from "react-icons/fa"
 import { useState } from "react"
 import { toast } from "sonner"
+import { Skeleton } from "../ui/skeleton"
 
 type NavUserProps = {
   user: {
@@ -42,7 +43,7 @@ type NavUserProps = {
 
 export const NavUser: Component<NavUserProps> = ({ user }) => {
   const [logining, setLogining] = useState(false);
-  const { data: session } = useSession();
+  const { data: session, isPending } = useSession();
   const { isMobile } = useSidebar()
   const router = useRouter();
 
@@ -54,6 +55,19 @@ export const NavUser: Component<NavUserProps> = ({ user }) => {
     })
 
     if (login.error) toast.error(login.error.message);
+  }
+
+  if (isPending) {
+    return (
+      <div className="flex flex-row items-center space-x-4">
+        <Skeleton className="h-9 w-9 rounded-full" />
+
+        <div className="grid flex-1 text-left text-sm leading-tight space-y-1">
+          <Skeleton className="h-5 w-20" />
+          <Skeleton className="h-4 w-16" />
+        </div>
+      </div>
+    )
   }
 
   if (!session) {
