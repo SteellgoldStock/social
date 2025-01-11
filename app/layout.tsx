@@ -41,7 +41,7 @@ const Layout: AsyncComponent<PropsWithChildren> = async({ children }) => {
             <NextIntlClientProvider messages={messages}>
               <SidebarProvider>
                 <AppSidebar />
-                <SidebarInset>
+                <SidebarInset className="dark:bg-[#171616]">
                   <header className="flex sm:hidden h-16 shrink-0 items-center gap-2 border-b">
                     <div className="flex items-center gap-2 px-4">
                       <SidebarTrigger className="-ml-1" />
