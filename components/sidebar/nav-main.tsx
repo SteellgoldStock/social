@@ -26,7 +26,7 @@ export const NavMain: Component<NavMainProps> = ({ items }) => {
         {items.map((item) => (
           <SidebarMenuItem key={item.title}>
             <SidebarMenuButton asChild tooltip={item.title}>
-              <Link href={item.url}>
+              <Link href={item.url} prefetch passHref>
                 <item.icon />
                 <span>{item.title}</span>
               </Link>
