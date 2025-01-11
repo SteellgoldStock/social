@@ -1,25 +1,44 @@
 "use client"
 
-import * as React from "react"
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton } from "@/components/ui/sidebar"
+import { ComponentProps, useEffect, useState } from "react"
 import { Home, Bell, User, Sun, Moon } from "lucide-react"
-
-import { NavMain } from "./nav-main"
-import { NavUser } from "./nav-user"
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-} from "@/components/ui/sidebar"
+import { useSession } from "@/lib/auth/client"
 import { Component } from "@/lib/types"
 import { useTheme } from "next-themes"
-import { useSession } from "@/lib/auth/client"
+import { NavMain } from "./nav-main"
+import { NavUser } from "./nav-user"
 
-export const AppSidebar: Component<React.ComponentProps<typeof Sidebar>> = (props) => {
-  const { theme, setTheme } = useTheme();
+export const AppSidebar: Component<ComponentProps<typeof Sidebar> & {
+  notifications?: number
+}> = ({ ...props }) => {
   const { data: session } = useSession();
+  const [notifications, setNotifications] = useState(0);
+
+  const { theme, setTheme } = useTheme();
+
+  useEffect(() => {
+    const fetchNotifications = async () => {
+      const res = await fetch("/api/user/notifications", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const data = await res.json();
+      setNotifications(data.count);
+      if (data.count > 0) {
+        setInterval(fetchNotifications, 5000);
+      } else {
+        setInterval(fetchNotifications, 60000);
+      }
+    };
+
+    fetchNotifications();
+    let interval = setInterval(fetchNotifications, 5000);
+
+    return () => clearInterval(interval);
+  }, [theme]);
 
   return (
     <Sidebar variant="inset" {...props}>
@@ -44,7 +63,7 @@ export const AppSidebar: Component<React.ComponentProps<typeof Sidebar>> = (prop
         <NavMain items={[
           { title: "Home", icon: Home, url: "/" },
           // { title: "Explore", icon: Hashtag, url: "#" },
-          { title: "Notifications", icon: Bell, url: "/notifications" },
+          { title: "Notifications", icon: Bell, url: "/notifications", numberBadge: notifications },
           // { title: "Messages", icon: Mail, url: "#" },
           // { title: "Bookmarks", icon: Bookmark, url: "#" },
           { title: "Profile", icon: User, url: `/${session?.user.username}` },
