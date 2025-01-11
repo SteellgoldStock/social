@@ -35,7 +35,7 @@ export const AppSidebar: Component<ComponentProps<typeof Sidebar> & {
     };
 
     fetchNotifications();
-    let interval = setInterval(fetchNotifications, 5000);
+    let interval = setInterval(fetchNotifications, 60000);
 
     return () => clearInterval(interval);
   }, [theme]);
