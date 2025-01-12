@@ -6,14 +6,17 @@ import Link from "next/link"
 import { Component } from "@/lib/types"
 import { cn } from "@/lib/utils"
 import { useTranslations } from "next-intl"
+import { ReactElement } from "react"
 
 type NavMainProps = {
   items: {
-    title: string
-    url: string
-    icon: LucideIcon
-    numberBadge?: number
-    onMouseEnter?: () => void
+    title: string;
+    url?: string;
+    icon: LucideIcon;
+    numberBadge?: number;
+    exclude?: boolean;
+    onMouseEnter?: () => void;
+    onClick?: () => void;
   }[]
 }
 
@@ -25,27 +28,45 @@ export const NavMain: Component<NavMainProps> = ({ items }) => {
       <SidebarMenu>
         {items.map((item) => (
           <SidebarMenuItem key={item.title}>
-            <SidebarMenuButton asChild tooltip={item.title}>
-              <Link 
-                href={item.url} 
-                prefetch={item.url !== "/notifications"} 
-                passHref={item.url !== "/notifications"}
-                onMouseEnter={item.onMouseEnter}
-              >
+            {item.onClick ? (
+              <SidebarMenuButton tooltip={item.title} onClick={item.onClick} className={cn({
+                "mt-3 bg-primary text-primary-foreground": item.exclude,
+              })}>
                 <item.icon strokeWidth={2.5} />
                 <span>{t(item.title)}</span>
-                {item.numberBadge ? (
-                  <span className={cn(
-                    "absolute right-2 flex items-center justify-center w-5 h-5 text-xs font-semibold text-primary-foreground bg-primary rounded-full"
-                  )}>
-                    {item.numberBadge > 99 ? "99+" : item.numberBadge}
-                  </span>
-                ) : null}
-              </Link>
-            </SidebarMenuButton>
+                {item.numberBadge ? <NumberBadge number={item.numberBadge} /> : <></>}
+              </SidebarMenuButton>
+            ) : (
+              <SidebarMenuButton asChild tooltip={item.title} className={cn({
+                "mt-3 bg-primary text-primary-foreground": item.exclude,
+              })}>
+                <Link 
+                  href={item.url || "/"} 
+                  prefetch={item.url !== "/notifications"} 
+                  passHref={item.url !== "/notifications"}
+                  onMouseEnter={item.onMouseEnter}
+                >
+                  <item.icon strokeWidth={2.5} />
+                  <span>{t(item.title)}</span>
+                  {item.numberBadge ? <NumberBadge number={item.numberBadge} /> : <></>}
+                </Link>
+              </SidebarMenuButton>
+            )}
           </SidebarMenuItem>
         ))}
       </SidebarMenu>
     </SidebarGroup>
+  )
+}
+
+const NumberBadge: Component<{ number: number }> = ({ number }): ReactElement => {
+  if (number === 0) return <></>;
+  
+  return (
+    <span className={cn(
+      "absolute right-2 flex items-center justify-center w-5 h-5 text-xs font-semibold text-primary-foreground bg-primary rounded-full"
+    )}>
+      {number > 99 ? "99+" : number}
+    </span>
   )
 }

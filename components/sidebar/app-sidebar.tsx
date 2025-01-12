@@ -2,7 +2,7 @@
 
 import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarMenu, SidebarMenuButton } from "@/components/ui/sidebar"
 import { ComponentProps, useEffect, useState } from "react"
-import { Home, Bell, User, Sun, Moon } from "lucide-react"
+import { Home, Bell, User, Sun, Moon, Feather } from "lucide-react"
 import { useSession } from "@/lib/auth/client"
 import { Component } from "@/lib/types"
 import { useTheme } from "next-themes"
@@ -17,13 +17,14 @@ import { getNotifications } from "@/lib/actions/notifications/notification.actio
 export const AppSidebar: Component<ComponentProps<typeof Sidebar> & {
   notifications?: number
 }> = ({ ...props }) => {
-  const queryClient = useQueryClient();
-
   const { data: session } = useSession();
+  const { theme, setTheme } = useTheme();
+
+  const queryClient = useQueryClient();
   const notifications = usePollingNotifications();
+  
   const t = useTranslations("Sidebar");
 
-  const { theme, setTheme } = useTheme();
 
   return (
     <Sidebar variant="floating" {...props}>
@@ -59,11 +60,17 @@ export const AppSidebar: Component<ComponentProps<typeof Sidebar> & {
                 queryKey: ["notifications"],
                 queryFn: () => getNotifications()
               })
-            }        
+            }
           },
           // { title: "Messages", icon: Mail, url: "#" },
           // { title: "Bookmarks", icon: Bookmark, url: "#" },
           { title: "Profile", icon: User, url: `/${session?.user.username}` },
+          {
+            title: "NewPost",
+            icon: Feather,
+            url: "/new-post",
+            exclude: true
+          }
         ]} />
       </SidebarContent>
       <SidebarFooter>
