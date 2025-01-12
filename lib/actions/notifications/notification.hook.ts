@@ -8,54 +8,36 @@ import {
 } from "./notification.action";
 
 // Queries
-export const getNotificationsQuery = (userId: string) => {
+export function getNotificationsQuery() {
   return {
-    queryKey: ["notifications", userId],
-    queryFn: () => getNotifications(userId),
-    staleTime: 30 * 1000,
-    placeholderData: (previousData: any) => previousData
-  } satisfies UseQueryOptions<
-    Awaited<ReturnType<typeof getNotifications>>,
-    Error,
-    Awaited<ReturnType<typeof getNotifications>>
-  >;
+    queryKey: ["notifications"],
+    queryFn: () => getNotifications()
+  } satisfies UseQueryOptions;
 }
 
-export const getUnreadCountQuery =(userId: string) => {
+export function getUnreadCountQuery() {
   return {
-    queryKey: ["notifications", "unread", userId],
-    queryFn: () => getUnreadNotificationsCount(userId),
-    staleTime: 30 * 1000,
-    placeholderData: (previousData: any) => previousData
-  } satisfies UseQueryOptions<
-    number,
-    Error,
-    number
-  >;
+    queryKey: ["notifications", "unread"],
+    queryFn: () => getUnreadNotificationsCount()
+  } satisfies UseQueryOptions;
 }
 
-export const useNotifications = (userId: string) => {
-  return useQuery({
-    ...getNotificationsQuery(userId),
-    refetchOnMount: "always",
-    refetchOnWindowFocus: true
-  });
+export function useNotifications() {
+  return useQuery(getNotificationsQuery());
 }
 
-export const useUnreadNotificationsCount = (userId: string) => {
+export function useUnreadNotificationsCount() {
   return useQuery({
-    ...getUnreadCountQuery(userId),
-    refetchOnMount: "always",
-    refetchOnWindowFocus: true
+    ...getUnreadCountQuery()
   });
 }
 
 // Mutations
-export const useMarkAsRead = () => {
+export function useMarkAsRead() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (notificationId: string) => markNotificationAsRead(notificationId),
+    mutationFn: (notificationId: string) => markNotificationAsRead({ notificationId}),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ 
         queryKey: ["notifications"]
@@ -64,11 +46,11 @@ export const useMarkAsRead = () => {
   });
 }
 
-export const useMarkAllAsRead = () => {
+export function useMarkAllAsRead() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (userId: string) => markAllNotificationsAsRead(userId),
+    mutationFn: () => markAllNotificationsAsRead(),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ 
         queryKey: ["notifications", variables]

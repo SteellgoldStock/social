@@ -1,40 +1,67 @@
 "use server";
 
 import { prisma } from "@/lib/db/prisma";
-import { NotificationType, Prisma } from "@prisma/client";
+import { authActionClient } from "@/lib/safe-action";
+import { Prisma } from "@prisma/client";
 import { z } from "zod";
 
-export const getNotifications = async(userId: string): Promise<Prisma.NotificationGetPayload<{
-  include: {
-    author: true;
+type GetNotificationsType = {
+  select: {
+    id: true,
+    type: true,
+    read: true,
+    createdAt: true,
+    author: {
+      select: {
+        name: true,
+        image: true,
+        username: true
+      }
+    },
     post: {
-      include: {
+      select: {
+        id: true,
+        content: true,
         user: {
           select: {
-            username: true;
-          };
-        };
-      };
-    };
+            username: true
+          }
+        }
+      }
+    },
     triggerPost: {
-      include: {
+      select: {
+        id: true,
+        content: true,
         user: {
           select: {
-            username: true;
-          };
-        };
-      };
-    };
-  };
-}>[]> => {
-  const id = z.string().parse(userId);
-  
+            username: true
+          }
+        }
+      }
+    }
+  },
+};
+
+export const getNotifications = authActionClient.action(async ({ ctx: { session } }): Promise<Prisma.NotificationGetPayload<GetNotificationsType>[]> => {
   return prisma.notification.findMany({
-    where: { userId: id },
-    include: {
-      author: true,
+    where: { userId: session.user.id },
+    select: {
+      id: true,
+      type: true,
+      read: true,
+      createdAt: true,
+      author: {
+        select: {
+          name: true,
+          image: true,
+          username: true
+        }
+      },
       post: {
-        include: {
+        select: {
+          id: true,
+          content: true,
           user: {
             select: {
               username: true
@@ -43,7 +70,9 @@ export const getNotifications = async(userId: string): Promise<Prisma.Notificati
         }
       },
       triggerPost: {
-        include: {
+        select: {
+          id: true,
+          content: true,
           user: {
             select: {
               username: true
@@ -54,56 +83,52 @@ export const getNotifications = async(userId: string): Promise<Prisma.Notificati
     },
     orderBy: { createdAt: "desc" }
   });
-}
+});
 
-export const getUnreadNotificationsCount = async(userId?: string): Promise<number> => {
-  if (!userId) return 0;
-
-  const id = z.string().parse(userId);
-  
+export const getUnreadNotificationsCount = authActionClient.action(async ({ ctx: { session } }) => {
   return prisma.notification.count({
     where: { 
-      userId: id,
+      userId: session.user.id,
       read: false
     }
   });
-}
+});
 
-export const markNotificationAsRead = async(notificationId: string): Promise<void> => {
-  const id = z.string().parse(notificationId);
-  
+const MarkNotificationAsReadInput = z.object({
+  notificationId: z.string()
+});
+
+export const markNotificationAsRead = authActionClient.schema(MarkNotificationAsReadInput).action(async ({ parsedInput: { notificationId } }) => {
   await prisma.notification.update({
-    where: { id },
+    where: { id: notificationId },
     data: { read: true }
   });
-}
+});
 
-export const markAllNotificationsAsRead = async(userId: string): Promise<void> => {
-  const id = z.string().parse(userId);
-  
+export const markAllNotificationsAsRead = authActionClient.action(async ({ ctx: { session } }) => {  
   await prisma.notification.updateMany({
-    where: { userId: id },
+    where: { userId: session.user.id },
     data: { read: true }
   });
-}
+});
 
-export const createNotification = async({
-  type,
-  userId,
-  authorId,
-  postId = null
-}: {
-  type: NotificationType;
-  userId: string;
-  authorId: string;
-  postId?: string | null;
-}): Promise<void> => {
-  await prisma.notification.create({
-    data: {
-      type,
-      user: { connect: { id: userId } },
-      author: { connect: { id: authorId } },
-      post: postId ? { connect: { id: postId } } : undefined
-    }
-  });
-}
+// export const createNotification = async({
+//   type,
+//   userId,
+//   authorId,
+//   postId = null
+// }: {
+//   type: NotificationType;
+//   userId: string;
+//   authorId: string;
+//   postId?: string | null;
+// }): Promise<void> => {
+//   await prisma.notification.create({
+//     data: {
+//       type,
+//       user: { connect: { id: userId } },
+//       author: { connect: { id: authorId } },
+//       post: postId ? { connect: { id: postId } } : undefined
+//     }
+//   });
+// }
