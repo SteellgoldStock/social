@@ -1,4 +1,4 @@
-export const MAX_POST_LENGTH = 512;
+export const MAX_POST_LENGTH = 716;
 
 export const MIN_DISPLAY_NAME_LENGTH = 3;
 export const MAX_DISPLAY_NAME_LENGTH = 50;
