@@ -2,7 +2,7 @@
 
 import { MAX_POST_LENGTH } from "@/lib/consts";
 import { prisma } from "@/lib/db/prisma";
-import { generateNumberSequence } from "@/lib/generator";
+import { generateId } from "@/lib/generator";
 import { authActionClient } from "@/lib/safe-action";
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
@@ -22,10 +22,7 @@ export const createPost = authActionClient.schema(CreatePostInput).action(
   }>> => {
     const thisPost = await prisma.post.create({
       data: {
-        id: generateNumberSequence({
-          minLength: 10,
-          maxLength: 10
-        }),
+        id: generateId(),
         content,
         parentId,
         userId: session.user.id
