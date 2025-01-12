@@ -11,10 +11,14 @@ import { NavUser } from "./nav-user"
 import { LanguageSelector } from "../language-selector"
 import { useTranslations } from "next-intl"
 import usePollingNotifications from "@/hooks/use-notification-polling"
+import { useQueryClient } from "@tanstack/react-query"
+import { getNotifications } from "@/lib/actions/notifications/notification.action"
 
 export const AppSidebar: Component<ComponentProps<typeof Sidebar> & {
   notifications?: number
 }> = ({ ...props }) => {
+  const queryClient = useQueryClient();
+
   const { data: session } = useSession();
   const notifications = usePollingNotifications();
   const t = useTranslations("Sidebar");
@@ -44,7 +48,19 @@ export const AppSidebar: Component<ComponentProps<typeof Sidebar> & {
         <NavMain items={[
           { title: "Home", icon: Home, url: "/" },
           // { title: "Explore", icon: Hashtag, url: "#" },
-          { title: "Notifications", icon: Bell, url: "/notifications", numberBadge: notifications ?? 0, },
+          {
+            title: "Notifications",
+            icon: Bell,
+            url: "/notifications",
+            numberBadge: notifications ?? 0,
+            onMouseEnter: () => {
+              console.log("prefetching notifications")
+              queryClient.prefetchQuery({
+                queryKey: ["notifications"],
+                queryFn: () => getNotifications()
+              })
+            }        
+          },
           // { title: "Messages", icon: Mail, url: "#" },
           // { title: "Bookmarks", icon: Bookmark, url: "#" },
           { title: "Profile", icon: User, url: `/${session?.user.username}` },
