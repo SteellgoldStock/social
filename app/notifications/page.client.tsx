@@ -136,7 +136,7 @@ export const NotificationsPageClient = (): ReactElement => {
                       )}
                     </div>
       
-                    <p className="flex-1">
+                    <p className="flex-1 line-clamp-1">
                       <ParseText text={notification.post.content} />
                     </p>
                   </div>
