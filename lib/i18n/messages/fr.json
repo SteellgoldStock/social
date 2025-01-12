@@ -160,7 +160,7 @@
   },
   "NotificationsPage": {
     "MarkAllAsRead": "Tout marquer comme lu",
-    "Notifications": "Centre de notifications",
+    "Notifications": "Notifications",
 
     "Notification": {
       "FOLLOW": "{username} a commencé à vous suivre.",
