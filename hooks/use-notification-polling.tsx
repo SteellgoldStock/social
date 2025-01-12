@@ -3,10 +3,13 @@ import { z } from "zod";
 
 const ResponseSchema = z.object({
   count: z.number()
-})
+});
+
+const FIVE_SECONDS = 5000;
+const TWO_MINUTES = 120000;
 
 const usePollingNotifications = (): number => {
-  const [interval, setInterval] = useState<number>(60000);
+  const [interval, setInterval] = useState<number>(TWO_MINUTES)
   const [notifications, setNotifications] = useState<number>(0)
 
   useEffect(() => {
@@ -24,8 +27,8 @@ const usePollingNotifications = (): number => {
         }
 
         const count = data.data.count;
-        if (count > 0) setInterval(5000)
-        else setInterval(60000)
+        if (count > 0) setInterval(FIVE_SECONDS)
+        else setInterval(TWO_MINUTES)
 
         setNotifications(count)
       } catch (error) {
