@@ -27,13 +27,10 @@ const colorMap = {
 
 const NotificationsPageClient = (): ReactElement => {
   const { data: notifications, isLoading } = useNotifications();
-  
   const { data: unreadCount } = useUnreadNotificationsCount();
   const [loadingMark, setLoadingMark] = useState(false);
   const markAllRead = useMarkAllAsRead();
-
   const router = useRouter();
-
   const t = useTranslations("NotificationsPage");
 
   useEffect(() => {
@@ -51,7 +48,11 @@ const NotificationsPageClient = (): ReactElement => {
     }, 2000);
 
     return () => clearTimeout(timer);
-  }, [unreadCount]);
+  }, [unreadCount, markAllRead]);
+
+  if (isLoading) {
+    return <NotificationsLoading />;
+  }
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-2xl">
@@ -73,7 +74,6 @@ const NotificationsPageClient = (): ReactElement => {
             disabled={unreadCount?.data === 0 || loadingMark}
             onClick={() => {
               setLoadingMark(true);
-
               markAllRead.mutate(undefined, {
                 onSettled: () => setLoadingMark(false),
                 onError: () => setLoadingMark(false),
@@ -88,9 +88,7 @@ const NotificationsPageClient = (): ReactElement => {
       </div>
 
       <div className="flex flex-col gap-2">
-        {isLoading && <NotificationsLoading withHeader={false} />}
-
-        {notifications?.data && notifications.data.length > 0 && !isLoading && notifications.data.map((notification, index) => {
+        {notifications?.data && notifications.data.length > 0 && notifications.data.map((notification) => {
           const Icon = iconMap[notification.type];
           
           return (
@@ -105,7 +103,6 @@ const NotificationsPageClient = (): ReactElement => {
                   router.push(`/${notification.post?.user.username}/${notification.post?.id}`);
                 }
               }}
-              
               className={cn(
                 "flex items-start space-x-4 p-4 rounded-lg transition-colors cursor-pointer border bg-transparent",
                 "hover:bg-gray-300/30 dark:hover:bg-neutral-700/10"
@@ -116,7 +113,7 @@ const NotificationsPageClient = (): ReactElement => {
                 <AvatarImage src={notification.author.image ?? ""} alt={notification.author.name ?? ""} />
               </Avatar>
 
-              <div className="flex-1 space-y-1s">
+              <div className="flex-1 space-y-1">
                 <p className="text-sm text-gray-800 dark:text-gray-200">
                   {t.rich(`Notification.${notification.type}`, {
                     username: notification.author.name,
@@ -143,14 +140,14 @@ const NotificationsPageClient = (): ReactElement => {
                 <div className="flex items-center space-x-2 mt-1">
                   <Icon className={cn("h-3 w-3", colorMap[notification.type])} />
                   <span className="text-xs text-gray-500 dark:text-gray-400">
-                  {new Date(notification.createdAt).toLocaleString()}
-                </span>
+                    {new Date(notification.createdAt).toLocaleString()}
+                  </span>
+                </div>
               </div>
-            </div>
-            
-            {!notification.read && (
-              <div className="h-2 w-2 bg-blue-500 rounded-full" />
-            )}
+              
+              {!notification.read && (
+                <div className="h-2 w-2 bg-blue-500 rounded-full" />
+              )}
             </div>
           );
         })}
