@@ -1,11 +1,13 @@
+import { isActionSuccessful } from "@/lib/actions/action.utils";
 import { getUnreadNotificationsCount } from "@/lib/actions/notifications/notification.action";
-import { auth } from "@/lib/auth/auth"
 import { NextRequest, NextResponse } from "next/server"
 
 export const GET = async(req: NextRequest): Promise<NextResponse> => {
-  const session = await auth.api.getSession({ headers: req.headers });
-  if (!session) return NextResponse.json({ count: 0 });
+  const result = await getUnreadNotificationsCount();
+  
+  if (isActionSuccessful(result)) {
+    return NextResponse.json({ count: result.data });
+  }
 
-  const count = await getUnreadNotificationsCount(session.user.id);
-  return NextResponse.json({ count });
+  return NextResponse.json({ count: 0 });
 }
