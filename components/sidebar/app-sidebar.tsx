@@ -10,38 +10,16 @@ import { NavMain } from "./nav-main"
 import { NavUser } from "./nav-user"
 import { LanguageSelector } from "../language-selector"
 import { useTranslations } from "next-intl"
+import usePollingNotifications from "@/hooks/use-notification-polling"
 
 export const AppSidebar: Component<ComponentProps<typeof Sidebar> & {
   notifications?: number
 }> = ({ ...props }) => {
   const { data: session } = useSession();
-  const [notifications, setNotifications] = useState(0);
+  const notifications = usePollingNotifications();
   const t = useTranslations("Sidebar");
 
   const { theme, setTheme } = useTheme();
-
-  useEffect(() => {
-    const fetchNotifications = async () => {
-      const res = await fetch("/api/user/notifications", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-      const data = await res.json();
-      setNotifications(data.count);
-      if (data.count > 0) {
-        setInterval(fetchNotifications, 5000);
-      } else {
-        setInterval(fetchNotifications, 60000);
-      }
-    };
-
-    fetchNotifications();
-    let interval = setInterval(fetchNotifications, 60000);
-
-    return () => clearInterval(interval);
-  }, [theme]);
 
   return (
     <Sidebar variant="floating" {...props}>
@@ -66,7 +44,7 @@ export const AppSidebar: Component<ComponentProps<typeof Sidebar> & {
         <NavMain items={[
           { title: "Home", icon: Home, url: "/" },
           // { title: "Explore", icon: Hashtag, url: "#" },
-          { title: "Notifications", icon: Bell, url: "/notifications", numberBadge: notifications },
+          { title: "Notifications", icon: Bell, url: "/notifications", numberBadge: notifications ?? 0, },
           // { title: "Messages", icon: Mail, url: "#" },
           // { title: "Bookmarks", icon: Bookmark, url: "#" },
           { title: "Profile", icon: User, url: `/${session?.user.username}` },
