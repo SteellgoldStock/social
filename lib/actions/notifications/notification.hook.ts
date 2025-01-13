@@ -8,32 +8,32 @@ import {
 } from "./notification.action";
 
 // Queries
-export function getNotificationsQuery() {
+export const getNotificationsQuery = () => {
   return {
     queryKey: ["notifications"],
     queryFn: () => getNotifications()
   } satisfies UseQueryOptions;
 }
 
-export function getUnreadCountQuery() {
+export const getUnreadCountQuery = () => {
   return {
     queryKey: ["notifications", "unread"],
     queryFn: () => getUnreadNotificationsCount()
   } satisfies UseQueryOptions;
 }
 
-export function useNotifications() {
+export const useNotifications = () => {
   return useQuery(getNotificationsQuery());
 }
 
-export function useUnreadNotificationsCount() {
+export const useUnreadNotificationsCount = () => {
   return useQuery({
     ...getUnreadCountQuery()
   });
 }
 
 // Mutations
-export function useMarkAsRead() {
+export const useMarkAsRead = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -46,7 +46,7 @@ export function useMarkAsRead() {
   });
 }
 
-export function useMarkAllAsRead() {
+export const useMarkAllAsRead = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
