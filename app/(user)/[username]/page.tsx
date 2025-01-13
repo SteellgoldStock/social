@@ -15,7 +15,34 @@ const ProfilePage: AsyncComponent<PageProps> = async ({ params }) => {
     include: {
       followers: true,
       following: true,
-      posts: true,
+      posts: {
+        include: {
+          likes: true,
+          comments: true,
+          parent: {
+            select: {
+              user: {
+                select: {
+                  name: true,
+                  username: true,
+                  image: true,
+                  isVerified: true
+                }
+              },
+              content: true
+            }
+          },
+          user: {
+            select: {
+              name: true,
+              username: true,
+              image: true,
+              isVerified: true
+            }
+          }
+        },
+        orderBy: { createdAt: "desc" }
+      },
       socials: true
     }
   });

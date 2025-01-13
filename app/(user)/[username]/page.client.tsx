@@ -16,13 +16,40 @@ import { Component } from "@/lib/types";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Twemoji from "react-twemoji";
+import { PostCard } from "@/components/post-card";
 
 type PageProps = {
   user: Prisma.UserGetPayload<{
     include: {
       followers: true,
       following: true,
-      posts: true,
+      posts: {
+        include: {
+          likes: true,
+          comments: true,
+          parent: {
+            select: {
+              user: {
+                select: {
+                  name: true,
+                  username: true,
+                  image: true,
+                  isVerified: true
+                }
+              },
+              content: true
+            }
+          },
+          user: {
+            select: {
+              name: true,
+              username: true,
+              image: true,
+              isVerified: true
+            }
+          }
+        },
+      },
       socials: true
     }
   }>;
@@ -147,11 +174,11 @@ export const ClientProfilePage: Component<PageProps> = ({ user }) => {
         </p>
       )}
 
-      {/* <div className="flex flex-col gap-4">
-        {posts.filter((post) => post.author.handle === user.handle).map((post) => (
+      <div className="flex flex-col gap-4">
+        {user.posts.map((post) => (
           <PostCard key={post.id} {...post} />
         ))}
-      </div> */}
+      </div>
     </section>
   );
 };
