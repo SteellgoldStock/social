@@ -46,8 +46,10 @@ export const createPost = authActionClient.schema(CreatePostInput).action(
         }
       });
 
+      const filteredUsers = users.filter(user => user.id !== session.user.id);
+
       await prisma.notification.createMany({
-        data: users.map((user) => ({
+        data: filteredUsers.map((user) => ({
           userId: user.id,
           authorId: session.user.id,
           type: "MENTION",
