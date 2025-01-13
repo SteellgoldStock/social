@@ -92,18 +92,31 @@ export const PostCard: Component<Prisma.PostGetPayload<{
 
         {parent && (
           <div className="mt-3 p-4 bg-[#e9eaeb] dark:bg-[#1d1d1d] border rounded-lg">
-            <span className="font-medium text-gray-700 dark:text-gray-300 border p-0.5 text-xs">
-              En réponse à
-              &nbsp;
-              <Link href={`/${parent.user.username}`}>
-                <Avatar className="w-3 h-3">
-                  <AvatarImage src={parent.user.image ?? ""} alt={parent.user.name ?? "John Doe"} />
-                  <AvatarFallback>{(parent.user.name ?? "").split(" ").map(n => n[0]).join("")}</AvatarFallback>
-                </Avatar>
+            <div className="flex items-center gap-1.5">
+              <span className="shrink-0 flex items-center gap-1.5 font-medium text-gray-700 dark:text-gray-300 border p-0.5 text-xs">
+                En réponse à
+                <Link href={`/${parent.user.username}`} className="flex items-center gap-1 hover:underline">
+                  <Avatar className="w-3 h-3">
+                    <AvatarImage src={parent.user.image ?? ""} alt={parent.user.name ?? "John Doe"} />
+                    <AvatarFallback>{(parent.user.name ?? "").split(" ").map(n => n[0]).join("")}</AvatarFallback>
+                  </Avatar>
 
-                {parent.user.name}
-              </Link>
-            </span>
+                  {parent.user.name}
+                </Link>
+              </span>
+              {/* <span className="flex font-medium text-gray-700 dark:text-gray-300 border p-0.5 text-xs shrink-0">
+                En réponse à
+                &nbsp;
+                <Link href={`/${parent.user.username}`} className="flex items-center gap-1.5">
+                  <Avatar className="w-3 h-3">
+                    <AvatarImage src={parent.user.image ?? ""} alt={parent.user.name ?? "John Doe"} />
+                    <AvatarFallback>{(parent.user.name ?? "").split(" ").map(n => n[0]).join("")}</AvatarFallback>
+                  </Avatar>
+
+                  {parent.user.name}
+                </Link>
+              </span> */}
+            </div>
 
             <p className="text-gray-500 dark:text-gray-400 mt-1">
               {parent.content}
