@@ -23,7 +23,7 @@ export const createPost = authActionClient.schema(CreatePostInput).action(
     const thisPost = await prisma.post.create({
       data: {
         id: generateId(),
-        content,
+        content: content.replace(/\n/g, "\n\n"),
         parentId,
         userId: session.user.id
       },
