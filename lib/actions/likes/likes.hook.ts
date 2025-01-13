@@ -52,21 +52,23 @@ export const useLike = (postId: string, initialLikesCount: number): UseLikeResul
   const [likesCount, setLikesCount] = useState(initialLikesCount);
   const [optimisticIsLiked, setOptimisticIsLiked] = useState<boolean | null>(null);
   const [isLoading, setIsLoading] = useState(false);
- 
+  const [isRequestPending, setIsRequestPending] = useState(false);
+  
   const isLiked = optimisticIsLiked ?? userLikes?.data?.data.some((like) => like.id === postId);
 
-  useEffect(() => {
-    setLikesCount(initialLikesCount);
-  }, [initialLikesCount]);
+  useEffect(() => setLikesCount(initialLikesCount), [initialLikesCount]);
 
   const toggleLike = async () => {
+    if (isRequestPending) return;
+
     const newIsLiked = !isLiked;
     setOptimisticIsLiked(newIsLiked);
     setLikesCount(prev => newIsLiked ? prev + 1 : prev - 1);
     
     setIsLoading(true);
-    setTimeout(() => setIsLoading(false), 50);
+    setTimeout(() => setIsLoading(false), 200);
 
+    setIsRequestPending(true);
     try {
       if (newIsLiked) {
         const result = await likePostMutation.mutateAsync(postId);
@@ -85,6 +87,8 @@ export const useLike = (postId: string, initialLikesCount: number): UseLikeResul
       setOptimisticIsLiked(null);
       setLikesCount(newIsLiked ? prev => prev - 1 : prev => prev + 1);
       console.error(error);
+    } finally {
+      setIsRequestPending(false);
     }
   };
 

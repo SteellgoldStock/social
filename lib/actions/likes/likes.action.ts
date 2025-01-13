@@ -52,6 +52,15 @@ export const likePost = authActionClient.schema(LikePostUpdate).action(
       }
     });
 
+    const notification = await prisma.notification.create({
+      data: {
+        type: "LIKE",
+        triggerPostId: postId,
+        userId: updatedPost.userId,
+        authorId: session.user.id
+      }
+    });
+
     return { 
       success: true, 
       totalLikes: updatedPost._count.likes 
@@ -87,6 +96,21 @@ export const unlikePost = authActionClient.schema(LikePostUpdate).action(
         }
       }
     });
+
+    const notification = await prisma.notification.findFirst({
+      where: {
+        type: "LIKE",
+        triggerPostId: postId,
+        userId: updatedPost.userId,
+        authorId: session.user.id
+      }
+    });
+
+    if (notification) {
+      await prisma.notification.delete({
+        where: { id: notification.id }
+      });
+    }
 
     return { 
       success: true,
