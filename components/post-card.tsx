@@ -5,13 +5,14 @@ import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button, buttonVariants } from "./ui/button";
-import { Bookmark, Heart, MessageCircle, Repeat, Share } from "lucide-react";
+import { Bookmark, Heart, Loader2, MessageCircle, Repeat, Share } from "lucide-react";
 import Link from "next/link";
 import { Prisma } from "@prisma/client";
 import { Component } from "@/lib/types";
 import { dayJS } from "@/lib/day-js";
 import TextFormatter from "./formatter";
 import { useLocale, useTranslations } from "next-intl";
+import { useLike } from "@/lib/actions/likes/likes.hook";
 
 export const PostCard: Component<Prisma.PostGetPayload<{
   include: {
@@ -44,6 +45,8 @@ export const PostCard: Component<Prisma.PostGetPayload<{
 }> = ({
   comments, content, createdAt, id, likes, parent, parentId, updatedAt, user, userId, includeParent = true
 }): ReactElement => {
+  const { isLiked, toggleLike, isLoading, likesCount } = useLike(id, likes.length);
+
   // const [likesCount, setLikesCount] = useState(likes);
   // const [repostsCount, setRepostsCount] = useState(reposts);
 
@@ -133,21 +136,25 @@ export const PostCard: Component<Prisma.PostGetPayload<{
             {comments.length}
           </Link>
 
-          {/* <Button
+          <Button
             variant="ghost"
             size="sm"
             className={cn("transition-colors", {
               "hover:bg-red-50 dark:hover:bg-red-900/30 hover:text-red-500 hover:dark:text-red-300": isLiked,
               "hover:bg-neutral-100 dark:hover:bg-neutral-900": !isLiked
             })}
+            disabled={isLoading}
             onClick={() => toggleLike()}
           >
-            <Heart className={cn("h-4 w-4", {
-              "fill-red-500 text-red-500": isLiked
-            })} />
-            
+            {isLoading
+              ? <Loader2 className="animate-spin h-4 w-4" />
+              : <Heart className={cn("h-4 w-4", {
+                  "fill-red-500 text-red-500": isLiked
+                })} />
+            }
+
             {likesCount}
-          </Button> */}
+          </Button>
 
           {/* <Button
             variant="ghost"
