@@ -51,7 +51,7 @@ export const XTextarea: Component<TextareaProps> = ({ onChange, placeholder, def
         value={content}
         onChange={handleChange}
         placeholder={placeholder}
-        className="w-full resize-none overflow-hidden bg-transparent text-lg focus:outline-none relative z-10 text-transparent"
+        className="w-full resize-none overflow-hidden bg-transparent text-lg focus:outline-none relative z-10 text-transparent caret-white"
         maxLength={MAX_POST_LENGTH}
         rows={1}
       />
