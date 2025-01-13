@@ -29,6 +29,28 @@ export const POST = async (req: NextRequest): Promise<NextResponse> => {
 
   if (!data) return NextResponse.json({ status: 404, body: { error: "APINotFound" } });
 
-  console.log(`User ${session.user.username} ${actionType === "follow" ? "followed" : "unfollowed"} ${username}`);
+  if (actionType === "follow") {
+    const user = await prisma.user.findFirst({ where: { username } });
+    if (!user) return NextResponse.json({ status: 404, body: { error: "APINotFound" } });
+
+    const exist = await prisma.notification.findFirst({
+      where: {
+        type: "FOLLOW",
+        userId: user.id,
+        authorId: session.user.id
+      }
+    });
+
+    if (!exist) {
+      await prisma.notification.create({
+        data: {
+          type: "FOLLOW",
+          userId: user.id,
+          authorId: session.user.id
+        }
+      });
+    }
+  }
+
   return NextResponse.json({ status: 200, body: { data } });
 }

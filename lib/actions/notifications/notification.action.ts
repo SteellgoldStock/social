@@ -2,7 +2,7 @@
 
 import { prisma } from "@/lib/db/prisma";
 import { authActionClient } from "@/lib/safe-action";
-import { Prisma } from "@prisma/client";
+import { NotificationType, Prisma } from "@prisma/client";
 import { z } from "zod";
 
 type GetNotificationsType = {
@@ -112,23 +112,23 @@ export const markAllNotificationsAsRead = authActionClient.action(async ({ ctx: 
   });
 });
 
-// export const createNotification = async({
-//   type,
-//   userId,
-//   authorId,
-//   postId = null
-// }: {
-//   type: NotificationType;
-//   userId: string;
-//   authorId: string;
-//   postId?: string | null;
-// }): Promise<void> => {
-//   await prisma.notification.create({
-//     data: {
-//       type,
-//       user: { connect: { id: userId } },
-//       author: { connect: { id: authorId } },
-//       post: postId ? { connect: { id: postId } } : undefined
-//     }
-//   });
-// }
+export const createNotification = async({
+  type,
+  userId,
+  authorId,
+  postId = null
+}: {
+  type: NotificationType;
+  userId: string;
+  authorId: string;
+  postId?: string | null;
+}): Promise<void> => {
+  await prisma.notification.create({
+    data: {
+      type,
+      user: { connect: { id: userId } },
+      author: { connect: { id: authorId } },
+      post: postId ? { connect: { id: postId } } : undefined
+    }
+  });
+}

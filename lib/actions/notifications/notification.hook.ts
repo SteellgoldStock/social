@@ -4,8 +4,10 @@ import {
   getNotifications, 
   getUnreadNotificationsCount,
   markNotificationAsRead,
-  markAllNotificationsAsRead
+  markAllNotificationsAsRead,
+  createNotification
 } from "./notification.action";
+import { NotificationType } from "@prisma/client";
 
 // Queries
 export const getNotificationsQuery = () => {
@@ -57,6 +59,34 @@ export const useMarkAllAsRead = () => {
       });
       queryClient.invalidateQueries({ 
         queryKey: ["notifications", "unread", variables]
+      });
+    }
+  });
+}
+
+export const useCreateNotification = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: ({
+      type,
+      userId,
+      authorId,
+      postId = null
+    }: {
+      type: NotificationType;
+      userId: string;
+      authorId: string;
+      postId?: string | null;
+    }) => createNotification({ type, userId, authorId, postId }),
+    
+    onSuccess: () => {
+      queryClient.invalidateQueries({ 
+        queryKey: ["notifications"]
+      });
+
+      queryClient.invalidateQueries({ 
+        queryKey: ["notifications", "unread"]
       });
     }
   });

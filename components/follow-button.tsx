@@ -13,33 +13,37 @@ type FollowButtonProps = {
 
 export const FollowButton: Component<FollowButtonProps> = ({ isFollowing: initialIsFollowing, username }) => {
   const { data } = useSession();
-
+  const [isLoading, setIsLoading] = useState(false);
   const [isFollowing, setIsFollowing] = useState(initialIsFollowing);
   const [isHovered, setIsHovered] = useState(false);
   
   const t = useTranslations("FollowButton");
 
-  const follow = async () => {
-    setIsFollowing((prev) => !prev);
-    await fetch(`/api/user/relation`, {
-      body: JSON.stringify({ username, actionType: "follow" }),
-      method: "POST"
-    });
+  const handleAction = async (actionType: "follow" | "unfollow") => {
+    if (isLoading) return;
+    
+    try {
+      setIsLoading(true);
+      setIsFollowing((prev) => !prev);
+      
+      await fetch(`/api/user/relation`, {
+        body: JSON.stringify({ username, actionType }),
+        method: "POST"
+      });
+    } catch (error) {
+      setIsFollowing((prev) => !prev);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
-  const unfollow = async () => {
-    setIsFollowing((prev) => !prev);
-    await fetch(`/api/user/relation`, {
-      body: JSON.stringify({ username, actionType: "unfollow" }),
-      method: "POST"
-    });
-  };
+  const follow = () => handleAction("follow");
+  const unfollow = () => handleAction("unfollow");
 
   useEffect(() => {
     setIsFollowing(initialIsFollowing);
   }, [initialIsFollowing]);
 
-  
   if (!data || data.user.username === username) return (
     <Button variant="outline" size="sm" disabled>
       {t("Follow")}
@@ -50,10 +54,9 @@ export const FollowButton: Component<FollowButtonProps> = ({ isFollowing: initia
     <Button
       variant={isHovered ? "destructive" : "secondary"}
       size="sm"
-
+      disabled={isLoading}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-
       onClick={isFollowing ? unfollow : follow}
     >
       {isFollowing ? (isHovered ? t("UnfollowOnHover") : t("Following")) : t("Follow")}
