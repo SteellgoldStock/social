@@ -175,5 +175,8 @@
 
       "MENTION": "{username} vous a mentionné dans une publication."
     }
+  },
+  "Basic": {
+    "at": "à"
   }
 }

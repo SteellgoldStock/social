@@ -11,7 +11,7 @@ import { Prisma } from "@prisma/client";
 import { Component } from "@/lib/types";
 import { dayJS } from "@/lib/day-js";
 import TextFormatter from "./formatter";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 export const PostCard: Component<Prisma.PostGetPayload<{
   include: {
@@ -60,6 +60,8 @@ export const PostCard: Component<Prisma.PostGetPayload<{
   // }
 
   const lang = useLocale();
+  
+  const t = useTranslations("Basic");
 
   return ( 
     <Card key={id}>
@@ -79,8 +81,8 @@ export const PostCard: Component<Prisma.PostGetPayload<{
               {user.username}
               &nbsp;&bull;&nbsp;
               {dayJS(createdAt).year === dayJS().year
-                ? dayJS(createdAt).locale(lang).format("MMM D [at] h:mm")
-                : dayJS(createdAt).locale(lang).format("MMM D, YYYY [at] h:mm")
+                ? dayJS(createdAt).locale(lang).format(`MMM D [${t("at")}] ${lang == "fr" ? "HH:mm" : "h:mm a"}`)
+                : dayJS(createdAt).locale(lang).format(`MMM D, YYYY [${t("at")}] ${lang == "fr" ? "HH:mm" : "h:mm a"}`)
               }
             </span>
           </div>
@@ -104,22 +106,10 @@ export const PostCard: Component<Prisma.PostGetPayload<{
                   {parent.user.name}
                 </Link>
               </span>
-              {/* <span className="flex font-medium text-gray-700 dark:text-gray-300 border p-0.5 text-xs shrink-0">
-                En réponse à
-                &nbsp;
-                <Link href={`/${parent.user.username}`} className="flex items-center gap-1.5">
-                  <Avatar className="w-3 h-3">
-                    <AvatarImage src={parent.user.image ?? ""} alt={parent.user.name ?? "John Doe"} />
-                    <AvatarFallback>{(parent.user.name ?? "").split(" ").map(n => n[0]).join("")}</AvatarFallback>
-                  </Avatar>
-
-                  {parent.user.name}
-                </Link>
-              </span> */}
             </div>
 
-            <p className="text-gray-500 dark:text-gray-400 mt-1">
-              {parent.content}
+            <p className="text-gray-500 dark:text-gray-400 mt-1 line-clamp-3">
+              <TextFormatter text={parent.content} />
             </p>
           </div>
         )}
