@@ -174,7 +174,11 @@ export const ClientProfilePage: Component<PageProps> = ({ user }) => {
         </p>
       )}
 
-      <div className="flex flex-col gap-4">
+      <div className={cn(
+        "flex flex-col gap-2", {
+          "opacity-10 mt-4": editMode
+        }
+      )}>
         {user.posts.map((post) => (
           <PostCard key={post.id} {...post} />
         ))}
