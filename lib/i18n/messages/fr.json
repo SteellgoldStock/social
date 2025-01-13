@@ -178,5 +178,16 @@
   },
   "Basic": {
     "at": "à"
+  },
+  "PostReplyDialog": {
+    "Title": "Citation",
+    "Description": "En citant un post, le contenu original sera inclus dans votre réponse et visible par tous.",
+
+    "Placeholder": "Écrivez votre réponse ici...",
+
+    "Buttons": {
+      "Cancel": "Annuler",
+      "Reply": "Répondre"
+    }
   }
 }

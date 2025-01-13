@@ -177,5 +177,16 @@
   },
   "Basic": {
     "at": "at"
+  },
+  "PostReplyDialog": {
+    "Title": "Quote",
+    "Description": "When quoting a post, the original content will be included in your reply and visible to everyone.",
+
+    "Placeholder": "Write your reply here...",
+
+    "Buttons": {
+      "Cancel": "Cancel",
+      "Reply": "Reply"
+    }
   }
 }

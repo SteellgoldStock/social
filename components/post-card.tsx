@@ -5,7 +5,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button, buttonVariants } from "./ui/button";
-import { Bookmark, Heart, Loader2, MessageCircle, Repeat, Share } from "lucide-react";
+import { Bookmark, Heart, Loader2, MessageCircle, MessageSquareShare, Repeat, Share } from "lucide-react";
 import Link from "next/link";
 import { Prisma } from "@prisma/client";
 import { Component } from "@/lib/types";
@@ -13,6 +13,7 @@ import { dayJS } from "@/lib/day-js";
 import TextFormatter from "./formatter";
 import { useLocale, useTranslations } from "next-intl";
 import { useLike } from "@/lib/actions/likes/likes.hook";
+import { PostReplyDialog } from "./reply-dialog";
 
 export const PostCard: Component<Prisma.PostGetPayload<{
   include: {
@@ -155,6 +156,12 @@ export const PostCard: Component<Prisma.PostGetPayload<{
 
             {likesCount}
           </Button>
+
+          <PostReplyDialog postId={id}>
+            <Button variant="ghost" size="sm">
+              <MessageSquareShare className="h-4 w-4" />
+            </Button>
+          </PostReplyDialog>
 
           {/* <Button
             variant="ghost"
