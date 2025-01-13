@@ -39,8 +39,10 @@ export const PostCard: Component<Prisma.PostGetPayload<{
       }
     }
   }
-}>> = ({
-  comments, content, createdAt, id, likes, parent, parentId, updatedAt, user, userId
+}> & {
+  includeParent?: boolean;
+}> = ({
+  comments, content, createdAt, id, likes, parent, parentId, updatedAt, user, userId, includeParent = true
 }): ReactElement => {
   // const [likesCount, setLikesCount] = useState(likes);
   // const [repostsCount, setRepostsCount] = useState(reposts);
@@ -92,7 +94,7 @@ export const PostCard: Component<Prisma.PostGetPayload<{
       <CardContent className="-mt-2">
         <TextFormatter text={content} />
 
-        {parent && (
+        {includeParent && parent && (
           <div className="mt-3 p-4 bg-[#e9eaeb] dark:bg-[#1d1d1d] border rounded-lg">
             <div className="flex items-center gap-1.5">
               <span className="shrink-0 flex items-center gap-1.5 font-medium text-gray-700 dark:text-gray-300 border p-0.5 text-xs">
