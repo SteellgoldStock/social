@@ -49,8 +49,10 @@ const Layout: AsyncComponent<PropsWithChildren> = async({ children }) => {
                     </div>
                   </header>
 
-                  <main className="py-2 px-2 sm:py-4 sm:px-4">
-                    {children}
+                  <main className="py-1">
+                    <div className="mt-0.5">
+                      {children}
+                    </div>
                   </main>
 
                   <Toaster richColors />

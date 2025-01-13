@@ -175,7 +175,7 @@ export const ClientProfilePage: Component<PageProps> = ({ user }) => {
       )}
 
       <div className={cn(
-        "flex flex-col gap-2", {
+        "p-3 border flex flex-col gap-4 rounded-lg", {
           "opacity-10 mt-4": editMode
         }
       )}>
