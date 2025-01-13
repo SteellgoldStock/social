@@ -1,9 +1,10 @@
 import { Skeleton } from "@/components/ui/skeleton"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { Container } from "@/components/container";
 
 const ProfileLoadingPage = () => {
   return (
-    <section className="max-w-2xl mx-auto">
+    <Container>
       <Card>
         <CardHeader className="p-1.5">
           <div className="relative">
@@ -55,7 +56,7 @@ const ProfileLoadingPage = () => {
       </Card>
 
       <div className="my-4" />
-    </section>
+    </Container>
   )
 }
 

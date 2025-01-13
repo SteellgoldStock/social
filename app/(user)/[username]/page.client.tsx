@@ -17,6 +17,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Twemoji from "react-twemoji";
 import { PostCard } from "@/components/post-card";
+import { Container } from "@/components/container";
 
 type PageProps = {
   user: Prisma.UserGetPayload<{
@@ -64,7 +65,7 @@ export const ClientProfilePage: Component<PageProps> = ({ user }) => {
   const t = useTranslations("ProfilePage");
 
   return (
-    <section className="max-w-2xl mx-auto">
+    <Container>
       <Card>
         <CardHeader className="p-1.5">
           <div className="relative">
@@ -183,6 +184,6 @@ export const ClientProfilePage: Component<PageProps> = ({ user }) => {
           <PostCard key={post.id} {...post} />
         ))}
       </div>
-    </section>
+    </Container>
   );
 };

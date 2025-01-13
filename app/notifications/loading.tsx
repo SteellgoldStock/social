@@ -1,5 +1,6 @@
 "use client";
 
+import { Container } from "@/components/container";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Component } from "@/lib/types";
@@ -13,9 +14,7 @@ type NotificationsLoadingProps = {
 
 const NotificationsLoading: Component<NotificationsLoadingProps> = ({ withHeader = true }) => {
   return (
-    <div className={cn({
-      "container mx-auto px-4 py-8 max-w-2xl": withHeader,
-    })}>
+    <Container>
       {withHeader && (
         <div className="flex items-center justify-between mb-6">
           <Skeleton className="h-8 w-40" />
@@ -51,7 +50,7 @@ const NotificationsLoading: Component<NotificationsLoadingProps> = ({ withHeader
           </div>
         ))}
       </div>
-    </div>
+    </Container>
   );
 };
 
