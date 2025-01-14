@@ -25,13 +25,30 @@ model Post {
   //
   parent       Post?          @relation("CommentRelation", fields: [parentId], references: [id])
   parentId     String?
+  // 
+  versions     PostVersion[]
   //
   createdAt    DateTime       @default(now())
   updatedAt    DateTime       @default(now()) @updatedAt
+  mostRecent   DateTime       @default(now())
   notification Notification[]
   //
   triggerPost  Notification[] @relation("TriggerPost")
 
   //
   @@map("post")
+}
+
+model PostVersion {
+  id        String   @id @default(cuid())
+  //
+  post      Post     @relation(fields: [postId], references: [id], onDelete: Cascade)
+  postId    String
+  //
+  content   String
+  //
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+  //
+  @@map("post_version")
 }
