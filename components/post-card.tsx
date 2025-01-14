@@ -157,7 +157,7 @@ export const PostCard: Component<Prisma.PostGetPayload<{
             {likesCount}
           </Button>
 
-          <PostReplyDialog postId={id}>
+          <PostReplyDialog parentId={id}>
             <Button variant="ghost" size="sm">
               <MessageSquareShare className="h-4 w-4" />
             </Button>
