@@ -1,6 +1,8 @@
 import { useMutation, useQuery, useQueryClient, UseQueryOptions } from "@tanstack/react-query";
 import { getLikes, likePost, unlikePost } from "./likes.action";
 import { useEffect, useState } from "react";
+import { z } from "zod";
+import { LikePostUpdateType } from "./likes.type";
 
 // Queries
 export const getLikesQuery = () => {
@@ -15,7 +17,7 @@ export const useLikePost = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (postId: string) => likePost({ postId }),
+    mutationFn: (data: LikePostUpdateType) => likePost({ ...data }),
     onSuccess: () => {
       queryClient.invalidateQueries({ 
         queryKey: ["likes"]
@@ -28,7 +30,7 @@ export const useUnlikePost = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (postId: string) => unlikePost({ postId }),
+    mutationFn: (data: LikePostUpdateType) => unlikePost({ ...data }),
     onSuccess: () => {
       queryClient.invalidateQueries({ 
         queryKey: ["likes"]
@@ -44,7 +46,7 @@ type UseLikeResult = {
   likesCount: number;
 }
 
-export const useLike = (postId: string, initialLikesCount: number): UseLikeResult => {
+export const useLike = (postId: string, initialLikesCount: number, authorId: string): UseLikeResult => {
   const { data: userLikes } = useQuery(getLikesQuery());
   const likePostMutation = useLikePost();
   const unlikePostMutation = useUnlikePost();
@@ -71,13 +73,13 @@ export const useLike = (postId: string, initialLikesCount: number): UseLikeResul
     setIsRequestPending(true);
     try {
       if (newIsLiked) {
-        const result = await likePostMutation.mutateAsync(postId);
+        const result = await likePostMutation.mutateAsync({ postId, authorId });
         if (!result?.data?.success) {
           setOptimisticIsLiked(null);
           setLikesCount(prev => prev - 1);
         }
       } else {
-        const result = await unlikePostMutation.mutateAsync(postId);
+        const result = await unlikePostMutation.mutateAsync({ postId, authorId });
         if (!result?.data?.success) {
           setOptimisticIsLiked(null);
           setLikesCount(prev => prev + 1);

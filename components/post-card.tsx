@@ -1,19 +1,19 @@
 "use client";
 
-import { ReactElement, useState } from "react";
+import { Heart, Loader2, MessageCircle, MessageSquareShare, Share } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
-import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { useLike } from "@/lib/actions/likes/likes.hook";
+import { useLocale, useTranslations } from "next-intl";
 import { Button, buttonVariants } from "./ui/button";
-import { Bookmark, Heart, Loader2, MessageCircle, MessageSquareShare, Repeat, Share } from "lucide-react";
-import Link from "next/link";
+import { PostReplyDialog } from "./reply-dialog";
 import { Prisma } from "@prisma/client";
 import { Component } from "@/lib/types";
-import { dayJS } from "@/lib/day-js";
 import TextFormatter from "./formatter";
-import { useLocale, useTranslations } from "next-intl";
-import { useLike } from "@/lib/actions/likes/likes.hook";
-import { PostReplyDialog } from "./reply-dialog";
+import { dayJS } from "@/lib/day-js";
+import { ReactElement } from "react";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export const PostCard: Component<Prisma.PostGetPayload<{
   include: {
@@ -46,24 +46,7 @@ export const PostCard: Component<Prisma.PostGetPayload<{
 }> = ({
   comments, content, createdAt, id, likes, parent, parentId, updatedAt, user, userId, includeParent = true
 }): ReactElement => {
-  const { isLiked, toggleLike, isLoading, likesCount } = useLike(id, likes.length);
-
-  // const [likesCount, setLikesCount] = useState(likes);
-  // const [repostsCount, setRepostsCount] = useState(reposts);
-
-  // const [isLiked, setIsLiked] = useState(isLikedDefault);
-  // const [isReposted, setIsReposted] = useState(isRepostedDefault);
-  // const [isBookmarked, setIsBookmarked] = useState(isBookmarkedDefault);
-
-  // const toggleLike = () => {
-  //   setIsLiked(!isLiked);
-  //   setLikesCount(isLiked ? likesCount - 1 : likesCount + 1);
-  // }
-
-  // const toggleRepost = () => {
-  //   setIsReposted(!isReposted);
-  //   setRepostsCount(isReposted ? repostsCount - 1 : repostsCount + 1);
-  // }
+  const { isLiked, toggleLike, isLoading, likesCount } = useLike(id, likes.length, userId);
 
   const lang = useLocale();
   
@@ -162,22 +145,6 @@ export const PostCard: Component<Prisma.PostGetPayload<{
               <MessageSquareShare className="h-4 w-4" />
             </Button>
           </PostReplyDialog>
-
-          {/* <Button
-            variant="ghost"
-            size="sm"
-            className={cn("transition-colors", {
-              "hover:bg-green-50 dark:hover:bg-green-900/30 hover:text-green-500 hover:dark:text-green-300": isReposted,
-              "hover:bg-neutral-100 dark:hover:bg-neutral-900": !isReposted
-            })}
-            onClick={() => toggleRepost()}
-          >
-            <Repeat className={cn("h-4 w-4", {
-              "fill-green-500 text-green-500": isReposted
-            })} />
-            
-            {repostsCount}
-          </Button> */}
         </div>
 
         <div className="space-x-1.5">

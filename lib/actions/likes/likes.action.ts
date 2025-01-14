@@ -2,11 +2,7 @@
 
 import { prisma } from "@/lib/db/prisma";
 import { authActionClient } from "@/lib/safe-action";
-import { z } from "zod";
-
-const LikePostUpdate = z.object({
-  postId: z.string()
-});
+import { LikePostUpdate } from "./likes.type";
 
 export const getLikes = authActionClient.action(
   async ({ ctx: { session } }) => {
@@ -24,7 +20,7 @@ export const getLikes = authActionClient.action(
 );
 
 export const likePost = authActionClient.schema(LikePostUpdate).action(
-  async ({ parsedInput: { postId }, ctx: { session } }) => {
+  async ({ parsedInput: { postId, authorId }, ctx: { session } }) => {
     const existingLike = await prisma.post.findFirst({
       where: { 
         id: postId,
@@ -52,14 +48,18 @@ export const likePost = authActionClient.schema(LikePostUpdate).action(
       }
     });
 
-    const notification = await prisma.notification.create({
-      data: {
-        type: "LIKE",
-        triggerPostId: postId,
-        userId: updatedPost.userId,
-        authorId: session.user.id
-      }
-    });
+    if (authorId !== session.user.id) {
+      await prisma.notification.create({
+        data: {
+          type: "LIKE",
+          triggerPostId: postId,
+          userId: updatedPost.userId,
+          authorId: session.user.id
+        }
+      });
+
+      // TODO: Send push notification
+    }
 
     return { 
       success: true, 
@@ -69,7 +69,7 @@ export const likePost = authActionClient.schema(LikePostUpdate).action(
 );
 
 export const unlikePost = authActionClient.schema(LikePostUpdate).action(
-  async ({ parsedInput: { postId }, ctx: { session } }) => {
+  async ({ parsedInput: { postId, authorId }, ctx: { session } }) => {
     const existingLike = await prisma.post.findFirst({
       where: { 
         id: postId,
@@ -97,19 +97,21 @@ export const unlikePost = authActionClient.schema(LikePostUpdate).action(
       }
     });
 
-    const notification = await prisma.notification.findFirst({
-      where: {
-        type: "LIKE",
-        triggerPostId: postId,
-        userId: updatedPost.userId,
-        authorId: session.user.id
-      }
-    });
-
-    if (notification) {
-      await prisma.notification.delete({
-        where: { id: notification.id }
+    if (authorId !== session.user.id) {
+      const notification = await prisma.notification.findFirst({
+        where: {
+          type: "LIKE",
+          triggerPostId: postId,
+          userId: updatedPost.userId,
+          authorId: session.user.id
+        }
       });
+  
+      if (notification) {
+        await prisma.notification.delete({
+          where: { id: notification.id }
+        });
+      }
     }
 
     return { 
