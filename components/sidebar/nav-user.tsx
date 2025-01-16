@@ -28,7 +28,7 @@ import { Component } from "@/lib/types"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card"
 import { Button } from "../ui/button"
 import { APP_NAME } from "@/lib/consts"
-import { FaGoogle } from "react-icons/fa"
+import { FaGithub, FaGoogle } from "react-icons/fa"
 import { useState } from "react"
 import { toast } from "sonner"
 import { Skeleton } from "../ui/skeleton"
@@ -42,20 +42,24 @@ type NavUserProps = {
 }
 
 export const NavUser: Component<NavUserProps> = ({ user }) => {
-  const [logining, setLogining] = useState(false);
+  const [logining, setLogining] = useState<false | "Google" | "Github">(false);
   const { data: session, isPending } = useSession();
   const { isMobile } = useSidebar()
   const router = useRouter();
 
-  const handleGoogle = async() => {
-    setLogining(true);
+  const handle = async(type: "Google" | "Github") => {
+    setLogining(type);
 
     const login = await client.signIn.social({
-      provider: "google"
+      provider: type.toLowerCase() as "google" | "github"
     })
 
-    if (login.error) toast.error(login.error.message);
+    if (login.error) {
+      toast.error(login.error.message);
+      setLogining(false);
+    }
   }
+
 
   if (isPending) {
     return (
@@ -83,10 +87,15 @@ export const NavUser: Component<NavUserProps> = ({ user }) => {
             </CardDescription>
           </CardHeader>
 
-          <CardContent className="grid gap-2.5 p-4">
-            <Button size="sm" onClick={handleGoogle} disabled={logining}> 
-              {logining ? <Loader2 className="animate-spin h-4 w-4" /> : <FaGoogle className="h-4 w-4" />}
-              Login with Google
+          <CardContent className="flex flex-col sm:flex-row gap-1 p-4">
+            <Button size="sm" onClick={() => handle("Google")} disabled={logining !== false} className="w-full"> 
+              {logining == "Google" ? <Loader2 className="animate-spin h-4 w-4" /> : <FaGoogle className="h-4 w-4" />}
+              {/* Login with Google */}
+            </Button>
+
+            <Button size="sm" onClick={() => handle("Github")} disabled={logining !== false} className="w-full">
+              {logining == "Github" ? <Loader2 className="animate-spin h-4 w-4" /> : <FaGithub className="h-4 w-4" />}
+              {/* Login with Github */}
             </Button>
           </CardContent>
         </form>
