@@ -1,7 +1,6 @@
 import { useMutation, useQuery, useQueryClient, UseQueryOptions } from "@tanstack/react-query";
 import { getLikes, likePost, unlikePost } from "./likes.action";
 import { useEffect, useState } from "react";
-import { z } from "zod";
 import { LikePostUpdateType } from "./likes.type";
 
 // Queries
@@ -71,23 +70,24 @@ export const useLike = (postId: string, initialLikesCount: number, authorId: str
     setTimeout(() => setIsLoading(false), 200);
 
     setIsRequestPending(true);
+
     try {
       if (newIsLiked) {
         const result = await likePostMutation.mutateAsync({ postId, authorId });
         if (!result?.data?.success) {
-          setOptimisticIsLiked(null);
           setLikesCount(prev => prev - 1);
+          setOptimisticIsLiked(null);
         }
       } else {
         const result = await unlikePostMutation.mutateAsync({ postId, authorId });
         if (!result?.data?.success) {
-          setOptimisticIsLiked(null);
           setLikesCount(prev => prev + 1);
+          setOptimisticIsLiked(null);
         }
       }
     } catch (error) {
-      setOptimisticIsLiked(null);
       setLikesCount(newIsLiked ? prev => prev - 1 : prev => prev + 1);
+      setOptimisticIsLiked(null);
       console.error(error);
     } finally {
       setIsRequestPending(false);
