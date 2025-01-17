@@ -8,9 +8,15 @@ type TextareaProps = {
   onChange?: (value: string) => void;
   placeholder?: string;
   defaultValue?: string;
+  value?: string;
 };
 
-export const XTextarea: Component<TextareaProps> = ({ onChange, placeholder, defaultValue }) => {
+export const XTextarea: Component<TextareaProps> = ({ 
+  onChange, 
+  placeholder, 
+  defaultValue, 
+  value 
+}) => {
   const [content, setContent] = useState(defaultValue || "");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -21,11 +27,19 @@ export const XTextarea: Component<TextareaProps> = ({ onChange, placeholder, def
     }
   }, [content]);
 
+  useEffect(() => {
+    if (value !== undefined) {
+      setContent(value);
+    }
+  }, [value]);
+
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     if (e.target.value.length > MAX_POST_LENGTH) return;
 
     const newValue = e.target.value;
-    setContent(newValue);
+    if (value === undefined) {
+      setContent(newValue);
+    }
     if (onChange) onChange(newValue);
   };
 
@@ -36,15 +50,17 @@ export const XTextarea: Component<TextareaProps> = ({ onChange, placeholder, def
     );
   };
 
+  const displayContent = value !== undefined ? value : content;
+
   return (
     <div className="relative w-full">
       <div
         className="absolute top-0 text-lg left-0 w-full h-full pointer-events-none whitespace-pre-wrap break-words z-30"
-        dangerouslySetInnerHTML={{ __html: content ? highlightText(content) : "" }}
+        dangerouslySetInnerHTML={{ __html: displayContent ? highlightText(displayContent) : "" }}
       />
       <textarea
         ref={textareaRef}
-        value={content}
+        value={displayContent}
         onChange={handleChange}
         placeholder={placeholder}
         className="w-full resize-none overflow-hidden bg-transparent text-lg focus:outline-none relative z-10 text-transparent caret-white"
