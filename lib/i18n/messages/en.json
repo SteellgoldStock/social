@@ -71,7 +71,9 @@
     "Followers": "Followers",
     "Following": "Following",
     "FollowingYou": "Follows you",
-    
+  
+    "NoPosts": "This user hasn't posted anything yet, encourage them to do so!",
+  
     "Dialog": {
       "Following": {
         "Title": "Following",
