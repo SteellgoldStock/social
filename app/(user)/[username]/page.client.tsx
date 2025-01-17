@@ -141,8 +141,9 @@ export const ClientProfilePage: Component<PageProps> = ({ user }) => {
                   ? t("Dialog.Following.SelfDescription")
                   : t("Dialog.Following.OthersDescription", { username: user.name })
               }
+              disabled={user.following.length === 0}
             >
-              <span className={cn("hover:underline cursor-pointer")}>
+              <span className={cn({ "hover:underline cursor-pointer": user.following.length > 0 })}>
                 <span className="text-neutral-400">{user.following.length}</span> {t("Following")}
               </span>
             </UsersDialog>
@@ -158,8 +159,11 @@ export const ClientProfilePage: Component<PageProps> = ({ user }) => {
                   ? t("Dialog.Followers.SelfDescription")
                   : t("Dialog.Followers.OthersDescription", { username: user.name })
               }
+              disabled={user.followers.length === 0}
             >
-              <span className={cn("hover:underline cursor-pointer")}>
+              <span className={cn({
+                "hover:underline cursor-pointer": user.followers.length > 0
+              })}>
                 <span className="text-neutral-400">{user.followers.length}</span> {t("Followers")}
               </span>
             </UsersDialog>
@@ -175,15 +179,21 @@ export const ClientProfilePage: Component<PageProps> = ({ user }) => {
         </p>
       )}
 
-      <div className={cn(
-        "p-3 border flex flex-col gap-4 rounded-lg", {
-          "opacity-10 mt-4": editMode
-        }
-      )}>
-        {user.posts.map((post) => (
-          <PostCard key={post.id} {...post} />
-        ))}
-      </div>
+      {user.posts.length > 0 ? (
+        <div className={cn(
+          "p-3 border flex flex-col gap-4 rounded-lg", {
+            "opacity-10 mt-4": editMode
+          }
+        )}>
+          {user.posts.map((post) => (
+            <PostCard key={post.id} {...post} />
+          ))}
+        </div>
+      ) : (
+        <div className="p-3">
+          <p className="text-center text-gray-500">{t("NoPosts")}</p>
+        </div>
+      )}
     </Container>
   );
 };

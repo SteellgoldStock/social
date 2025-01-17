@@ -17,6 +17,7 @@ type UsersDialogProps = PropsWithChildren & {
   followings?: User[];
   title: string;
   description: string;
+  disabled?: boolean;
 }
 
 export const UsersDialog: Component<UsersDialogProps> = ({ 
@@ -24,7 +25,8 @@ export const UsersDialog: Component<UsersDialogProps> = ({
   users, 
   followings = [], 
   title, 
-  description 
+  description,
+  disabled = false 
 }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const usersPerPage = 15;
@@ -44,7 +46,7 @@ export const UsersDialog: Component<UsersDialogProps> = ({
 
   return (
     <Dialog onOpenChange={(isOpen) => !isOpen && setCurrentPage(1)}>
-      <DialogTrigger>{children}</DialogTrigger>
+      <DialogTrigger disabled={disabled}>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
           <DialogTitle>{title}</DialogTitle>
