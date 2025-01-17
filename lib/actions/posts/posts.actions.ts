@@ -3,6 +3,6 @@ import { createPost } from "./posts.hook";
 
 export const useCreatePost = () => {
   return useMutation({
-    mutationFn: (data: { content: string; parentId?: string }) => createPost(data),
+    mutationFn: (data: { content: string; parentId?: string, comment?: boolean }) => createPost(data),
   });
 }
