@@ -6,7 +6,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useLike } from "@/lib/actions/likes/likes.hook";
 import { useLocale, useTranslations } from "next-intl";
 import { Button, buttonVariants } from "./ui/button";
-import { PostReplyDialog } from "./reply-dialog";
 import { Prisma } from "@prisma/client";
 import { Component } from "@/lib/types";
 import TextFormatter from "./formatter";
@@ -14,6 +13,7 @@ import { dayJS } from "@/lib/day-js";
 import { ReactElement } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
+import PostDialog from "./new-post";
 
 export const PostCard: Component<Prisma.PostGetPayload<{
   include: {
@@ -97,9 +97,9 @@ export const PostCard: Component<Prisma.PostGetPayload<{
               </span>
             </div>
 
-            <p className="text-gray-500 dark:text-gray-400 mt-1 line-clamp-3">
+            <div className="text-gray-500 dark:text-gray-400 mt-1 line-clamp-3">
               <TextFormatter text={parent.content} />
-            </p>
+            </div>
           </div>
         )}
       </CardContent>
@@ -140,11 +140,11 @@ export const PostCard: Component<Prisma.PostGetPayload<{
             {likesCount}
           </Button>
 
-          <PostReplyDialog parentId={id}>
+          <PostDialog parentId={id}>
             <Button variant="ghost" size="sm">
               <MessageSquareShare className="h-4 w-4" />
             </Button>
-          </PostReplyDialog>
+          </PostDialog>
         </div>
 
         <div className="space-x-1.5">
