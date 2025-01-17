@@ -1,9 +1,14 @@
 import { Component } from "@/lib/types";
+import { cn } from "@/lib/utils";
 import { PropsWithChildren } from "react";
 
-export const Container: Component<PropsWithChildren> = ({ children }) => {
+export const Container: Component<PropsWithChildren & {
+  fixed?: boolean;
+}> = ({ children, fixed = true }) => {
   return (
-    <section className="max-w-2xl mx-auto py-6">
+    <section className={cn("mx-auto py-6", {
+      "max-w-2xl": fixed,
+    })}>
       {children}
     </section>
   );
