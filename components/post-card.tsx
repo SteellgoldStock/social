@@ -1,6 +1,6 @@
 "use client";
 
-import { Heart, Loader2, MessageCircle, MessageSquareShare, Share } from "lucide-react";
+import { Heart, Loader2, MessageCircle, MessageSquareQuote, Share } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useLike } from "@/lib/actions/likes/likes.hook";
@@ -44,7 +44,7 @@ export const PostCard: Component<Prisma.PostGetPayload<{
 }> & {
   includeParent?: boolean;
 }> = ({
-  comments, content, createdAt, id, likes, parent, parentId, updatedAt, user, userId, includeParent = true
+  comments, content, createdAt, id, likes, parent, user, userId, includeParent = true
 }): ReactElement => {
   const { isLiked, toggleLike, isLoading, likesCount } = useLike(id, likes.length, userId);
 
@@ -142,7 +142,7 @@ export const PostCard: Component<Prisma.PostGetPayload<{
 
           <PostDialog parentId={id}>
             <Button variant="ghost" size="sm">
-              <MessageSquareShare className="h-4 w-4" />
+              <MessageSquareQuote className="h-4 w-4" />
             </Button>
           </PostDialog>
         </div>

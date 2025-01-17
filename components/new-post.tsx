@@ -13,11 +13,11 @@ import { Button } from "@/components/ui/button";
 import { Component } from "@/lib/types";
 import { useCreatePost } from "@/lib/actions/posts/posts.hook";
 import { toast } from "sonner";
-import Link from "next/link";
-import { PencilLine, Hash, Bold, Italic } from "lucide-react";
+import { PencilLine, Bold, Italic } from "lucide-react";
 import { PropsWithChildren, useState } from "react";
 import { XTextarea } from "@/components/ui/x-textarea";
 import { useTranslations } from "next-intl";
+import { MAX_POST_LENGTH } from "@/lib/consts";
 
 type PostDialogProps = PropsWithChildren & {
   parentId?: string;
@@ -34,12 +34,11 @@ const PostDialog: Component<PostDialogProps> = ({
   const [content, setContent] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [charCount, setCharCount] = useState(0);
-  const MAX_CHARS = 500;
 
   const createPost = useCreatePost();
 
   const handleContentChange = (newContent: string) => {
-    if (newContent.length <= MAX_CHARS) {
+    if (newContent.length <= MAX_POST_LENGTH) {
       setContent(newContent);
       setCharCount(newContent.length);
     }
@@ -91,7 +90,7 @@ const PostDialog: Component<PostDialogProps> = ({
     }
 
     const newContent = content.substring(0, start) + newText + content.substring(end);
-    if (newContent.length <= MAX_CHARS) {
+    if (newContent.length <= MAX_POST_LENGTH) {
       setContent(newContent);
       setCharCount(newContent.length);
     }
@@ -145,19 +144,7 @@ const PostDialog: Component<PostDialogProps> = ({
           />
 
           <div className="flex items-center justify-between text-xs text-gray-500">
-            <div className="flex items-center gap-1">
-              <Hash className="h-3 w-3" />
-              <span>{t("MarkdownSupported")}</span>
-              <Link 
-                href="https://www.markdownguide.org/basic-syntax/" 
-                target="_blank"
-                rel="noreferrer"
-                className="text-blue-500 hover:underline ml-1"
-              >
-                {t("LearnMore")}
-              </Link>
-            </div>
-            <span>{charCount}/{MAX_CHARS}</span>
+            <span>{charCount}/{MAX_POST_LENGTH}</span>
           </div>
         </div>
 
