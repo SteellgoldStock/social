@@ -122,7 +122,7 @@ export const ClientPostPage: Component<PageProps> = ({ post }) => {
             {post.comments.length ? post.comments.map((replyPost) => (
               // TODO: Realy rewrite all Prisma returns types to TS
               // @ts-ignore
-              <PostCard key={replyPost.id} {...replyPost} />
+              <PostCard key={replyPost.id} {...replyPost} includeParent={false} />
             )) : (
               <Card className={cn(
                 "bg-[#F9FAFB] dark:bg-[#1A1A1A] border-b border-[#e1e8ed] dark:border-[#343536] p-4",

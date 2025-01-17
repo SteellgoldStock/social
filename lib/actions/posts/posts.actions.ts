@@ -21,13 +21,15 @@ export const createPost = authActionClient.schema(CreatePostInput).action(
       id: true,
     }
   }>> => {
+    const id = generateId();
+
     const thisPost = 
       comment ? await prisma.post.update({
         where: { id: parentId },
         data: {
           comments: {
             create: {
-              id: generateId(),
+              id: id,
               content: content.replace(/\n/g, "\n\n"),
               userId: session.user.id
             }
@@ -35,7 +37,7 @@ export const createPost = authActionClient.schema(CreatePostInput).action(
         }
       }) : await prisma.post.create({
         data: {
-          id: generateId(),
+          id: id,
           content: content.replace(/\n/g, "\n\n"),
           parentId,
           userId: session.user.id
@@ -74,6 +76,7 @@ export const createPost = authActionClient.schema(CreatePostInput).action(
     if (comment) {
       const parentPost = await prisma.post.findFirst({ where: { id: parentId } });
       if (!parentPost) return thisPost;
+      if (parentPost.userId == session.user.id) return thisPost;
 
       await prisma.notification.create({
         data: {
@@ -81,6 +84,7 @@ export const createPost = authActionClient.schema(CreatePostInput).action(
           authorId: session.user.id,
           type: "COMMENT",
           postId: parentId,
+          triggerPostId: id
         }
       });
     }

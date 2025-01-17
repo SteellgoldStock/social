@@ -96,6 +96,7 @@ const NotificationsPageClient = (): ReactElement => {
             <div
               key={notification.id}
               onClick={() => {
+                console.log(notification);
                 if (notification.type === "FOLLOW") {
                   router.push(`/${notification.author.username}`);
                 } else if (notification.type === "MENTION" || notification.type === "COMMENT") {
@@ -125,7 +126,7 @@ const NotificationsPageClient = (): ReactElement => {
                 {notification.post && (
                   <div className="flex items-start gap-1 text-sm text-gray-400">
                     <div className="pt-1">
-                      {notification.type === "MENTION" ? (
+                      {notification.type === "MENTION" || notification.type === "COMMENT" ? (
                         <CornerDownRight className="h-4 w-4" />
                       ) : (
                         <ArrowRight className="h-4 w-4" />
@@ -133,7 +134,11 @@ const NotificationsPageClient = (): ReactElement => {
                     </div>
       
                     <p className="flex-1 line-clamp-1">
-                      <ParseText text={notification.post.content} />
+                      <ParseText text={
+                        notification.type == "COMMENT" && notification.triggerPost?.content
+                          ? notification.triggerPost.content
+                          : notification.post.content
+                      } />
                     </p>
                   </div>
                 )}
