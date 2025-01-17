@@ -64,13 +64,7 @@ export const AppSidebar: Component<ComponentProps<typeof Sidebar> & {
           },
           // { title: "Messages", icon: Mail, url: "#" },
           // { title: "Bookmarks", icon: Bookmark, url: "#" },
-          { title: "Profile", icon: User, url: `/${session?.user.username}` },
-          {
-            title: "NewPost",
-            icon: Feather,
-            url: "/new-post",
-            exclude: true
-          }
+          { title: "Profile", icon: User, url: `/${session?.user.username}` }
         ]} />
       </SidebarContent>
       <SidebarFooter>
