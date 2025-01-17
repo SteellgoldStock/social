@@ -107,7 +107,7 @@ export const PostCard: Component<Prisma.PostGetPayload<{
       <CardFooter className="flex justify-between w-full -mt-3">
         <div className="flex items-center space-x-1.5">
           <Link
-            href={`/${user.username}/post/${id}`}
+            href={`/${user.username}/${id}`}
             className={cn("transition-colors", buttonVariants({
               variant: "ghost",
               size: "sm"
