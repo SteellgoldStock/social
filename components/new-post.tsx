@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Component } from "@/lib/types";
-import { useCreatePost } from "@/lib/actions/posts/posts.actions";
+import { useCreatePost } from "@/lib/actions/posts/posts.hook";
 import { toast } from "sonner";
 import Link from "next/link";
 import { PencilLine, Hash, Bold, Italic } from "lucide-react";
