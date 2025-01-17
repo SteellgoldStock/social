@@ -181,15 +181,50 @@
   "Basic": {
     "at": "à"
   },
-  "PostReplyDialog": {
-    "Title": "Citation",
-    "Description": "En citant un post, le contenu original sera inclus dans votre réponse et visible par tous.",
-
-    "Placeholder": "Écrivez votre réponse ici...",
-
+  "NewPostDialog": {
+    "Title": "Créer une publication",
+    "Description": "Partagez vos pensées avec la communauté",
+    "Placeholder": "Qu'avez-vous en tête ?",
+    "Trigger": "Nouvelle publication",
+    "MarkdownSupported": "Markdown pris en charge",
+    "LearnMore": "En savoir plus",
     "Buttons": {
+      "Bold": "Gras",
+      "Italic": "Italique",
       "Cancel": "Annuler",
-      "Reply": "Répondre"
+      "Submit": "Publier",
+      "Loading": "Publication en cours..."
+    },
+    "Toast": {
+      "Loading": "Création de votre publication...",
+      "Success": "Publication créée avec succès !",
+      "Error": "Échec de la création de la publication. Veuillez réessayer."
+    },
+    "Errors": {
+      "EmptyContent": "Le contenu de la publication ne peut pas être vide"
+    }
+  },
+  "PostReplyDialog": {
+    "Title": "Répondre à la publication",
+    "Description": "Participez à la discussion",
+    "Placeholder": "Écrivez votre réponse...",
+    "Trigger": "Répondre",
+    "MarkdownSupported": "Markdown pris en charge",
+    "LearnMore": "En savoir plus",
+    "Buttons": {
+      "Bold": "Gras",
+      "Italic": "Italique",
+      "Cancel": "Annuler",
+      "Submit": "Répondre",
+      "Loading": "Envoi en cours..."
+    },
+    "Toast": {
+      "Loading": "Envoi de votre réponse...",
+      "Success": "Réponse publiée avec succès !",
+      "Error": "Échec de l'envoi de la réponse. Veuillez réessayer."
+    },
+    "Errors": {
+      "EmptyContent": "Le contenu de la réponse ne peut pas être vide"
     }
   }
 }

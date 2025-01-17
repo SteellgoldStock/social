@@ -180,15 +180,50 @@
   "Basic": {
     "at": "at"
   },
-  "PostReplyDialog": {
-    "Title": "Quote",
-    "Description": "When quoting a post, the original content will be included in your reply and visible to everyone.",
-
-    "Placeholder": "Write your reply here...",
-
+  "NewPostDialog": {
+    "Title": "Create a post",
+    "Description": "Share your thoughts with the community",
+    "Placeholder": "What's on your mind?",
+    "Trigger": "New post",
+    "MarkdownSupported": "Markdown supported",
+    "LearnMore": "Learn more",
     "Buttons": {
+      "Bold": "Bold",
+      "Italic": "Italic",
       "Cancel": "Cancel",
-      "Reply": "Reply"
+      "Submit": "Post",
+      "Loading": "Posting..."
+    },
+    "Toast": {
+      "Loading": "Creating your post...",
+      "Success": "Post created successfully!",
+      "Error": "Failed to create post. Please try again."
+    },
+    "Errors": {
+      "EmptyContent": "Post content cannot be empty"
+    }
+  },
+  "PostReplyDialog": {
+    "Title": "Reply to post",
+    "Description": "Join the discussion",
+    "Placeholder": "Write your reply...",
+    "Trigger": "Reply",
+    "MarkdownSupported": "Markdown supported",
+    "LearnMore": "Learn more",
+    "Buttons": {
+      "Bold": "Bold",
+      "Italic": "Italic",
+      "Cancel": "Cancel",
+      "Submit": "Reply",
+      "Loading": "Sending..."
+    },
+    "Toast": {
+      "Loading": "Sending your reply...",
+      "Success": "Reply posted successfully!",
+      "Error": "Failed to send reply. Please try again."
+    },
+    "Errors": {
+      "EmptyContent": "Reply content cannot be empty"
     }
   }
 }
