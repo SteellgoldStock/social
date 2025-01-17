@@ -14,6 +14,7 @@ import { MAX_POST_LENGTH } from "@/lib/consts";
 import { Button } from "@/components/ui/button";
 import { useCreatePost } from "@/lib/actions/posts/posts.hook";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 type PageProps = {
   post: Prisma.PostGetPayload<{
@@ -48,6 +49,9 @@ type PageProps = {
 export const ClientPostPage: Component<PageProps> = ({ post }) => {
   const { data: session } = useSession();
   const [reply, setReply] = useState("");
+  const [replying, setReplying] = useState(false);
+
+  const router = useRouter();
 
   const createPost = useCreatePost();
 
@@ -66,7 +70,9 @@ export const ClientPostPage: Component<PageProps> = ({ post }) => {
               <Card>
                 <CardContent className="mt-5">
                   <XTextarea
+                    disabled={!session || replying}
                     placeholder="Répondre à ce post..."
+                    value={reply}
                     onChange={(value: string) => setReply(value)}
                   />
                 </CardContent>
@@ -85,15 +91,24 @@ export const ClientPostPage: Component<PageProps> = ({ post }) => {
                     <Button
                       variant="default"
                       size={"sm"}
-                      onClick={() => toast.promise(createPost.mutateAsync({
-                        content: reply,
-                        parentId: post.id,
-                        comment: true
-                      }), {
-                        loading: "Envoi de la réponse...",
-                        success: "Réponse envoyée !",
-                        error: "Impossible d'envoyer la réponse"
-                      })}
+                      disabled={reply.length === 0 || reply.length > MAX_POST_LENGTH || replying}
+                      onClick={() => {
+                        setReplying(true);
+                        toast.promise(createPost.mutateAsync({
+                          content: reply,
+                          parentId: post.id,
+                          comment: true
+                        }).then(() => {
+                          setReply("");
+                          setReplying(false);
+
+                          router.refresh();
+                        }), {
+                          loading: "Envoi de la réponse...",
+                          success: "Réponse envoyée !",
+                          error: "Impossible d'envoyer la réponse"
+                        });
+                      }}
                     >Envoyer</Button>
                   </div>
                 </CardFooter>

@@ -9,13 +9,15 @@ type TextareaProps = {
   placeholder?: string;
   defaultValue?: string;
   value?: string;
+  disabled?: boolean;
 };
 
 export const XTextarea: Component<TextareaProps> = ({ 
   onChange, 
   placeholder, 
   defaultValue, 
-  value 
+  value,
+  disabled = false, 
 }) => {
   const [content, setContent] = useState(defaultValue || "");
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -65,6 +67,7 @@ export const XTextarea: Component<TextareaProps> = ({
         placeholder={placeholder}
         className="w-full resize-none overflow-hidden bg-transparent text-lg focus:outline-none relative z-10 text-transparent caret-white"
         maxLength={MAX_POST_LENGTH}
+        disabled={disabled}
         rows={1}
       />
     </div>
