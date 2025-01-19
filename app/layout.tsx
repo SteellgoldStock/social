@@ -49,7 +49,7 @@ const Layout: AsyncComponent<PropsWithChildren> = async({ children }) => {
                     </div>
                   </header>
 
-                  <main className="py-1">
+                  <main className="py-2">
                     <div className="mt-0.5 px-3 sm:px-3 md:px-0">
                       {children}
                     </div>
