@@ -3,17 +3,14 @@
 import { client, useSession } from "@/lib/auth/client";
 import { Loader2 } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
-import { Button } from "./ui/button";
+import { ReactElement, useState } from "react";
 import { toast } from "sonner";
 import { FaGoogle } from "react-icons/fa";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
+import { CardHeader, Card, CardContent, CardDescription, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
-export const LoginView = () => {
+const Page = (): ReactElement => {
   const [isLogining, setLogining] = useState(false);
-
-  const { data } = useSession();
-
   const t = useTranslations("LoginView");
 
   const handleGoogle = async() => {
@@ -26,9 +23,9 @@ export const LoginView = () => {
     if (login.error) toast.error(login.error.message);
   }
 
-  if (!data) {
-    return (
-      <Card className="flex flex-col items-center justify-center max-w-xl mx-auto">
+  return (
+    <section className="flex flex-col items-center justify-center h-full">
+      <Card className="flex flex-col items-center max-w-xl">
         <CardHeader className="flex items-center">
           <CardTitle className="text-xl">{t("Title")}</CardTitle>
           <CardDescription className="text-center">{t("Description")}</CardDescription>
@@ -50,6 +47,8 @@ export const LoginView = () => {
           </Button>
         </CardContent>
       </Card>
-    )
-  }
+    </section>
+  )
 }
+
+export default Page;
