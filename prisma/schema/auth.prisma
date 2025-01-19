@@ -65,7 +65,7 @@ model User {
   likes                Post[]          @relation("LikeRelation")
   posts                Post[]
   // groups               Group[]
-  socials              Social[]
+  // socials              Social[]
   //
   notifications        Notification[]  @relation("UserNotified")
   emittedNotifications Notification[]  @relation("NotificationAuthor")
@@ -118,18 +118,18 @@ model Verification {
   @@map("verification")
 }
 
-model Social {
-  id       String @id
-  provider String
-  // 
-  userId   String
-  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
-  // 
-  handle   String
+// model Social {
+//   id       String @id
+//   provider String
+//   // 
+//   userId   String
+//   user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+//   // 
+//   handle   String
 
-  // 
-  @@map("social")
-}
+//   // 
+//   @@map("social")
+// }
 
 enum NotificationType {
   FOLLOW
