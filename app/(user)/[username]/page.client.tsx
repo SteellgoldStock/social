@@ -50,8 +50,7 @@ type PageProps = {
             }
           }
         },
-      },
-      socials: true
+      }
     }
   }>;
 };

@@ -42,8 +42,7 @@ const ProfilePage: AsyncComponent<PageProps> = async ({ params }) => {
           }
         },
         orderBy: { createdAt: "desc" }
-      },
-      socials: true
+      }
     }
   });
 
