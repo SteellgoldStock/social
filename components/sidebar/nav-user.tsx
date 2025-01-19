@@ -76,7 +76,7 @@ export const NavUser: Component<NavUserProps> = ({ user }) => {
 
   if (!session) {
     return (
-      <Card className="shadow-none bg-[#09090b]">
+      <Card className="shadow-none dark:bg-[#09090b]">
         <form>
           <CardHeader className="p-4 pb-0">
             <CardTitle className="text-sm">
