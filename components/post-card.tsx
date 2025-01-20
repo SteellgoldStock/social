@@ -13,8 +13,9 @@ import { dayJS } from "@/lib/day-js";
 import { ReactElement } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import PostDialog from "./new-post";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import { PostDialog } from "./new-post";
+import { Skeleton } from "./ui/skeleton";
 
 export const PostCard: Component<Prisma.PostGetPayload<{
   include: {
@@ -88,6 +89,11 @@ export const PostCard: Component<Prisma.PostGetPayload<{
             <DropdownMenuItem>
               <Trash className="h-4 w-4" />
               Delete this post
+            </DropdownMenuItem>
+
+            <DropdownMenuItem>
+              <Share className="h-4 w-4" />
+              Share this post
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
@@ -176,12 +182,61 @@ export const PostCard: Component<Prisma.PostGetPayload<{
               "fill-blue-500 text-blue-500": isBookmarked
             })} />
           </Button> */}
-
-          <Button variant="ghost" size="sm">
-            <Share className="h-4 w-4" />
-          </Button>
         </div>
       </CardFooter>
     </Card>
   )
 }
+
+export const PostCardSkeleton = () => {
+  return (
+    <Card>
+      <CardHeader className="-mb-2 flex flex-row justify-between items-center">
+        <div className="flex items-center space-x-4">
+          <Skeleton className="h-12 w-12 rounded-full" />
+          <div className="flex flex-col gap-2">
+            <Skeleton className="h-4 w-32" />
+            <Skeleton className="h-3 w-48" />
+          </div>
+        </div>
+        <Skeleton className="h-8 w-8 rounded-full" />
+      </CardHeader>
+
+      <CardContent className="-mt-2">
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-[90%]" />
+          <Skeleton className="h-4 w-[80%]" />
+        </div>
+
+        <div className="mt-3">
+          <div className="space-y-2">
+            <Skeleton className="h-32 w-full rounded-lg" />
+          </div>
+        </div>
+      </CardContent>
+
+      <CardFooter className="flex justify-between w-full -mt-3">
+        <div className="flex items-center space-x-1.5">
+          <Button variant="ghost" size="sm" disabled>
+            <MessageCircle className="h-4 w-4" />
+            <Skeleton className="h-4 w-4 ml-1" />
+          </Button>
+
+          <Button variant="ghost" size="sm" disabled>
+            <Heart className="h-4 w-4" />
+            <Skeleton className="h-4 w-4 ml-1" />
+          </Button>
+
+          <Button variant="ghost" size="sm" disabled>
+            <MessageSquareQuote className="h-4 w-4" />
+          </Button>
+        </div>
+
+        <div className="space-x-1.5">
+          <Skeleton className="h-8 w-8 rounded-full" />
+        </div>
+      </CardFooter>
+    </Card>
+  );
+};
