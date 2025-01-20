@@ -1,6 +1,6 @@
 "use client";
 
-import { Heart, Loader2, MessageCircle, MessageSquareQuote, Share } from "lucide-react";
+import { Ellipsis, Heart, Loader2, MessageCircle, MessageSquareQuote, Share, Trash } from "lucide-react";
 import { Card, CardContent, CardFooter, CardHeader } from "./ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { useLike } from "@/lib/actions/likes/likes.hook";
@@ -14,6 +14,7 @@ import { ReactElement } from "react";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import PostDialog from "./new-post";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 export const PostCard: Component<Prisma.PostGetPayload<{
   include: {
@@ -54,7 +55,7 @@ export const PostCard: Component<Prisma.PostGetPayload<{
 
   return ( 
     <Card key={id}>
-      <CardHeader className="-mb-2">
+      <CardHeader className="-mb-2 flex flex-row justify-between items-center">
         <Link className="flex items-center space-x-4" href={`/${user.username}`}>
           <Avatar>
             <AvatarImage src={user.image ?? ""} alt={user.name ?? "John Doe"} />
@@ -76,6 +77,20 @@ export const PostCard: Component<Prisma.PostGetPayload<{
             </span>
           </div>
         </Link>
+
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button variant="ghost" size={"icon"} className="rounded-full">
+              <Ellipsis className="h-4 w-4" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem>
+              <Trash className="h-4 w-4" />
+              Delete this post
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </CardHeader>
 
       <CardContent className="-mt-2">
