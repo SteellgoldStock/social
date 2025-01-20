@@ -7,7 +7,7 @@ import { Component } from "@/lib/types"
 import { cn } from "@/lib/utils"
 import { useTranslations } from "next-intl"
 import { ReactElement } from "react"
-import NewPostDialog from "../new-post"
+import { PostDialog } from "../new-post"
 
 type NavMainProps = {
   items: {
@@ -56,7 +56,11 @@ export const NavMain: Component<NavMainProps> = ({ items }) => {
           </SidebarMenuItem>
         ))}
         
-        <NewPostDialog />
+        <PostDialog 
+          title="Create Post" 
+          description="Share your thoughts"
+          placeholder="What's on your mind?"
+        />
       </SidebarMenu>
     </SidebarGroup>
   )
